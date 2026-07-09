@@ -25,6 +25,7 @@ These constraints are part of the product shape. Future changes should keep the 
 | `annals.html` | Main runtime. Contains the HTML shell, styles, JavaScript simulation, rendering, UI, Chronicle, controls, and boot path. |
 | `index.html` | GitHub Pages root entrypoint. Redirects to `annals.html` and preserves hash seeds such as `#s=1234567`. |
 | `README.md` | Repository baseline, running notes, sharing notes, deployment notes, and constraints. |
+| `docs/annals-runtime-structure.md` | Internal structure map for keeping the single-file runtime maintainable without introducing a build step. |
 
 ## Running locally
 
@@ -94,7 +95,7 @@ Deploy the repository root as a static site. No build command is required. The p
 
 ## Maintenance notes
 
-`annals.html` now has internal section banners for the main systems: constants, RNG, world generation, rendering, Chronicle/simulation systems, and UI/director/boot. Keep new work inside the relevant section where possible. If a change cuts across systems, prefer a small named helper or guard over broad rewrites.
+Future runtime changes should keep `annals.html` organised around clear internal sections for constants, RNG, world generation, rendering, simulation, systems, camera, director, Chronicle, UI, and debug guards. If a change cuts across systems, prefer a small named helper or guard over broad rewrites.
 
 Before opening a PR, check at least the following:
 
