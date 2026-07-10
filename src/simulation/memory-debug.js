@@ -1,0 +1,3 @@
+const memoryBaseRunHeadless=runHeadless;
+runHeadless=function(seed,days,opt={}){let result=memoryBaseRunHeadless(seed,days,opt);result.memories=memoryState().registry.map(memorySummary);result.memoryLimit=MEMORY_LIMIT;result.memoryRelations=memoryState().registry.reduce((n,m)=>n+m.relatedMemoryIds.length,0);result.memoryStates=memoryState().registry.reduce((a,m)=>(a[m.state]=(a[m.state]||0)+1,a),{});return result};
+if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.memories=()=>memoryState().registry.map(memorySummary);window.ANNALS_DEBUG.memoryLimit=MEMORY_LIMIT}
