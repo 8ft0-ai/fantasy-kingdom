@@ -1,0 +1,22 @@
+name: Regenerate issue 13 runtime
+on:
+  push:
+    branches: [issue-13-war-campaign-slice]
+permissions:
+  contents: write
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: issue-13-war-campaign-slice
+      - run: python3 scripts/build.py
+      - run: |
+          if git diff --quiet -- annals.html; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add annals.html
+          git commit -m "build: regenerate annals runtime for war campaigns"
+          git push
