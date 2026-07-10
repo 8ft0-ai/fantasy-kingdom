@@ -14,11 +14,13 @@ simulation/economy.js
 simulation/scar-history.js
 simulation/memory-history.js
 simulation/war.js
+simulation/threats.js
 rendering/scene.js
 ui/interface.js
 ui/character-interface.js
 rendering/economy.js
 rendering/war.js
+rendering/threats.js
 director/camera.js
 rendering/scars.js
 ui/scar-interface.js
@@ -27,6 +29,7 @@ ui/dynasty-interface.js
 ui/notable-interface.js
 ui/economy-interface.js
 ui/war-interface.js
+ui/threat-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
@@ -36,4 +39,5 @@ simulation/dynasty-debug.js
 simulation/notable-debug.js
 simulation/economy-debug.js
 simulation/war-debug.js
+simulation/threat-debug.js
 simulation/chronicle-regression.js
