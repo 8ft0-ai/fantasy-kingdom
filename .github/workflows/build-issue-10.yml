@@ -1,0 +1,33 @@
+name: Build issue 10 branch
+
+on:
+  push:
+    branches: [issue-10-chronicle-modular]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: issue-10-chronicle-modular
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regenerate runtime
+        run: python3 scripts/build.py
+      - name: Commit generated runtime
+        run: |
+          if git diff --quiet -- annals.html; then
+            echo "annals.html already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add annals.html
+          git commit -m "build: regenerate ANNALS runtime"
+          git push
