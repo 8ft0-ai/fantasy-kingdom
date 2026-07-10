@@ -1,0 +1,32 @@
+name: Diagnose issue 14 module
+on:
+  push:
+    branches: [issue-14-threats-myth-slice]
+permissions:
+  contents: write
+jobs:
+  diagnose:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: issue-14-threats-myth-slice
+      - run: |
+          : > cumulative.js
+          : > module-error.txt
+          while IFS= read -r file; do
+            cat "src/$file" >> cumulative.js
+            printf '\n' >> cumulative.js
+            if ! node --check cumulative.js 2> current-error.txt; then
+              echo "FIRST FAILING MODULE: $file" > module-error.txt
+              cat current-error.txt >> module-error.txt
+              break
+            fi
+          done < src/manifest.txt
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add module-error.txt
+          git commit -m "ci: capture first failing module" || exit 0
+          git push
