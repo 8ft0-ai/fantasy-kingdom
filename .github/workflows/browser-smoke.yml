@@ -1,0 +1,49 @@
+name: Browser smoke
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  annals-browser-smoke:
+    name: ANNALS browser smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install chromium --with-deps
+
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > browser-smoke-server.log 2>&1 &
+          echo $! > browser-smoke-server.pid
+
+      - name: Run browser smoke test
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/browser-smoke.mjs
+
+      - name: Upload browser smoke artefacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: annals-browser-smoke
+          path: |
+            screenshots/
+            browser-smoke-report.json
+            browser-smoke-server.log
+          if-no-files-found: warn
