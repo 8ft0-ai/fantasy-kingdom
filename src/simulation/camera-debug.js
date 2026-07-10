@@ -1,0 +1,3 @@
+;if(typeof window!=='undefined'){window.ANNALS_DEBUG.cameraSummary=()=>cameraSummary();window.ANNALS_DEBUG.cameraModes=[...CAMERA_MODES];window.ANNALS_DEBUG.setCameraMode=(m)=>setCameraMode(m)}
+const cameraBaseRunHeadless=runHeadless;
+runHeadless=function(seed,days,opt={}){let result=cameraBaseRunHeadless(seed,days,opt);let s=world.cinematicState||{mode:'director',shots:[],lastCategory:{}};result.camera={modes:[...CAMERA_MODES],mode:s.mode,shotCount:s.shots.length,shotTypes:[...new Set(s.shots.map(x=>x.type))],categories:[...new Set(s.shots.map(x=>x.category))],cooldownDays:CAMERA_COOLDOWN_DAYS};return result};
