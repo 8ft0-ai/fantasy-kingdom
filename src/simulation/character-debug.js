@@ -1,0 +1,3 @@
+const baseRunHeadlessCharacters=runHeadless;
+runHeadless=function(seed,days,opt={}){let result=baseRunHeadlessCharacters(seed,days,opt);initCharacters();result.characters=characterState().registry.map(characterSummary);result.characterLimit=CHARACTER_LIMIT;result.characterStatuses=characterState().registry.reduce((a,c)=>(a[c.status]=(a[c.status]||0)+1,a),{});return result};
+if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.characters=()=>{initCharacters();return characterState().registry.map(characterSummary)};window.ANNALS_DEBUG.characterLimit=CHARACTER_LIMIT}
