@@ -7,11 +7,11 @@ simulation/history.js
 simulation/character-history.js
 simulation/scar-history.js
 rendering/scene.js
-rendering/scars.js
 ui/interface.js
 ui/character-interface.js
-ui/scar-interface.js
 director/camera.js
+rendering/scars.js
+ui/scar-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
