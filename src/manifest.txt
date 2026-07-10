@@ -1,5 +1,6 @@
 core/runtime.js
 world/generation.js
+simulation/events.js
 simulation/history.js
 rendering/scene.js
 ui/interface.js
