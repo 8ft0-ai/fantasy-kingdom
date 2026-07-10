@@ -1,0 +1,38 @@
+name: Verify generated runtime
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify generated artefact is current
+        run: python3 scripts/build.py --check
+      - name: Check generated JavaScript syntax
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path('annals.html').read_text(encoding='utf-8')
+          scripts = [m.group('body') for m in re.finditer(r'<script(?:\s[^>]*)?>\n(?P<body>.*?)\n</script>', html, re.DOTALL) if 'src=' not in m.group(0)]
+          if len(scripts) != 1:
+              raise SystemExit(f'expected one inline script, found {len(scripts)}')
+          Path('/tmp/annals-inline.js').write_text(scripts[0], encoding='utf-8')
+          PY
+          node --check /tmp/annals-inline.js
+      - name: Verify Pages entrypoint preserves hashes
+        run: grep -F "'annals.html' + (window.location.hash || '')" index.html
