@@ -1,13 +1,9 @@
 name: Bootstrap modular runtime source
 
 on:
-  push:
-    branches:
-      - issue-36-modular-runtime
-    paths:
-      - scripts/modularise_runtime.py
-      - scripts/build.py
-      - .github/workflows/bootstrap-modular-source.yml
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
 
 permissions:
   contents: write
@@ -19,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: issue-36-modular-runtime
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -34,4 +30,4 @@ jobs:
           git add src
           git diff --cached --quiet && exit 0
           git commit -m 'Extract modular runtime sources'
-          git push
+          git push origin HEAD:${{ github.head_ref }}
