@@ -24,6 +24,7 @@ rendering/war.js
 rendering/threat-boundary.js
 rendering/threats.js
 director/camera.js
+director/cinematic.js
 rendering/scars.js
 ui/scar-interface.js
 ui/memory-interface.js
@@ -32,6 +33,7 @@ ui/notable-interface.js
 ui/economy-interface.js
 ui/war-interface.js
 ui/threat-interface.js
+ui/camera-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
