@@ -14,12 +14,14 @@ simulation/economy.js
 simulation/scar-history.js
 simulation/memory-history.js
 simulation/war.js
+simulation/threat-boundary.js
 simulation/threats.js
 rendering/scene.js
 ui/interface.js
 ui/character-interface.js
 rendering/economy.js
 rendering/war.js
+rendering/threat-boundary.js
 rendering/threats.js
 director/camera.js
 rendering/scars.js
