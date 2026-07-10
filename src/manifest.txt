@@ -44,4 +44,5 @@ simulation/notable-debug.js
 simulation/economy-debug.js
 simulation/war-debug.js
 simulation/threat-debug.js
+simulation/camera-debug.js
 simulation/chronicle-regression.js
