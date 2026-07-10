@@ -1,0 +1,7 @@
+- Deterministic repeated-run summaries
+- Prior-event references
+- Reign headers
+- Crown, War, Trade and Fates filters
+- Finite event targets
+- Pure export formatting
+- Chronicle bounds
