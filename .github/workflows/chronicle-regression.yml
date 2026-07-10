@@ -1,0 +1,40 @@
+name: Chronicle regression
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chronicle-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install chromium --with-deps
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > chronicle-regression-server.log 2>&1 &
+      - name: Run Chronicle regression suite
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/chronicle-regression.mjs
+      - name: Upload Chronicle regression artefacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chronicle-regression
+          path: |
+            chronicle-regression-report.json
+            chronicle-regression-server.log
+          if-no-files-found: warn
