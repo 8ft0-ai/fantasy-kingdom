@@ -2,10 +2,12 @@ core/runtime.js
 world/generation.js
 simulation/events.js
 simulation/characters.js
+simulation/dynasties.js
 simulation/scars.js
 simulation/memory.js
 simulation/history.js
 simulation/character-history.js
+simulation/dynasty-history.js
 simulation/scar-history.js
 simulation/memory-history.js
 rendering/scene.js
@@ -15,8 +17,10 @@ director/camera.js
 rendering/scars.js
 ui/scar-interface.js
 ui/memory-interface.js
+ui/dynasty-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
 simulation/scar-debug.js
 simulation/memory-debug.js
+simulation/dynasty-debug.js
