@@ -1,0 +1,29 @@
+name: Diagnose issue 14 syntax
+on:
+  push:
+    branches: [issue-14-threats-myth-slice]
+permissions:
+  contents: write
+jobs:
+  diagnose:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: issue-14-threats-myth-slice
+      - run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path('annals.html').read_text()
+          scripts=re.findall(r'<script>(.*?)</script>',html,re.S)
+          Path('generated.js').write_text('\n'.join(scripts))
+          PY
+          node --check generated.js 2> syntax-error.txt || true
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add syntax-error.txt
+          git commit -m "ci: capture generated syntax error" || exit 0
+          git push
