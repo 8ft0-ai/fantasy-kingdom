@@ -22,3 +22,7 @@
 ## Retention
 
 The structured event registry is capped at 320 newest events. Chronicle retention remains independently capped at 240 entries.
+
+## Validation environment
+
+Direct interactive browser execution was not available in the implementation environment. Pull-request CI and the repository headless harness provide the automated substitute; interactive watch-mode and control checks remain suitable for reviewer smoke testing.
