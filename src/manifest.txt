@@ -24,3 +24,4 @@ simulation/character-debug.js
 simulation/scar-debug.js
 simulation/memory-debug.js
 simulation/dynasty-debug.js
+simulation/chronicle-regression.js
