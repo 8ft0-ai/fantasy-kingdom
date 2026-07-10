@@ -1,0 +1,3 @@
+const notableBaseRunHeadless=runHeadless;
+runHeadless=function(seed,days,opt={}){let result=notableBaseRunHeadless(seed,days,opt),people=characterState().registry.map(characterSummary);result.notables=people;result.notableLimit=NOTABLE_LIMIT;result.livingNotables=people.filter(c=>c.status==='alive').length;result.recurringNotables=people.filter(c=>c.appearances>=3).length;result.deathCauses=people.filter(c=>c.deathCause).reduce((a,c)=>(a[c.deathCause]=(a[c.deathCause]||0)+1,a),{});return result};
+if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.notables=()=>characterState().registry.map(characterSummary);window.ANNALS_DEBUG.notableLimit=NOTABLE_LIMIT}

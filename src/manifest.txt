@@ -3,11 +3,13 @@ world/generation.js
 simulation/events.js
 simulation/characters.js
 simulation/dynasties.js
+simulation/notables.js
 simulation/scars.js
 simulation/memory.js
 simulation/history.js
 simulation/character-history.js
 simulation/dynasty-history.js
+simulation/notable-history.js
 simulation/scar-history.js
 simulation/memory-history.js
 rendering/scene.js
@@ -18,10 +20,12 @@ rendering/scars.js
 ui/scar-interface.js
 ui/memory-interface.js
 ui/dynasty-interface.js
+ui/notable-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
 simulation/scar-debug.js
 simulation/memory-debug.js
 simulation/dynasty-debug.js
+simulation/notable-debug.js
 simulation/chronicle-regression.js
