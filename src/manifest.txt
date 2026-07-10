@@ -2,12 +2,17 @@ core/runtime.js
 world/generation.js
 simulation/events.js
 simulation/characters.js
+simulation/scars.js
 simulation/history.js
 simulation/character-history.js
+simulation/scar-history.js
 rendering/scene.js
 ui/interface.js
 ui/character-interface.js
 director/camera.js
+rendering/scars.js
+ui/scar-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
+simulation/scar-debug.js
