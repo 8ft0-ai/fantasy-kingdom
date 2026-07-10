@@ -1,9 +1,13 @@
 core/runtime.js
 world/generation.js
 simulation/events.js
+simulation/characters.js
 simulation/history.js
+simulation/character-history.js
 rendering/scene.js
 ui/interface.js
+ui/character-interface.js
 director/camera.js
 core/debug.js
 boot.js
+simulation/character-debug.js
