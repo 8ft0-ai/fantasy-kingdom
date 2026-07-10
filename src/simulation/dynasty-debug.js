@@ -1,0 +1,3 @@
+const dynastyBaseRunHeadless=runHeadless;
+runHeadless=function(seed,days,opt={}){let result=dynastyBaseRunHeadless(seed,days,opt);initDynasties();result.dynasties=dynastyState().registry.map(dynastySummary);result.reigns=dynastyState().reigns.map(r=>({...r}));result.dynastyLimit=DYNASTY_LIMIT;result.reignLimit=REIGN_LIMIT;result.contestedSuccessions=dynastyState().reigns.filter(r=>r.contested).length;return result};
+if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.dynasties=()=>{initDynasties();return dynastyState().registry.map(dynastySummary)};window.ANNALS_DEBUG.reigns=()=>dynastyState().reigns.map(r=>({...r}))}
