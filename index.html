@@ -5,15 +5,186 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ANNALS</title>
   <meta name="description" content="ANNALS — a living procedural fantasy kingdom in a single file." />
-  <script>
-    // GitHub Pages root entrypoint. Preserve seed hashes such as #s=1234567.
-    const target = 'annals.html' + (window.location.hash || '');
-    window.location.replace(target);
-  </script>
+  <style>html,body{margin:0;height:100%;background:#17130f;color:#eadcc0;font:18px Georgia;display:grid;place-items:center}</style>
 </head>
 <body>
-  <noscript>
-    <p><a href="annals.html">Open ANNALS</a></p>
-  </noscript>
+  <p id="loading">Opening the annals…</p>
+  <noscript><p><a href="annals.html">Open ANNALS</a></p></noscript>
+  <script>
+  'use strict';
+  // GitHub Pages root entrypoint. Load the single-file runtime and add the
+  // Chronicle vertical slice without changing seeded world-generation code.
+  // The current URL and seed hash remain stable, including #s=1234567.
+  const chronicleEnhancement = String.raw`<script>
+  'use strict';
+  (() => {
+    const ANNAL_KINDS = ['birth','death','coronation','harvest','famine','trade','war','disaster','omen','festival','bandits','dragon'];
+    const CAUSES = ['because','thereafter','in the wake of','and some laid blame upon'];
+    const RUMOURS = [
+      'The old women of the market said the matter had been foretold.',
+      'A travelling clerk disputed this account, though few believed him.',
+      'Some laid blame upon an older grievance that had never been settled.',
+      'Thereafter the tale grew in every telling along the road.'
+    ];
+    const PHRASES = {
+      birth: [
+        s => 'A child was born beneath the bells of '+s.name+'; the midwives called the hour fortunate.',
+        s => 'The rolls of '+s.name+' recorded a notable birth, and hopeful kin lit lamps until dawn.'
+      ],
+      death: [
+        s => 'A respected elder of '+s.name+' died, and an old quarrel lost its last living witness.',
+        s => 'Death came quietly to a household of '+s.name+'; thereafter its property became a matter for the reeve.'
+      ],
+      coronation: [
+        s => 'The crown was raised at '+s.name+', because the realm would not endure an empty throne.',
+        s => 'Before the keep of '+s.name+' the new sovereign received the oaths, though not every voice sounded willing.'
+      ],
+      harvest: [
+        s => 'The harvest carts entered '+s.name+' heavy with grain, and the price of bread fell thereafter.',
+        s => 'Good weather favoured the fields about '+s.name+'; granaries filled because the rains had come in season.'
+      ],
+      famine: [
+        s => 'Lean measures were proclaimed in '+s.name+'; in the wake of poor stores, hunger entered the lesser streets.',
+        s => 'The bread scales of '+s.name+' grew light, and some laid blame upon merchants who had sent grain elsewhere.'
+      ],
+      trade: [
+        s => 'Merchants reached '+s.name+' under guarded banners, bringing salt, iron and news from beyond the realm.',
+        s => 'The market of '+s.name+' prospered because the roads remained open and the bridges held.'
+      ],
+      war: [
+        s => 'Armed riders gathered near '+s.name+'; thereafter every cart was searched and every rumour sharpened.',
+        s => 'A feud troubled the approaches to '+s.name+', and some laid blame upon an oath broken in an earlier season.'
+      ],
+      disaster: [
+        s => 'Misfortune struck '+s.name+' without warning; in the wake of it, neighbours counted both losses and debts.',
+        s => 'Smoke and alarm rose over '+s.name+', because one small failure had found many dry roofs.'
+      ],
+      omen: [
+        s => 'A red light was seen above '+s.name+' before dawn, which the learned called weather and the fearful called warning.',
+        s => 'Birds wheeled strangely over '+s.name+'; thereafter the omen was fitted to every unhappy piece of news.'
+      ],
+      festival: [
+        s => 'The people of '+s.name+' kept a feast with lanterns and music, and for one night old grievances were set aside.',
+        s => 'A holy day filled '+s.name+' with bells; trade followed celebration because every road brought pilgrims.'
+      ],
+      bandits: [
+        s => 'Bandits troubled the road to '+s.name+', having learned where prosperous caravans travelled slowly.',
+        s => 'The reeve of '+s.name+' posted a reward for road thieves; thereafter honest travellers went in companies.'
+      ],
+      dragon: [
+        s => 'A great shadow crossed the hills beyond '+s.name+'; some named it cloud, while others barred their doors.',
+        s => 'Shepherds near '+s.name+' spoke of scorched stone and a wing-beat like thunder, though no knight confirmed it.'
+      ]
+    };
+
+    const originalChron = chron;
+    const originalTick = tick;
+    const originalRenderChronicle = renderChronicle;
+    const choose = list => list[Math.floor(hisR()*list.length)%list.length];
+    const eventTarget = () => pressure() || world.settlements[0];
+    const classFor = kind => kind==='war'||kind==='bandits'?'war':kind==='trade'||kind==='harvest'?'trade':kind==='coronation'?'crown':'fate';
+    const priorEvent = cls => world.events.find(e => !e.header && (!cls || e.class===cls));
+    const compactReference = ev => ev ? 'The chronicler recalled '+dt(ev.day).toLowerCase()+', when '+ev.text.replace(/[.!?].*$/,'').replace(/^./,c=>c.toLowerCase())+'.' : '';
+
+    chron = function(cls, priority, target, text, meta={}) {
+      const ev = originalChron(cls, priority, target, text);
+      ev.id = ev.id || 'annal-'+ev.day+'-'+world.events.length;
+      ev.kind = meta.kind || ev.kind || cls;
+      ev.reign = world.story && world.story.annals ? world.story.annals.reign : 1;
+      ev.header = !!meta.header || /^Here begin the years of/.test(text);
+      ev.location = target && target.name ? target.name : 'the recorded place';
+      return ev;
+    };
+
+    function addReignHeader() {
+      const state=world.story.annals, cap=world.settlements[0];
+      state.reign++;
+      state.monarch='Queen '+pick(hisR,['Alda','Merewen','Ysabet','Elin','Ravenna','Thora'])+' '+pick(hisR,['the Steadfast','the Young','of the Ford','the Red','the Quiet']);
+      chron('crown',10,cap,'Here begin the years of '+state.monarch+', '+state.reign+' sovereign of '+world.title+'.',{kind:'coronation',header:true});
+      const old=priorEvent('crown');
+      chron('crown',9,cap,choose(PHRASES.coronation)(cap)+' '+compactReference(old),{kind:'coronation'});
+    }
+
+    function addAnnalEvent() {
+      const state=world.story.annals, s=eventTarget();
+      let kind=ANNAL_KINDS[state.sequence++%ANNAL_KINDS.length];
+      if(s.hunger>55)kind='famine';
+      else if(world.drought&&hisR()<.35)kind='disaster';
+      else if(world.houses.some(h=>h.rebellious)&&hisR()<.45)kind='war';
+      const base=choose(PHRASES[kind])(s);
+      const remembered=world.events.length>6&&state.sequence%3===0 ? compactReference(priorEvent()) : '';
+      const rumour=state.sequence%4===0 ? choose(RUMOURS) : '';
+      const causal=remembered?'':(state.sequence%2===0?' '+choose(CAUSES)+' the burdens of the preceding season were still felt.':'');
+      chron(classFor(kind),kind==='war'||kind==='disaster'||kind==='dragon'?9:6,s,[base,remembered,rumour,causal].filter(Boolean).join(' '),{kind});
+    }
+
+    tick = function() {
+      originalTick();
+      const state=world.story.annals;
+      if(clock.day>=state.nextEntry){addAnnalEvent();state.nextEntry+=60+Math.floor(hisR()*45)}
+      if(clock.day>=state.nextReign){addReignHeader();state.nextReign+=720+Math.floor(hisR()*360)}
+    };
+
+    renderChronicle = function() {
+      const rows=world.events.filter(e=>world.filter==='all'||e.class===world.filter).slice(0,120);
+      entries.innerHTML=rows.map((e,i)=>e.header
+        ? '<div class="entry crown reign-header" data-i="'+i+'"><div class="date">'+dt(e.day)+'</div><p class="txt">'+safeName(e.text)+'</p></div>'
+        : '<div class="entry '+e.class+'" data-i="'+i+'"><div class="date">'+dt(e.day)+' · '+safeName(e.kind||e.class)+'</div><p class="txt">'+safeName(e.text)+'</p></div>').join('');
+      [...entries.children].forEach((el,i)=>el.onclick=()=>fly(rows[i].pos,rows[i].header?430:520,1800));
+    };
+
+    exportChronicle = function() {
+      const ordered=world.events.slice().reverse();
+      let lastYear=0, lines=[
+        'THE ANNALS OF '+world.title.toUpperCase(),
+        'Seed '+world.seed,
+        'A deterministic history of the realm',
+        '========================================',
+        ''
+      ];
+      for(const e of ordered){
+        const year=Math.floor((e.day-1)/360)+1;
+        if(year!==lastYear){lines.push('', 'YEAR '+year, '------');lastYear=year}
+        if(e.header)lines.push('', e.text.toUpperCase(), '');
+        else lines.push(dt(e.day)+' ['+(e.kind||e.class).toUpperCase()+']', e.text, '');
+      }
+      lines.push('Thus ends the surviving record of '+world.title+'.');
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));
+      a.download='annals-'+world.seed+'.txt';
+      a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    };
+
+    addEventListener('load',() => {
+      world.story.annals={reign:1,monarch:'the first crowned line',sequence:0,nextEntry:45,nextReign:720};
+      const style=document.createElement('style');
+      style.textContent='.reign-header{margin:10px -4px 2px;padding:10px 6px;border-top:3px double #7d6a52;border-bottom:1px solid #7d6a52;background:#fff3}.reign-header .txt{font-size:19px;font-variant:small-caps;letter-spacing:.03em}.entry[hidden]{display:none}';
+      document.head.appendChild(style);
+      const cap=world.settlements[0];
+      const remembered=world.events[world.events.length-1];
+      chron('fate',7,cap,'The first compiler set these accounts in order. '+compactReference(remembered),{kind:'omen'});
+      renderChronicle();
+    });
+  })();
+  <\/script>`;
+
+  fetch('annals.html', {cache:'no-store'})
+    .then(response => {
+      if(!response.ok) throw new Error('annals.html returned '+response.status);
+      return response.text();
+    })
+    .then(source => {
+      const marker='</body>';
+      if(!source.includes(marker)) throw new Error('ANNALS document has no body marker');
+      document.open();
+      document.write(source.replace(marker,chronicleEnhancement+'\n'+marker));
+      document.close();
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById('loading').innerHTML='The enhanced Chronicle could not be opened. <a href="annals.html'+location.hash+'">Open the base realm</a>.';
+    });
+  </script>
 </body>
 </html>
