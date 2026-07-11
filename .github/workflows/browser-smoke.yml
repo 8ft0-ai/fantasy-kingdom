@@ -44,6 +44,11 @@ jobs:
           ANNALS_BASE_URL: http://127.0.0.1:4173
         run: node .github/scripts/overlay-smoke.mjs
 
+      - name: Run performance smoke test
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/performance-smoke.mjs
+
       - name: Upload browser smoke artefacts
         uses: actions/upload-artifact@v4
         if: always()
@@ -53,5 +58,6 @@ jobs:
             screenshots/
             browser-smoke-report.json
             overlay-smoke-report.json
+            performance-smoke-report.json
             browser-smoke-server.log
           if-no-files-found: warn
