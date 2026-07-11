@@ -1,0 +1,4 @@
+;function countAllSceneNodes(){let count=0;if(scene)scene.traverse(()=>count++);return count}
+countSceneObjects=function(){if(!scene)return 0;let count=0,walk=(node,ancestorsVisible)=>{let visible=ancestorsVisible&&node.visible!==false;if(visible&&(node.isMesh||node.isLine||node.isPoints||node.isLight))count++;for(const child of node.children||[])walk(child,visible)};walk(scene,true);return count};
+const activeRenderablePerformanceSummary=performanceSummary;
+performanceSummary=function(){let summary=activeRenderablePerformanceSummary();summary.totalSceneNodes=countAllSceneNodes();return summary};
