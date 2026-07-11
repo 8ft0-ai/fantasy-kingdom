@@ -9,22 +9,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          show-progress: false
       - name: Capture parser location
+        continue-on-error: true
         run: |
-          python3 - <<'PY'
+          : > issue-22-syntax.txt
+          python3 - <<'PY' >> issue-22-syntax.txt 2>&1 || true
           import re
           from pathlib import Path
           html = Path('annals.html').read_text(encoding='utf-8')
           scripts = [m.group('body') for m in re.finditer(r'<script(?:\s[^>]*)?>\n(?P<body>.*?)\n</script>', html, re.DOTALL) if 'src=' not in m.group(0)]
-          if len(scripts) != 1:
-              raise SystemExit(f'expected one inline script, found {len(scripts)}')
-          Path('/tmp/annals-inline.js').write_text(scripts[0], encoding='utf-8')
+          print(f'inline scripts: {len(scripts)}')
+          if len(scripts) == 1:
+              Path('/tmp/annals-inline.js').write_text(scripts[0], encoding='utf-8')
           PY
-          node --check /tmp/annals-inline.js > issue-22-syntax.txt 2>&1 || true
+          if [ -f /tmp/annals-inline.js ]; then
+            node --check /tmp/annals-inline.js >> issue-22-syntax.txt 2>&1 || true
+          else
+            echo 'inline script extraction failed' >> issue-22-syntax.txt
+          fi
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: issue-22-syntax-diagnostic
           path: issue-22-syntax.txt
