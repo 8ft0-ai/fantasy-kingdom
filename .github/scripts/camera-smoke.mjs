@@ -18,14 +18,17 @@ try{
       await page.waitForFunction(()=>Boolean(window.ANNALS_DEBUG?.runCameraAcceptance)&&window.ANNALS_GUARDS?.summary()?.boot?.ready===true,{timeout:45_000});
       const prepared=await page.evaluate(()=>window.ANNALS_DEBUG.prepareCameraAcceptanceTargets());
       result.prepared=prepared;
+      result.clicks={};
       for(const kind of ['trade','army','dragon']){
-        const point=await page.evaluate(value=>window.ANNALS_DEBUG.focusCameraAcceptanceTarget(value),kind);
-        if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.y)){result.failures.push(`no screen target for ${kind}`);continue}
-        const follow=await page.evaluate(({x,y})=>{
-          renderer.domElement.dispatchEvent(new MouseEvent('click',{clientX:x,clientY:y,bubbles:true,cancelable:true,button:0}));
-          return window.ANNALS_CAMERA.summary();
-        },point);
-        if(follow.mode!=='follow'||follow.follow?.kind!==kind)result.failures.push(`click did not follow ${kind}`);
+        const clicked=await page.evaluate(value=>{
+          const point=window.ANNALS_DEBUG.focusCameraAcceptanceTarget(value);
+          if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.y))return{point,follow:null};
+          renderer.domElement.dispatchEvent(new MouseEvent('click',{clientX:point.x,clientY:point.y,bubbles:true,cancelable:true,button:0}));
+          return{point,follow:window.ANNALS_CAMERA.summary()};
+        },kind);
+        result.clicks[kind]=clicked;
+        if(!clicked.point||!Number.isFinite(clicked.point.x)||!Number.isFinite(clicked.point.y)){result.failures.push(`no screen target for ${kind}`);continue}
+        if(clicked.follow?.mode!=='follow'||clicked.follow?.follow?.kind!==kind)result.failures.push(`click did not follow ${kind}`);
       }
       const canvas=page.locator('#app canvas');
       const box=await canvas.boundingBox();
