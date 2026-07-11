@@ -25,6 +25,7 @@ rendering/threat-boundary.js
 rendering/threats.js
 director/camera.js
 director/cinematic.js
+rendering/atmosphere.js
 rendering/scars.js
 ui/scar-interface.js
 ui/memory-interface.js
@@ -45,4 +46,5 @@ simulation/economy-debug.js
 simulation/war-debug.js
 simulation/threat-debug.js
 simulation/camera-debug.js
+simulation/rendering-debug.js
 simulation/chronicle-regression.js
