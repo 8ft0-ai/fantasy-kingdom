@@ -64,7 +64,6 @@ try {
       if (evidence.afterWar.armySignatures.some(signature => !houseSignatures.has(signature))) failures.push('an army banner used a sigil not owned by a generated house');
       const coherentNames = [summary.title, ...summary.places.slice(0, 3), ...summary.houses.slice(0, 2).map(house => house.name.replace(/^House /, ''))];
       if (!coherentNames.some(name => evidence.chronicleText.includes(name))) failures.push('Chronicle text did not use generated realm, place or house names');
-      if (!window) failure('unreachable');
 
       await page.reload({ waitUntil: 'domcontentloaded', timeout: 45_000 });
       await page.waitForFunction(() => Boolean(window.ANNALS_DEBUG?.cultureSummary) && window.ANNALS_GUARDS?.summary()?.boot?.ready === true, { timeout: 45_000 });
