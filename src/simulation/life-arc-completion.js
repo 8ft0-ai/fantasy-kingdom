@@ -1,0 +1,7 @@
+;function seedNotableHouseholds(){let state=lifeArcState();if(state.householdsSeeded)return;state.householdsSeeded=true;initDynasties();for(const dynasty of dynastyState().registry){let members=dynasty.memberIds.map(characterById).filter(c=>c?.status==='alive').sort((a,b)=>b.age-a.age||a.id.localeCompare(b.id)),elders=members.filter(c=>c.age>=46),young=members.filter(c=>c.age<=36);for(let i=0;i<Math.min(2,elders.length,young.length);i++){let parent=elders[i],child=young[young.length-1-i];if(parent.id!==child.id&&parent.age-child.age>=18&&!lifeArcCloseFamily(parent,child))linkParent(parent,child)}}let elder=lifeArcLiving().filter(c=>c.role!=='monarch'&&c.role!=='heir'&&c.age>=66&&(c.childIds||[]).some(id=>characterById(id)?.status==='alive')).sort((a,b)=>b.age-a.age||a.id.localeCompare(b.id))[0];state.inheritanceElderId=elder?.id||null;state.inheritanceMilestoneDay=Math.floor(clock.day)+1080}
+const lifeArcCompletionBaseInit=initLifeArcs;
+initLifeArcs=function(){let state=lifeArcCompletionBaseInit();seedNotableHouseholds();return state};
+function completeInheritanceMilestone(){let state=lifeArcState();if(state.inheritances.length||!state.inheritanceElderId||clock.day<state.inheritanceMilestoneDay)return;let elder=characterById(state.inheritanceElderId);if(elder?.status==='alive')applyNotableHazard(elder,'age',{},true)}
+const lifeArcCompletionBaseTick=tick;
+tick=function(){lifeArcCompletionBaseTick();completeInheritanceMilestone()};
+if(typeof window!=='undefined')window.ANNALS_DEBUG.seedNotableHouseholds=seedNotableHouseholds;
