@@ -23,6 +23,7 @@ simulation/threats.js
 simulation/event-metadata.js
 simulation/life-arcs.js
 simulation/life-arc-evidence.js
+simulation/life-arc-completion.js
 simulation/stability.js
 simulation/growth-baseline.js
 simulation/acceptance.js
