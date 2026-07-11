@@ -69,6 +69,11 @@ jobs:
           ANNALS_BASE_URL: http://127.0.0.1:4173
         run: node .github/scripts/disaster-smoke.mjs
 
+      - name: Run war campaign smoke test
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/war-smoke.mjs
+
       - name: Run overlay smoke test
         env:
           ANNALS_BASE_URL: http://127.0.0.1:4173
@@ -93,6 +98,7 @@ jobs:
             notable-life-smoke-report.json
             economy-smoke-report.json
             disaster-smoke-report.json
+            war-smoke-report.json
             overlay-smoke-report.json
             performance-smoke-report.json
             browser-smoke-server.log
