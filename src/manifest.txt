@@ -20,6 +20,7 @@ simulation/memory-history.js
 simulation/war.js
 simulation/threat-boundary.js
 simulation/threats.js
+simulation/life-arcs.js
 simulation/stability.js
 simulation/growth-baseline.js
 simulation/acceptance.js
@@ -45,6 +46,7 @@ ui/war-interface.js
 ui/threat-interface.js
 ui/camera-interface.js
 ui/product-surface.js
+ui/life-arc-interface.js
 ui/overlay-interface.js
 rendering/performance.js
 rendering/performance-counts.js
