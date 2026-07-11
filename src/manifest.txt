@@ -26,6 +26,7 @@ rendering/threats.js
 director/camera.js
 director/cinematic.js
 rendering/atmosphere.js
+rendering/overlays.js
 rendering/scars.js
 ui/scar-interface.js
 ui/memory-interface.js
@@ -36,6 +37,7 @@ ui/war-interface.js
 ui/threat-interface.js
 ui/camera-interface.js
 ui/product-surface.js
+ui/overlay-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
@@ -49,4 +51,5 @@ simulation/threat-debug.js
 simulation/camera-debug.js
 simulation/rendering-debug.js
 simulation/product-ui-debug.js
+simulation/overlay-debug.js
 simulation/chronicle-regression.js
