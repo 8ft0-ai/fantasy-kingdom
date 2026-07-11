@@ -35,6 +35,8 @@ simulation/disaster-completion.js
 simulation/disaster-corrections.js
 simulation/disaster-prophet-invariant.js
 simulation/disaster-acceptance-completion.js
+simulation/war-completion.js
+simulation/war-acceptance-completion.js
 simulation/growth-baseline.js
 simulation/acceptance.js
 rendering/scene.js
@@ -43,6 +45,7 @@ ui/interface.js
 ui/character-interface.js
 rendering/economy.js
 rendering/war.js
+rendering/war-completion.js
 rendering/threat-boundary.js
 rendering/threats.js
 rendering/disasters.js
@@ -62,6 +65,7 @@ ui/camera-interface.js
 ui/product-surface.js
 ui/economy-completion-interface.js
 ui/disaster-interface.js
+ui/war-completion-interface.js
 ui/life-arc-interface.js
 ui/overlay-interface.js
 rendering/performance.js
