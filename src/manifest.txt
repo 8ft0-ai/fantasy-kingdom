@@ -21,6 +21,8 @@ simulation/war.js
 simulation/threat-boundary.js
 simulation/threats.js
 simulation/stability.js
+simulation/growth-baseline.js
+simulation/acceptance.js
 rendering/scene.js
 rendering/heraldry.js
 ui/interface.js
@@ -49,6 +51,7 @@ rendering/performance-counts.js
 ui/performance-interface.js
 core/debug.js
 boot.js
+ui/acceptance-interface.js
 simulation/character-debug.js
 simulation/scar-debug.js
 simulation/memory-debug.js

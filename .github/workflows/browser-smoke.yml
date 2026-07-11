@@ -13,7 +13,7 @@ jobs:
   annals-browser-smoke:
     name: ANNALS browser smoke
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -49,6 +49,11 @@ jobs:
           ANNALS_BASE_URL: http://127.0.0.1:4173
         run: node .github/scripts/culture-smoke.mjs
 
+      - name: Run acceptance harness smoke test
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/acceptance-smoke.mjs
+
       - name: Run overlay smoke test
         env:
           ANNALS_BASE_URL: http://127.0.0.1:4173
@@ -69,6 +74,7 @@ jobs:
             browser-smoke-report.json
             runtime-guard-smoke-report.json
             culture-smoke-report.json
+            acceptance-smoke-report.json
             overlay-smoke-report.json
             performance-smoke-report.json
             browser-smoke-server.log
