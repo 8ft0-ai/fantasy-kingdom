@@ -45,11 +45,8 @@ try {
       await page.goto(`${baseUrl}/annals.html#s=${seed}`, { waitUntil: 'domcontentloaded', timeout: 45_000 });
       await page.waitForFunction(() => window.ANNALS_GUARDS?.summary()?.boot?.ready === true, { timeout: 45_000 });
       const summary = await page.evaluate(() => window.ANNALS_GUARDS.summary());
-      const failures = [];
-      if (location.hash !== undefined) {
-        // Hash is captured in-page below; this branch keeps lint-free browser/global separation.
-      }
       const pageState = await page.evaluate(() => ({ hash: location.hash, meta: document.querySelector('meta[name="annals-runtime"]')?.content || '' }));
+      const failures = [];
       if (pageState.hash !== `#s=${seed}`) failures.push(`expected hash #s=${seed}, received ${pageState.hash}`);
       if (!pageState.meta.includes('three-r128')) failures.push('runtime compatibility meta tag is missing');
       if (summary.runtime?.version !== 'v0.8') failures.push(`unexpected runtime version ${summary.runtime?.version}`);
