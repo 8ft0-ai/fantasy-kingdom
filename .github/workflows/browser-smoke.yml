@@ -59,6 +59,11 @@ jobs:
           ANNALS_BASE_URL: http://127.0.0.1:4173
         run: node .github/scripts/notable-life-smoke.mjs
 
+      - name: Run 50-year economy smoke test
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/economy-smoke.mjs
+
       - name: Run overlay smoke test
         env:
           ANNALS_BASE_URL: http://127.0.0.1:4173
@@ -81,6 +86,7 @@ jobs:
             culture-smoke-report.json
             acceptance-smoke-report.json
             notable-life-smoke-report.json
+            economy-smoke-report.json
             overlay-smoke-report.json
             performance-smoke-report.json
             browser-smoke-server.log
