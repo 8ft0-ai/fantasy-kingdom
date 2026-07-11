@@ -16,6 +16,7 @@ This PR is a focused first slice of issue #20.
 - Recovery for stalled wars with missing armies.
 - Periodic patrols that clear old bandit camps when threat pressure remains high.
 - Territorial recovery when all settlements collapse into one owner.
+- A long-run narrative gate that preserves structured shortage events while limiting repetitive Chronicle entries after Year 5.
 - Headless simulation mode that suppresses Chronicle/HUD DOM rendering and director-queue growth.
 - A dedicated `Long-run soak` GitHub Actions check with JSON artefacts.
 
@@ -40,6 +41,15 @@ The CI suite runs:
 - Notables, archived notables, campaigns, armies, trades and world events remain within declared registry limits.
 - No more than one active civil war.
 - Every checked numeric state remains finite.
+
+## Narrative-rate protection
+
+The initial soak exposed repeated settlement food-shortage entries at roughly one entry per settlement every 46 days, producing about 70 Chronicle entries per year. The simulation still emits and retains those structured events, but after Year 5 the public Chronicle now records at most:
+
+- one realm-wide `food-shortage` entry every 120 days;
+- one `market-shortage` entry every 180 days.
+
+Suppressed narrative counts and actual Chronicle kinds are included in the soak report for diagnosis.
 
 ## 200-year evidence
 
