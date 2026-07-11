@@ -1,0 +1,2 @@
+;const warTerritoryBaseEndWar=endWar;
+endWar=function(c,outcome,winner){let result=warTerritoryBaseEndWar(c,outcome,winner);if(!result)return result;let resolved=result.outcome,target=world.settlements[result.targetSettlementId];if(resolved==='settlement-ceded'&&winner&&target)target.owner=winner.houseId;if(result.peace){result.peace.ownerChanges=world.settlements.map((s,i)=>({settlementId:s.id,before:result.startedOwners?.[i],after:s.owner})).filter(x=>x.before!==x.after)}return result};
