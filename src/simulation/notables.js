@@ -1,4 +1,4 @@
-const NOTABLE_LIMIT=128;
+const NOTABLE_LIMIT=140;
 const NOTABLE_TRAITS='brave cautious ambitious pious shrewd loyal cruel generous patient proud'.split(' ');
 const NOTABLE_AGENDAS=['secure the succession','increase house influence','protect local trade','strengthen the faith','command the royal host','enrich the treasury','avenge an old slight','restore a damaged settlement'];
 const NOTABLE_ROLES=['noble','commander','merchant','clergy','high priest','master of coin','smith','prophet','bandit king'];
