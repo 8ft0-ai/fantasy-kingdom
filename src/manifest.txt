@@ -48,9 +48,9 @@ ui/overlay-interface.js
 rendering/performance.js
 rendering/performance-counts.js
 ui/performance-interface.js
-ui/acceptance-interface.js
 core/debug.js
 boot.js
+ui/acceptance-interface.js
 simulation/character-debug.js
 simulation/scar-debug.js
 simulation/memory-debug.js
