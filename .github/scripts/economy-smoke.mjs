@@ -47,8 +47,8 @@ try {
       if (!(spendTotal > 0) || !(evidence.summary.spending?.armies > 0)) failures.push('treasury spending pressure was not observed');
       const { low, high } = evidence.taxProbe || {};
       if (!(high?.taxCollected > low?.taxCollected)) failures.push('higher tax did not increase revenue');
-      if (!(high?.loyalty < low?.loyalty)) failures.push('higher tax did not reduce house loyalty');
-      if (!(high?.unrest > low?.unrest)) failures.push('higher tax did not increase unrest');
+      if (!(high?.taxPressure?.loyaltyDelta < low?.taxPressure?.loyaltyDelta)) failures.push('higher tax did not apply greater loyalty pressure');
+      if (!(high?.taxPressure?.unrestAdded > low?.taxPressure?.unrestAdded)) failures.push('higher tax did not add more unrest');
       if (consoleErrors.length) failures.push(`console errors: ${consoleErrors.join(' | ')}`);
       if (pageErrors.length) failures.push(`page errors: ${pageErrors.join(' | ')}`);
       result.ui = ui;
