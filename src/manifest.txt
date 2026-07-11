@@ -16,6 +16,7 @@ simulation/memory-history.js
 simulation/war.js
 simulation/threat-boundary.js
 simulation/threats.js
+simulation/stability.js
 rendering/scene.js
 ui/interface.js
 ui/character-interface.js
@@ -56,4 +57,5 @@ simulation/rendering-debug.js
 simulation/product-ui-debug.js
 simulation/overlay-debug.js
 simulation/performance-debug.js
+simulation/soak-debug.js
 simulation/chronicle-regression.js
