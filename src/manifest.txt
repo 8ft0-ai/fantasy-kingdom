@@ -36,6 +36,7 @@ simulation/disaster-corrections.js
 simulation/disaster-prophet-invariant.js
 simulation/disaster-acceptance-completion.js
 simulation/war-completion.js
+simulation/war-territory-correction.js
 simulation/war-acceptance-completion.js
 simulation/growth-baseline.js
 simulation/acceptance.js
