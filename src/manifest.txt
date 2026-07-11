@@ -33,6 +33,7 @@ simulation/economy-disruption-completion.js
 simulation/economy-narrative-pacing.js
 simulation/disaster-completion.js
 simulation/disaster-corrections.js
+simulation/disaster-prophet-invariant.js
 simulation/disaster-acceptance-completion.js
 simulation/growth-baseline.js
 simulation/acceptance.js
