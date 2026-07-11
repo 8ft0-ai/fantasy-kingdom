@@ -31,6 +31,7 @@ simulation/narrative-pacing.js
 simulation/economy-completion.js
 simulation/economy-disruption-completion.js
 simulation/economy-narrative-pacing.js
+simulation/disaster-completion.js
 simulation/growth-baseline.js
 simulation/acceptance.js
 rendering/scene.js
@@ -41,6 +42,7 @@ rendering/economy.js
 rendering/war.js
 rendering/threat-boundary.js
 rendering/threats.js
+rendering/disasters.js
 director/camera.js
 director/cinematic.js
 rendering/atmosphere.js
@@ -56,6 +58,7 @@ ui/threat-interface.js
 ui/camera-interface.js
 ui/product-surface.js
 ui/economy-completion-interface.js
+ui/disaster-interface.js
 ui/life-arc-interface.js
 ui/overlay-interface.js
 rendering/performance.js
