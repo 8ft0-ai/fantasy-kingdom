@@ -44,7 +44,7 @@ try {
     try {
       await page.goto(`${baseUrl}/annals.html#s=${testCase.seed}`, { waitUntil: 'domcontentloaded', timeout: 45_000 });
       await page.waitForFunction(() => Boolean(window.ANNALS_DEBUG?.runSoak), { timeout: 45_000 });
-      const soak = await page.evaluate(({ seed, years }) => window.ANNALS_DEBUG.runSoak(seed, years), testCase, { timeout: 300_000 });
+      const soak = await page.evaluate(({ seed, years }) => window.ANNALS_DEBUG.runSoak(seed, years), testCase);
       result.soak = soak;
       result.consoleErrors = consoleErrors;
       result.pageErrors = pageErrors;
