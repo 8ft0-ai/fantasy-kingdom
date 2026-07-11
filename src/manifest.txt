@@ -21,6 +21,7 @@ simulation/war.js
 simulation/threat-boundary.js
 simulation/threats.js
 simulation/stability.js
+simulation/growth-baseline.js
 simulation/acceptance.js
 rendering/scene.js
 rendering/heraldry.js
