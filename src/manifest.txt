@@ -35,6 +35,7 @@ ui/economy-interface.js
 ui/war-interface.js
 ui/threat-interface.js
 ui/camera-interface.js
+ui/product-surface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
@@ -47,4 +48,5 @@ simulation/war-debug.js
 simulation/threat-debug.js
 simulation/camera-debug.js
 simulation/rendering-debug.js
+simulation/product-ui-debug.js
 simulation/chronicle-regression.js
