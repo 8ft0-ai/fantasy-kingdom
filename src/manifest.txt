@@ -1,6 +1,8 @@
 core/runtime.js
+core/culture.js
 core/guards.js
 world/generation.js
+world/culture.js
 world/guards.js
 simulation/events.js
 simulation/characters.js
@@ -20,6 +22,7 @@ simulation/threat-boundary.js
 simulation/threats.js
 simulation/stability.js
 rendering/scene.js
+rendering/heraldry.js
 ui/interface.js
 ui/character-interface.js
 rendering/economy.js
@@ -60,4 +63,5 @@ simulation/product-ui-debug.js
 simulation/overlay-debug.js
 simulation/performance-debug.js
 simulation/soak-debug.js
+simulation/culture-debug.js
 simulation/chronicle-regression.js
