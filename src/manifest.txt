@@ -27,6 +27,7 @@ simulation/life-arc-classification.js
 simulation/life-arc-evidence.js
 simulation/life-arc-completion.js
 simulation/stability.js
+simulation/narrative-pacing.js
 simulation/growth-baseline.js
 simulation/acceptance.js
 rendering/scene.js
