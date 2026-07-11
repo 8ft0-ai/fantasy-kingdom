@@ -75,6 +75,7 @@ ui/camera-completion-interface.js
 ui/overlay-interface.js
 rendering/performance.js
 rendering/performance-counts.js
+rendering/visual-completion.js
 ui/performance-interface.js
 core/debug.js
 boot.js
@@ -90,6 +91,7 @@ simulation/threat-debug.js
 simulation/camera-debug.js
 simulation/camera-completion-debug.js
 simulation/rendering-debug.js
+simulation/rendering-completion-debug.js
 simulation/product-ui-debug.js
 simulation/overlay-debug.js
 simulation/performance-debug.js
