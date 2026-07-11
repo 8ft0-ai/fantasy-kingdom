@@ -39,6 +39,7 @@ ui/camera-interface.js
 ui/product-surface.js
 ui/overlay-interface.js
 rendering/performance.js
+rendering/performance-counts.js
 ui/performance-interface.js
 core/debug.js
 boot.js
