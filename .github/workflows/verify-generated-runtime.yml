@@ -28,7 +28,15 @@ jobs:
           import re
           from pathlib import Path
           html = Path('annals.html').read_text(encoding='utf-8')
-          scripts = [m.group('body') for m in re.finditer(r'<script(?:\s[^>]*)?>\n(?P<body>.*?)\n</script>', html, re.DOTALL) if 'src=' not in m.group(0)]
+          scripts = [
+              match.group('body')
+              for match in re.finditer(
+                  r'<script(?P<attrs>\s[^>]*)?>\n(?P<body>.*?)\n</script>',
+                  html,
+                  re.DOTALL,
+              )
+              if 'src=' not in (match.group('attrs') or '')
+          ]
           if len(scripts) != 1:
               raise SystemExit(f'expected one inline script, found {len(scripts)}')
           Path('/tmp/annals-inline.js').write_text(scripts[0], encoding='utf-8')
