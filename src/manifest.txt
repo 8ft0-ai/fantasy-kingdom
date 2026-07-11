@@ -52,9 +52,12 @@ rendering/threats.js
 rendering/disasters.js
 director/camera.js
 director/cinematic.js
+director/camera-completion.js
+director/camera-variety-completion.js
 rendering/atmosphere.js
 rendering/overlays.js
 rendering/scars.js
+rendering/camera-picking.js
 ui/scar-interface.js
 ui/memory-interface.js
 ui/dynasty-interface.js
@@ -68,6 +71,7 @@ ui/economy-completion-interface.js
 ui/disaster-interface.js
 ui/war-completion-interface.js
 ui/life-arc-interface.js
+ui/camera-completion-interface.js
 ui/overlay-interface.js
 rendering/performance.js
 rendering/performance-counts.js
@@ -84,6 +88,7 @@ simulation/economy-debug.js
 simulation/war-debug.js
 simulation/threat-debug.js
 simulation/camera-debug.js
+simulation/camera-completion-debug.js
 simulation/rendering-debug.js
 simulation/product-ui-debug.js
 simulation/overlay-debug.js
