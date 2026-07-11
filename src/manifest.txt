@@ -28,6 +28,7 @@ simulation/life-arc-evidence.js
 simulation/life-arc-completion.js
 simulation/stability.js
 simulation/narrative-pacing.js
+simulation/economy-completion.js
 simulation/growth-baseline.js
 simulation/acceptance.js
 rendering/scene.js
@@ -52,6 +53,7 @@ ui/war-interface.js
 ui/threat-interface.js
 ui/camera-interface.js
 ui/product-surface.js
+ui/economy-completion-interface.js
 ui/life-arc-interface.js
 ui/overlay-interface.js
 rendering/performance.js
