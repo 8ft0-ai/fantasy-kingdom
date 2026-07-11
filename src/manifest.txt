@@ -53,6 +53,7 @@ rendering/disasters.js
 director/camera.js
 director/cinematic.js
 director/camera-completion.js
+director/camera-variety-completion.js
 rendering/atmosphere.js
 rendering/overlays.js
 rendering/scars.js
