@@ -67,63 +67,64 @@ html,body{margin:0;height:100%;overflow:hidden;background:#10100f;color:#2b231b;
  * 36. simulation/disaster-prophet-invariant.js
  * 37. simulation/disaster-acceptance-completion.js
  * 38. simulation/war-completion.js
- * 39. simulation/war-acceptance-completion.js
- * 40. simulation/growth-baseline.js
- * 41. simulation/acceptance.js
- * 42. rendering/scene.js
- * 43. rendering/heraldry.js
- * 44. ui/interface.js
- * 45. ui/character-interface.js
- * 46. rendering/economy.js
- * 47. rendering/war.js
- * 48. rendering/war-completion.js
- * 49. rendering/threat-boundary.js
- * 50. rendering/threats.js
- * 51. rendering/disasters.js
- * 52. director/camera.js
- * 53. director/cinematic.js
- * 54. rendering/atmosphere.js
- * 55. rendering/overlays.js
- * 56. rendering/scars.js
- * 57. ui/scar-interface.js
- * 58. ui/memory-interface.js
- * 59. ui/dynasty-interface.js
- * 60. ui/notable-interface.js
- * 61. ui/economy-interface.js
- * 62. ui/war-interface.js
- * 63. ui/threat-interface.js
- * 64. ui/camera-interface.js
- * 65. ui/product-surface.js
- * 66. ui/economy-completion-interface.js
- * 67. ui/disaster-interface.js
- * 68. ui/war-completion-interface.js
- * 69. ui/life-arc-interface.js
- * 70. ui/overlay-interface.js
- * 71. rendering/performance.js
- * 72. rendering/performance-counts.js
- * 73. ui/performance-interface.js
- * 74. core/debug.js
- * 75. boot.js
- * 76. ui/acceptance-interface.js
- * 77. simulation/character-debug.js
- * 78. simulation/scar-debug.js
- * 79. simulation/memory-debug.js
- * 80. simulation/dynasty-debug.js
- * 81. simulation/notable-debug.js
- * 82. simulation/economy-debug.js
- * 83. simulation/war-debug.js
- * 84. simulation/threat-debug.js
- * 85. simulation/camera-debug.js
- * 86. simulation/rendering-debug.js
- * 87. simulation/product-ui-debug.js
- * 88. simulation/overlay-debug.js
- * 89. simulation/performance-debug.js
- * 90. simulation/soak-debug.js
- * 91. simulation/culture-debug.js
- * 92. simulation/chronicle-regression.js
+ * 39. simulation/war-territory-correction.js
+ * 40. simulation/war-acceptance-completion.js
+ * 41. simulation/growth-baseline.js
+ * 42. simulation/acceptance.js
+ * 43. rendering/scene.js
+ * 44. rendering/heraldry.js
+ * 45. ui/interface.js
+ * 46. ui/character-interface.js
+ * 47. rendering/economy.js
+ * 48. rendering/war.js
+ * 49. rendering/war-completion.js
+ * 50. rendering/threat-boundary.js
+ * 51. rendering/threats.js
+ * 52. rendering/disasters.js
+ * 53. director/camera.js
+ * 54. director/cinematic.js
+ * 55. rendering/atmosphere.js
+ * 56. rendering/overlays.js
+ * 57. rendering/scars.js
+ * 58. ui/scar-interface.js
+ * 59. ui/memory-interface.js
+ * 60. ui/dynasty-interface.js
+ * 61. ui/notable-interface.js
+ * 62. ui/economy-interface.js
+ * 63. ui/war-interface.js
+ * 64. ui/threat-interface.js
+ * 65. ui/camera-interface.js
+ * 66. ui/product-surface.js
+ * 67. ui/economy-completion-interface.js
+ * 68. ui/disaster-interface.js
+ * 69. ui/war-completion-interface.js
+ * 70. ui/life-arc-interface.js
+ * 71. ui/overlay-interface.js
+ * 72. rendering/performance.js
+ * 73. rendering/performance-counts.js
+ * 74. ui/performance-interface.js
+ * 75. core/debug.js
+ * 76. boot.js
+ * 77. ui/acceptance-interface.js
+ * 78. simulation/character-debug.js
+ * 79. simulation/scar-debug.js
+ * 80. simulation/memory-debug.js
+ * 81. simulation/dynasty-debug.js
+ * 82. simulation/notable-debug.js
+ * 83. simulation/economy-debug.js
+ * 84. simulation/war-debug.js
+ * 85. simulation/threat-debug.js
+ * 86. simulation/camera-debug.js
+ * 87. simulation/rendering-debug.js
+ * 88. simulation/product-ui-debug.js
+ * 89. simulation/overlay-debug.js
+ * 90. simulation/performance-debug.js
+ * 91. simulation/soak-debug.js
+ * 92. simulation/culture-debug.js
+ * 93. simulation/chronicle-regression.js
  */
 /* ============================================================
- * ANNALS MODULE 01/92 · CONSTANTS, RNG & RUNTIME STATE
+ * ANNALS MODULE 01/93 · CONSTANTS, RNG & RUNTIME STATE
  * Source: src/core/runtime.js
  * ============================================================ */
 'use strict';
@@ -147,7 +148,7 @@ function moisture(x,z){let r=nearRiver(world?world.rivers:[],x,z);return clamp(f
 function biome(x,z){let h=hWorld(x,z),m=moisture(x,z);return h<2?'water':h>520?'stone':m>.62?'forest':h<150&&m>.42?'farmland':m<.28?'dry steppe':'grassland'}
 
 /* ============================================================
- * ANNALS MODULE 02/92 · RUNTIME MODULE
+ * ANNALS MODULE 02/93 · RUNTIME MODULE
  * Source: src/core/culture.js
  * ============================================================ */
 ;const CULTURE_PROFILES=[
@@ -171,7 +172,7 @@ function cultureHouseIdentity(r,seat,id,seed){let c=cultureSpec||cultureForSeed(
 function cultureSummaryData(){let c=cultureSpec||cultureForSeed(world?.seed||'0');return{id:c.id,label:c.label,realmName:c.realmName,title:c.title,roots:[...c.roots],suffixes:[...c.suffixes],male:[...c.male],female:[...c.female],neutral:[...c.neutral]}}
 
 /* ============================================================
- * ANNALS MODULE 03/92 · RUNTIME GUARDS & ASSERTIONS
+ * ANNALS MODULE 03/93 · RUNTIME GUARDS & ASSERTIONS
  * Source: src/core/guards.js
  * ============================================================ */
 ;const ANNALS_RUNTIME_INFO=Object.freeze({
@@ -198,7 +199,7 @@ function runtimeGuardSummary(){let dependencies={threeLoaded:typeof THREE!=='und
 if(typeof window!=='undefined')window.ANNALS_GUARDS={info:ANNALS_RUNTIME_INFO,summary:runtimeGuardSummary,assertRngStreams,assertWorldShape};
 
 /* ============================================================
- * ANNALS MODULE 04/92 · WORLD GENERATION
+ * ANNALS MODULE 04/93 · WORLD GENERATION
  * Source: src/world/generation.js
  * ============================================================ */
 function riverFrom(x,z,target){let pts=[];for(let i=0;i<120;i++){let h=hWorld(x,z);pts.push({x,z,y:h});if(h<3||Math.abs(x)>2880||Math.abs(z)>2880||(target&&dist({x,z},target)<100))break;let best,score=1e9;for(let a=0;a<TAU;a+=.63){let nx=x+90*Math.cos(a),nz=z+90*Math.sin(a),cost=hWorld(nx,nz)-h+(target?dist({x:nx,z:nz},target)/130:Math.max(Math.abs(nx),Math.abs(nz))/850)+16*signed(terrainSpec.seed+i,nx/380,nz/380);if(cost<score){best={x:nx,z:nz};score=cost}}x=best.x;z=best.z}return pts}
@@ -237,7 +238,7 @@ function rebuildTick(s){if(!s.layout)return;for(const lot of s.layout.lots){let 
 function makeWorld(seed){genR=rng(seed,'generation');hisR=rng(seed,'history');world=null;terrainSpec=makeTerrainSpec(seed);let hyd=hydrology(),res=resources(hyd),set=settlements(hyd,res),roads=[];for(let i=1;i<set.length;i++){roads.push(route(set[0],set[i],hyd));if(i<set.length-1&&i%2)roads.push(route(set[i],set[i+1],hyd))}world={seed,title:place(genR),version:'v0.8',terrainSpec,hydrology:hyd,riverPaths:hyd.paths,rivers:hyd.paths,resources:res,settlements:set,houses:[],buildings:[],roads,events:[],filter:'all',season:'Spring',weather:'Clear',drought:false,story:{last:0,drought:112+Math.floor(hisR()*29)}};for(let i=0;i<6;i++)world.houses.push({id:i,name:'House '+(i?pick(genR,BEAST)+' '+pick(genR,B):pick(genR,BEAST)),seatSettlement:Math.min(i,set.length-1),colour:['#8b1e2d','#235d86','#3d7b47','#8b6b23','#6f3c87','#7b3f22'][i],loyalty:i?irnd(genR,46,85):100,rebellious:false});settlementLayouts();return world}
 
 /* ============================================================
- * ANNALS MODULE 05/92 · WORLD GENERATION
+ * ANNALS MODULE 05/93 · WORLD GENERATION
  * Source: src/world/culture.js
  * ============================================================ */
 ;const culturalBaseMakeWorld=makeWorld;
@@ -245,14 +246,14 @@ function uniqueCulturePlace(r,used){let candidate=culturePlaceName(r),base=candi
 makeWorld=function(seed){cultureSpec=cultureForSeed(seed);let generated=culturalBaseMakeWorld(seed),placeR=rng(seed,'culture-places'),houseR=rng(seed,'culture-houses'),usedPlaces=new Set([cultureSpec.realmName]),usedHouses=new Set();generated.title=cultureSpec.realmName;for(const settlement of generated.settlements)settlement.name=uniqueCulturePlace(placeR,usedPlaces);for(const house of generated.houses){let seat=generated.settlements[house.seatSettlement]||generated.settlements[0],identity=cultureHouseIdentity(houseR,seat,house.id,seed);if(usedHouses.has(identity.name)){identity.familyName=`${identity.familyName}${house.id+1}`;identity.name=`House ${identity.familyName}`}usedHouses.add(identity.name);Object.assign(house,identity)}generated.culture=cultureSummaryData();return generated};
 
 /* ============================================================
- * ANNALS MODULE 06/92 · RUNTIME GUARDS & ASSERTIONS
+ * ANNALS MODULE 06/93 · RUNTIME GUARDS & ASSERTIONS
  * Source: src/world/guards.js
  * ============================================================ */
 ;const annalsBaseMakeWorld=makeWorld;
 makeWorld=function(seed){let candidate=annalsBaseMakeWorld(seed),rngSummary=assertRngStreams(seed),worldSummary=assertWorldShape(candidate);candidate.guardState={rng:rngSummary,world:worldSummary,boot:null};return candidate};
 
 /* ============================================================
- * ANNALS MODULE 07/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 07/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/events.js
  * ============================================================ */
 const WORLD_EVENT_LIMIT=320;
@@ -264,7 +265,7 @@ function emitWorldEvent(type,details={}){let state=worldEventState(),target=even
 function structuredEvents(){return worldEventState().registry.map(worldEventSummary)}
 
 /* ============================================================
- * ANNALS MODULE 08/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 08/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/characters.js
  * ============================================================ */
 const CHARACTER_LIMIT=48;
@@ -285,7 +286,7 @@ function appointCharacter(c,role,home=characterHome(c)){if(!c)return null;c.role
 function birthCharacter(home,houseId=null){let c=createCharacter('noble',home,houseId,0);if(c)eventChronicle('birth',6,home,`${c.name} was born in ${home.name}; the household entered the child among the living heirs of memory.`,{class:'fate',kind:'birth',causes:['birth'],consequences:['a named life entered the record'],participants:[c.id,c.name],source:'character-system'});return c}
 
 /* ============================================================
- * ANNALS MODULE 09/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 09/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/dynasties.js
  * ============================================================ */
 const DYNASTY_LIMIT=12,REIGN_LIMIT=64;
@@ -304,7 +305,7 @@ function recordReign(monarch,predecessor,basis,contested,claim){let s=dynastySta
 function dynastySummary(d){return{id:d.id,name:d.name,status:d.status,founderId:d.founderId,memberIds:[...d.memberIds],reignIds:[...d.reignIds],createdDay:d.createdDay,displacedDay:d.displacedDay,extinctDay:d.extinctDay}}
 
 /* ============================================================
- * ANNALS MODULE 10/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 10/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/notables.js
  * ============================================================ */
 const NOTABLE_LIMIT=140;
@@ -321,7 +322,7 @@ function notableByNeed(kind,home){let alive=characterState().registry.filter(c=>
 function addGrudge(a,b,reason,strength=40){if(!a||!b||a.id===b.id)return;let existing=(a.grudges||[]).find(g=>g.characterId===b.id);if(existing)existing.strength=clamp(existing.strength+10,0,100);else{a.grudges=a.grudges||[];a.grudges.push({characterId:b.id,reason,strength});if(a.grudges.length>6)a.grudges.shift()}}
 
 /* ============================================================
- * ANNALS MODULE 11/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 11/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/scars.js
  * ============================================================ */
 const SCAR_LIMIT=80;
@@ -337,7 +338,7 @@ function setScarState(scar,state,note){if(!scar||scar.erased||scar.state===state
 function linkScarEvent(scar,eventId){if(!scar||!eventId)return;if(!scar.relatedEventIds.includes(eventId))scar.relatedEventIds.push(eventId);if(scar.relatedEventIds.length>16)scar.relatedEventIds.shift()}
 
 /* ============================================================
- * ANNALS MODULE 12/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 12/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/memory.js
  * ============================================================ */
 const MEMORY_LIMIT=180;
@@ -355,7 +356,7 @@ emitWorldEvent=function(type,details={}){let prior=relevantMemory(type,details),
 function memoryById(id){return memoryState().registry.find(m=>m.id===id)||null}
 
 /* ============================================================
- * ANNALS MODULE 13/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 13/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/history.js
  * ============================================================ */
 function dt(d){return`Year ${Math.floor((d-1)/360)+1}, ${['Spring','Summer','Autumn','Winter'][Math.floor((d-1)%360/90)]} ${(d-1)%90+1}`}
@@ -378,7 +379,7 @@ function tick(){clock.day++;world.season=['Spring','Summer','Autumn','Winter'][M
 function act(a){let s=pressure();if(a==='drought'){world.drought=true;eventChronicle('drought',9,s,'Emergency drought measures were declared; the choice would test whether grain stores could quiet unrest.',{class:'fate',kind:'disaster',source:'manual-act',causes:['royal drought declaration'],consequences:['grain growth reduced','pressure on stores increased'],participants:[s.name]})}if(a==='grain'){s.stores.grain+=.18*s.pop;s.hunger=clamp(s.hunger-14,0,100);eventChronicle('grain-relief',7,s,`Grain relief reached ${s.name}; material stores cooled political heat and delayed new unrest.`,{class:'trade',kind:'trade',source:'manual-act',causes:['grain released from reserve'],consequences:['hunger reduced','unrest risk delayed'],participants:[s.name]})}if(a==='festival'){s.unrest=clamp(s.unrest-15,0,100);eventChronicle('festival',6,s,`A festival filled ${s.name}; lanterns made the realm seem orderly for one night.`,{class:'crown',kind:'festival',source:'manual-act',causes:['festival proclaimed'],consequences:['unrest reduced'],participants:[s.name]})}if(a==='fire'){s.unrest=clamp(s.unrest+8,0,100);s.prosperity=clamp(s.prosperity-8,0,100);let damaged=irnd(hisR,1,s.type==='village'?2:4);damageBuildings(s,damaged,'great fire');eventChronicle('fire',8,s,`A great fire damaged ${s.name}; street lots survived in the rolls, but hungry households pressed the granaries harder.`,{class:'fate',kind:'disaster',source:'manual-act',causes:['urban fire'],consequences:[`${damaged} buildings damaged`,'prosperity reduced','unrest increased'],participants:[s.name]})}if(typeof document!=='undefined'&&!world.headless){drawer();hud()}}
 
 /* ============================================================
- * ANNALS MODULE 14/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 14/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/character-history.js
  * ============================================================ */
 const baseFirstEntries=firstEntries,baseAddNarrativeEvent=addNarrativeEvent;
@@ -388,7 +389,7 @@ addNarrativeEvent=function(){initCharacters();let state=annalsState(),s=pressure
 changeReign=function(){initCharacters();let state=annalsState(),cap=world.settlements[0],old=characterById(world.story.monarchId),heir=characterById(world.story.heirId);if(old)setCharacterStatus(old,'dead','the reign ended and the crown passed onward');if(!heir||heir.status!=='alive')heir=characterForRole('noble')||createCharacter('heir',cap,0,irnd(hisR,18,35));heir.role='monarch';heir.homeId=cap.id;world.story.monarchId=heir.id;let next=characterState().registry.find(c=>c.status==='alive'&&c.id!==heir.id&&c.role==='noble')||createCharacter('heir',cap,0,irnd(hisR,12,28));next.role='heir';world.story.heirId=next.id;state.reign++;state.monarch=heir.name;chron('crown',10,cap,`Here begin the years of ${heir.name}, ${state.reign} sovereign of ${world.title}.`,{kind:'coronation',header:true});eventChronicle('succession',10,cap,`${heir.name} received the crown at ${cap.name}, because the realm would not endure an empty throne; ${next.name} was thereafter named heir.`,{class:'crown',kind:'coronation',participants:[heir.id,heir.name,next.id,next.name],causes:['death of the prior monarch'],consequences:['new monarch installed','new heir appointed'],source:'character-system'})};
 
 /* ============================================================
- * ANNALS MODULE 15/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 15/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/dynasty-history.js
  * ============================================================ */
 const dynastyBaseFirstEntries=firstEntries,dynastyBaseChangeReign=changeReign,dynastyBaseBirth=birthCharacter;
@@ -397,7 +398,7 @@ birthCharacter=function(home,houseId=null){let c=dynastyBaseBirth(home,houseId);
 changeReign=function(){initDynasties();let state=annalsState(),cap=world.settlements[0],old=characterById(world.story.monarchId),candidates=successionCandidates();if(old&&old.status==='alive')setCharacterStatus(old,'dead','the reign ended and the succession opened');candidates=successionCandidates();let first=candidates[0],second=candidates[1],forced=state.reign%3===2,contested=!!(second&&(forced||first.score-second.score<12||cap.unrest>58)),winner=first&&first.c;if(!winner){winner=characterState().registry.find(c=>c.status==='alive'&&c.id!==old?.id)||createCharacter('noble',cap,0,irnd(hisR,22,45));if(winner){familyInit(winner);winner.role='noble';if(!winner.dynastyId){let d=createDynasty(`House ${winner.name.split(' ').slice(-1)[0]}`,winner)||dynastyState().registry[0];addToDynasty(d,winner,55,52)}}}if(!winner)return;let priorDynasty=old&&dynastyById(old.dynastyId),newDynasty=dynastyById(winner.dynastyId)||priorDynasty||dynastyState().registry[0];if(priorDynasty&&newDynasty&&priorDynasty.id!==newDynasty.id){priorDynasty.status='displaced';priorDynasty.displacedDay=Math.floor(clock.day);newDynasty.status='ruling'}winner.role='monarch';winner.homeId=cap.id;world.story.monarchId=winner.id;let heir=characterState().registry.find(c=>c.status==='alive'&&c.id!==winner.id&&Array.isArray(c.parentIds)&&c.parentIds.includes(winner.id))||characterState().registry.find(c=>c.status==='alive'&&c.id!==winner.id&&c.dynastyId===winner.dynastyId&&['noble','heir'].includes(c.role))||characterState().registry.find(c=>c.status==='alive'&&c.id!==winner.id);if(!heir){heir=createCharacter('heir',cap,winner.houseId,irnd(hisR,10,26));if(heir){addToDynasty(newDynasty,heir,60,70);linkParent(winner,heir)}}if(heir){heir.role='heir';world.story.heirId=heir.id}else world.story.heirId=null;let relation=old?familyTerm(winner,old):null,basis=relation?`${relation} of ${old.name}`:winner.dynastyId===old?.dynastyId?'senior dynastic claim':'support of the great houses';state.reign++;state.monarch=winner.name;let reign=recordReign(winner,old,basis,contested,Math.round(first?first.score:winner.claimStrength));chron('crown',10,cap,`Here begin the years of ${winner.name}, ${state.reign} sovereign of ${world.title}, by ${basis}${contested?' after a contested succession':''}.`,{kind:'coronation',header:true});if(contested&&second){let rival=second.c;eventChronicle('contested-succession',10,cap,`${winner.name} took the crown by ${basis}, while ${rival.name} pressed a rival claim for ${dynastyById(rival.dynastyId)?.name||'another line'}; loyalty and unrest divided the realm.`,{class:'war',kind:'succession',participants:[winner.id,rival.id,reign.id],causes:['competing claims','political support divided'],consequences:['the succession was contested'],source:'dynasty-system'});winner.legitimacy=clamp(winner.legitimacy-8,0,100);rival.status='disgraced';rival.statusDay=Math.floor(clock.day)}else eventChronicle('succession',9,cap,heir?`${winner.name} received the crown by ${basis}; ${heir.name} was thereafter named heir of ${newDynasty?.name||'the ruling line'}.`:`${winner.name} received the crown by ${basis}; no settled heir was named, and the council retained the succession rolls.`,{class:'crown',kind:'coronation',participants:[winner.id,heir?.id,reign.id].filter(Boolean),causes:['death of the prior monarch'],consequences:['ordinary succession completed'],source:'dynasty-system'});for(const d of dynastyState().registry){let living=d.memberIds.map(characterById).filter(c=>c&&c.status==='alive');if(!living.length&&d.status!=='extinct'){d.status='extinct';d.extinctDay=Math.floor(clock.day)}}};
 
 /* ============================================================
- * ANNALS MODULE 16/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 16/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/notable-history.js
  * ============================================================ */
 const notableBaseAddNarrativeEvent=addNarrativeEvent,notableBaseTick=tick,notableBaseSetStatus=setCharacterStatus;
@@ -407,7 +408,7 @@ function advanceNotableLives(){let living=characterState().registry.filter(c=>c.
 tick=function(){notableBaseTick();advanceNotableLives()};
 
 /* ============================================================
- * ANNALS MODULE 17/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 17/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/economy.js
  * ============================================================ */
 const ECONOMY_GOODS=['grain','fish','timber','ore','tools','cloth','wine'],TRADE_LIMIT=48;
@@ -428,7 +429,7 @@ act=function(a){economyBaseAct(a);if(a==='grain'){let s=pressure(),state=economy
 function economySummary(){initEconomy();let state=economyState();return{goods:[...ECONOMY_GOODS],treasury:Math.round(state.treasury*100)/100,taxRate:state.taxRate,tradeLimit:TRADE_LIMIT,trades:state.trades.length,travelling:state.trades.filter(t=>t.status==='travelling').length,completed:state.completed,taxCollected:Math.round(state.taxCollected*100)/100,settlements:world.settlements.map(s=>({id:s.id,name:s.name,stores:Object.fromEntries(ECONOMY_GOODS.map(g=>[g,Math.round(s.stores[g]*10)/10])),prices:{...s.prices},hunger:Math.round(s.hunger*10)/10,unrest:Math.round(s.unrest*10)/10}))}}
 
 /* ============================================================
- * ANNALS MODULE 18/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 18/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/scar-history.js
  * ============================================================ */
 const scarBaseEventChronicle=eventChronicle,scarBaseFirstEntries=firstEntries,scarBaseTick=tick;
@@ -438,14 +439,14 @@ function advanceHistoricalScars(){for(const scar of scarState().registry){if(sca
 tick=function(){scarBaseTick();advanceHistoricalScars()};
 
 /* ============================================================
- * ANNALS MODULE 19/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 19/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/memory-history.js
  * ============================================================ */
 const memoryBaseTick=tick;
 tick=function(){memoryBaseTick();if(clock.day%30===0)decayMemories()};
 
 /* ============================================================
- * ANNALS MODULE 20/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 20/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/war.js
  * ============================================================ */
 const WAR_CAMPAIGN_LIMIT=12,ARMY_LIMIT=24;
@@ -469,13 +470,13 @@ tick=function(){warBaseTick();warDay()};
 function warSummary(){let state=warState();return{campaignLimit:WAR_CAMPAIGN_LIMIT,armyLimit:ARMY_LIMIT,completed:state.completed,campaigns:state.campaigns.map(c=>({id:c.id,name:c.name,status:c.status,startDay:c.startDay,endDay:c.endDay,outcome:c.outcome,warScore:c.warScore,battle:c.battle?{name:c.battle.name,day:c.battle.day,scarId:c.battle.scarId,phases:[...c.battle.phases]}:null,siege:c.siege?{startDay:c.siege.startDay,targetId:c.siege.targetId,granary:Math.round(c.siege.granary)}:null})),armies:state.armies.map(a=>({id:a.id,campaignId:a.campaignId,side:a.side,houseId:a.houseId,commanderId:a.commanderId,strength:a.strength,initialStrength:a.initialStrength,morale:Math.round(a.morale),supply:Math.round(a.supply),progress:Math.round(a.progress*100)/100,status:a.status})),owners:world.settlements.map(s=>({id:s.id,owner:s.owner}))}}
 
 /* ============================================================
- * ANNALS MODULE 21/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 21/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/threat-boundary.js
  * ============================================================ */
 ;
 
 /* ============================================================
- * ANNALS MODULE 22/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 22/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/threats.js
  * ============================================================ */
 const BANDIT_LIMIT=4,DRAGON_HISTORY_LIMIT=8,MYTH_LEVELS=['off','low','high'];
@@ -498,19 +499,19 @@ tick=function(){threatBaseTick();updatePlague();updateBandits();updateDragon()};
 function threatSummary(){initThreats();let state=threatState();return{myth:state.myth,banditLimit:BANDIT_LIMIT,banditCamps:state.banditCamps.map(c=>({...c})),dragon:{awake:state.dragon.awake,lastRaid:state.dragon.lastRaid,raids:state.dragon.raids.map(r=>({...r}))},plague:world.settlements.map(s=>({id:s.id,name:s.name,infected:Math.round(s.disease.infected),recovered:Math.round(s.disease.recovered),dead:Math.round(s.disease.dead),quarantined:s.disease.quarantined}))}}
 
 /* ============================================================
- * ANNALS MODULE 23/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 23/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/debug-channel.js
  * ============================================================ */
 ;if(typeof window!=='undefined')window.ANNALS_DEBUG=window.ANNALS_DEBUG||{};
 
 /* ============================================================
- * ANNALS MODULE 24/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 24/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/event-metadata.js
  * ============================================================ */
 ;eventChronicle=function(type,severity,location,text,details={}){return emitWorldEvent(type,{severity,location,causes:details.causes||[],consequences:details.consequences||[],participants:details.participants||[],metadata:{...(details.metadata||{}),chronicle:{class:details.class||annalClass(type),priority:details.priority??severity,text,kind:details.kind||type},director:details.director===false?false:{priority:details.priority??severity},source:details.source||'simulation'}})};
 
 /* ============================================================
- * ANNALS MODULE 25/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 25/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/life-arcs.js
  * ============================================================ */
 ;const LIFE_ARC_LIMIT=16,LIFE_ARC_HISTORY_LIMIT=48,LIFE_ARC_GENERIC_EPITHETS=new Set(['the Steadfast','the Ledger-Keeper','the Far-Seeing','the Remembered']);
@@ -555,13 +556,13 @@ function runNotableHazardMatrix(seed){clock={day:1,speed:8,acc:0};director={queu
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.lifeArcs=lifeArcSummary;window.ANNALS_DEBUG.runNotableAcceptance=runNotableAcceptance;window.ANNALS_DEBUG.runNotableHazardMatrix=runNotableHazardMatrix;window.ANNALS_DEBUG.arrangeAllianceMarriage=()=>arrangeAllianceMarriage(true);window.ANNALS_DEBUG.recordAllianceBirth=()=>recordAllianceBirth(true)}
 
 /* ============================================================
- * ANNALS MODULE 26/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 26/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/life-arc-classification.js
  * ============================================================ */
 ;lifeArcDeathCategory=function(reason=''){let text=String(reason).toLowerCase();if(/\b(battle|skirmish|war)\b|wounds/.test(text))return'battle';if(/\b(plague|fever|pestilence)\b/.test(text))return'plague';if(/\b(assassin|assassination|murder|poison|grudge)\b/.test(text))return'assassination';if(/\b(fire|flood|earthquake|storm|dragon|disaster|drought)\b/.test(text))return'disaster';if(/\b(age|aged|elderly)\b|old age|long account/.test(text))return'age';return null};
 
 /* ============================================================
- * ANNALS MODULE 27/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 27/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/life-arc-evidence.js
  * ============================================================ */
 ;const lifeArcEvidenceBaseObserve=observeLifeArcEvent;
@@ -571,7 +572,7 @@ runNotableAcceptance=function(seed,days=ACCEPTANCE_THIRTY_MINUTE_DAYS){let repor
 if(typeof window!=='undefined')window.ANNALS_DEBUG.runNotableAcceptance=runNotableAcceptance;
 
 /* ============================================================
- * ANNALS MODULE 28/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 28/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/life-arc-completion.js
  * ============================================================ */
 ;function seedNotableHouseholds(){let state=lifeArcState();if(state.householdsSeeded)return;state.householdsSeeded=true;initDynasties();for(const dynasty of dynastyState().registry){let members=dynasty.memberIds.map(characterById).filter(c=>c?.status==='alive').sort((a,b)=>b.age-a.age||a.id.localeCompare(b.id)),elders=members.filter(c=>c.age>=46),young=members.filter(c=>c.age<=36);for(let i=0;i<Math.min(2,elders.length,young.length);i++){let parent=elders[i],child=young[young.length-1-i];if(parent.id!==child.id&&parent.age-child.age>=18&&!lifeArcCloseFamily(parent,child))linkParent(parent,child)}}let elder=lifeArcLiving().filter(c=>c.role!=='monarch'&&c.role!=='heir'&&c.age>=66&&(c.childIds||[]).some(id=>characterById(id)?.status==='alive')).sort((a,b)=>b.age-a.age||a.id.localeCompare(b.id))[0];state.inheritanceElderId=elder?.id||null;state.inheritanceMilestoneDay=Math.floor(clock.day)+1080}
@@ -583,7 +584,7 @@ tick=function(){lifeArcCompletionBaseTick();completeInheritanceMilestone()};
 if(typeof window!=='undefined')window.ANNALS_DEBUG.seedNotableHouseholds=seedNotableHouseholds;
 
 /* ============================================================
- * ANNALS MODULE 29/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 29/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/stability.js
  * ============================================================ */
 ;const STABILITY_ARCHIVE_LIMIT=256,STABILITY_RECENT_DEAD=24,STABILITY_CHECKPOINT_LIMIT=32;
@@ -616,7 +617,7 @@ function stabilitySnapshot(){initEconomy();initCharacters();initThreats();let st
 function stabilitySummary(){return stabilitySnapshot()}
 
 /* ============================================================
- * ANNALS MODULE 30/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 30/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/narrative-pacing.js
  * ============================================================ */
 ;const STABILITY_NARRATIVE_POLICIES={
@@ -633,7 +634,7 @@ allowStabilityNarrative=function(type){let policy=STABILITY_NARRATIVE_POLICIES[t
 eventChronicle=function(type,severity,location,text,details={}){if(allowStabilityNarrative(type))return stabilityBaseEventChronicle(type,severity,location,text,details);return emitWorldEvent(type,{severity,location,causes:details.causes||[],consequences:details.consequences||[],participants:details.participants||[],metadata:{...(details.metadata||{}),source:details.source||'simulation',director:false,suppressedChronicle:true,suppressedKind:details.kind||type}})};
 
 /* ============================================================
- * ANNALS MODULE 31/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 31/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/economy-completion.js
  * ============================================================ */
 ;const ECONOMY_ACCEPTANCE_DAYS=18000,COG_LIMIT=2;
@@ -676,7 +677,7 @@ function runEconomyAcceptance(seed,days=ECONOMY_ACCEPTANCE_DAYS){let main=simula
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runEconomyAcceptance=runEconomyAcceptance;window.ANNALS_DEBUG.economyCompletion=()=>economySummary();window.ANNALS_DEBUG.economyAcceptanceDays=ECONOMY_ACCEPTANCE_DAYS}
 
 /* ============================================================
- * ANNALS MODULE 32/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 32/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/economy-disruption-completion.js
  * ============================================================ */
 ;function preferredBanditRoadIndex(){let counts=new Map();for(const t of economyState().trades){let i=world.roads.findIndex(r=>(r.a===t.fromId&&r.b===t.toId)||(r.a===t.toId&&r.b===t.fromId));if(i>=0)counts.set(i,(counts.get(i)||0)+1)}let used=new Set(threatState().banditCamps.map(c=>c.roadIndex)),ranked=[...counts.entries()].filter(([i])=>!used.has(i)).sort((a,b)=>b[1]-a[1]||a[0]-b[0]);if(ranked.length)return ranked[0][0];let available=world.roads.map((r,i)=>({r,i})).filter(x=>!used.has(x.i));return available.length?available[0].i:null}
@@ -697,14 +698,14 @@ runEconomyAcceptance=function(seed,days=ECONOMY_ACCEPTANCE_DAYS){let main=simula
 if(typeof window!=='undefined')window.ANNALS_DEBUG.runEconomyAcceptance=runEconomyAcceptance;
 
 /* ============================================================
- * ANNALS MODULE 33/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 33/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/economy-narrative-pacing.js
  * ============================================================ */
 ;const ECONOMY_NARRATIVE_COOLDOWNS={'food-shortage':120,'market-shortage':180,'hunger-cascade':180},economyNarrativeBaseEventChronicle=eventChronicle;
 eventChronicle=function(type,severity,location,text,details={}){let cooldown=ECONOMY_NARRATIVE_COOLDOWNS[type];if(!cooldown||clock.day<360)return economyNarrativeBaseEventChronicle(type,severity,location,text,details);let state=economyCompletionState(),key=`economy:${type}`,last=state.narrativeLast?.[key]??-Infinity;if(clock.day-last>=cooldown){state.narrativeLast=state.narrativeLast||{};state.narrativeLast[key]=Math.floor(clock.day);return economyNarrativeBaseEventChronicle(type,severity,location,text,details)}state.suppressedEconomyNarrative=state.suppressedEconomyNarrative||{};state.suppressedEconomyNarrative[type]=(state.suppressedEconomyNarrative[type]||0)+1;return emitWorldEvent(type,{severity,location,causes:details.causes||[],consequences:details.consequences||[],participants:details.participants||[],metadata:{...(details.metadata||{}),source:details.source||'economy-system',director:false,suppressedChronicle:true,suppressedKind:details.kind||type}})};
 
 /* ============================================================
- * ANNALS MODULE 34/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 34/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/disaster-completion.js
  * ============================================================ */
 ;const DISASTER_HISTORY_LIMIT=48,DISASTER_BRIDGE_REPAIR_DAYS=180;
@@ -745,7 +746,7 @@ function runDisasterAcceptance(seed){let fire=fireAcceptanceProbe(seed);resetDis
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runDisasterAcceptance=runDisasterAcceptance;window.ANNALS_DEBUG.disasters=()=>disasterSummary();window.ANNALS_DEBUG.startUrbanFire=startUrbanFire;window.ANNALS_DEBUG.floodRealm=floodRealm;window.ANNALS_DEBUG.earthquake=earthquake;window.ANNALS_DEBUG.emitOmen=emitOmen;window.ANNALS_DEBUG.postBanditBounty=postBanditBounty}
 
 /* ============================================================
- * ANNALS MODULE 35/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 35/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/disaster-corrections.js
  * ============================================================ */
 ;startUrbanFire=function(settlement=pressure(),options={}){let state=disasterState(),lots=disasterLots(settlement);if(!lots.length)return null;let id=`${world.seed}:fire${state.nextId++}`,weather=options.weather||world.weather,drought=options.drought??world.drought,origin=options.origin||lots.slice().sort((a,b)=>a.id.localeCompare(b.id))[0],roll=disasterRoll(id),limit=weather==='Storm'?2:weather==='Rain'?3:12,queue=[origin],seen=new Set(),damaged=[];while(queue.length&&damaged.length<limit){let lot=queue.shift();if(seen.has(lot.id))continue;seen.add(lot.id);if(!ruinDisasterLot(lot,'urban fire'))continue;damaged.push(lot);let neighbours=lots.filter(n=>!seen.has(n.id)&&Math.hypot(n.x-lot.x,n.z-lot.z)<72).sort((a,b)=>Math.hypot(a.x-lot.x,a.z-lot.z)-Math.hypot(b.x-lot.x,b.z-lot.z));for(const n of neighbours){let material=n.tier==='stone'?-0.2:n.tier==='hovel'?0.18:0.1,dry=drought?0.28:0,rain=weather==='Storm'?-0.72:weather==='Rain'?-0.58:0,wind=0.08*Math.sin((lot.angle||0)-(n.angle||0)),chance=clamp(0.42+material+dry+rain+wind,0.01,0.92)*preparationFactor('fire');if(roll()<chance)queue.push(n)}}if(drought&&weather==='Clear'&&damaged.length<3){for(const lot of lots.filter(l=>!seen.has(l.id)).sort((a,b)=>Math.hypot(a.x-origin.x,a.z-origin.z)-Math.hypot(b.x-origin.x,b.z-origin.z)).slice(0,3-damaged.length))if(ruinDisasterLot(lot,'drought-fed urban fire'))damaged.push(lot)}let rainSuppressed=['Rain','Storm'].includes(weather),loss=damaged.length;settlement.prosperity=clamp(settlement.prosperity-loss*1.8,0,100);settlement.unrest=clamp(settlement.unrest+loss*1.15,0,100);settlement.stores.grain=clamp(settlement.stores.grain-loss*12,0,Math.max(300,settlement.pop*1.8));settlement.stores.timber=clamp(settlement.stores.timber-loss*8,0,Math.max(300,settlement.pop*1.8));let scar=createHistoricalScar('fire-scar',origin,'adjacent roofs carried an urban fire',{state:'ruin',name:`Burned Street of ${settlement.name}`}),fire={id,day:Math.floor(clock.day),settlementId:settlement.id,originLotId:origin.id,damagedLotIds:damaged.map(l=>l.id),weather,drought:!!drought,rainSuppressed,scarId:scar?.id||null,activeUntil:Math.floor(clock.day+35)};boundedDisaster(state.fires,fire);eventChronicle('fire',9,scar||origin,`${settlement.name} lost ${loss} neighbouring holdings as flame crossed the street from roof to roof; ${rainSuppressed?'rain confined the fire to a small cluster':'dry timber and close lots carried the fire onward'}.`,{class:'fate',kind:'disaster',scarId:scar?.id,participants:[settlement.name],causes:[drought?'drought dried roofs and yards':'an urban ignition reached adjacent lots',`${weather.toLowerCase()} weather shaped the spread`],consequences:[`${loss} adjacent buildings became ruins`,'stores and prosperity fell','unrest increased'],source:'disaster-system'});refreshSettlementDetails();return fire};
@@ -753,7 +754,7 @@ ensureProphet=function(){let state=disasterState(),registry=characterState().reg
 earthquake=function(options={}){let state=disasterState(),centre=options.centre||world.settlements.slice().sort((a,b)=>b.site.defence-a.site.defence)[0],radius=options.radius||700,severity=clamp(options.severity||1,0.5,1.7),roll=disasterRoll(`quake${state.nextId}`),damaged=[],cap=48;outer:for(const s of world.settlements)for(const lot of disasterLots(s)){if(damaged.length>=cap)break outer;let d=Math.hypot(lot.x-centre.x,lot.z-centre.z);if(d>radius)continue;let tier=lot.tier==='stone'?0.08:lot.tier==='hovel'?0.24:0.16,chance=clamp((1-d/radius)*0.72*severity+tier,0,0.88)*preparationFactor('earthquake');if(roll()<chance&&ruinDisasterLot(lot,'earthquake')){damaged.push(lot);s.prosperity=clamp(s.prosperity-0.35,0,100);s.unrest=clamp(s.unrest+0.25,0,100)}}if(!damaged.length){let closest=world.settlements.flatMap(s=>disasterLots(s)).sort((a,b)=>Math.hypot(a.x-centre.x,a.z-centre.z)-Math.hypot(b.x-centre.x,b.z-centre.z))[0];if(closest&&ruinDisasterLot(closest,'earthquake'))damaged.push(closest)}let bridges=[];for(const [roadIndex,r] of world.roads.entries())for(const [bridgeIndex,b] of r.bridges.entries())if(Math.hypot(b.x-centre.x,b.z-centre.z)<radius*0.72&&roll()<0.45*severity&&damageDisasterBridge(b,'earthquake'))bridges.push({roadIndex,bridgeIndex});let target=damaged[0]||centre,scar=createHistoricalScar('ruined-structure',target,'an earthquake broke the old ground',{state:'ruin',name:`Quake Ruin near ${centre.name||'the epicentre'}`}),quake={id:`${world.seed}:quake${state.nextId++}`,day:Math.floor(clock.day),x:centre.x,z:centre.z,radius,severity,damagedLotIds:damaged.map(l=>l.id),bridges,scarId:scar?.id||null};boundedDisaster(state.quakes,quake);eventChronicle('earthquake',9,scar||centre,`The ground broke within ${Math.round(radius)} paces of ${centre.name||'the epicentre'}; ${damaged.length} holdings and ${bridges.length} bridges failed inside the shaking radius.`,{class:'fate',kind:'disaster',scarId:scar?.id,participants:[centre.name].filter(Boolean),causes:['an earthquake struck a bounded epicentre'],consequences:[`${damaged.length} buildings became ruins`,`${bridges.length} bridges were damaged`],source:'disaster-system'});refreshSettlementDetails();return quake};
 
 /* ============================================================
- * ANNALS MODULE 36/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 36/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/disaster-prophet-invariant.js
  * ============================================================ */
 ;function appointHighMythProphet(){let state=disasterState(),existing=characterById(state.prophetId);if(existing&&existing.status==='alive'){existing.role='prophet';existing.epithet=existing.epithet||'the Star-Watcher';return existing}let p=characterState().registry.find(c=>c.status==='alive'&&c.role==='prophet')||characterState().registry.find(c=>c.status==='alive'&&['clergy','high priest'].includes(c.role))||characterState().registry.find(c=>c.status==='alive'&&!['monarch','heir'].includes(c.role));if(!p)p=createCharacter('prophet',world.settlements[0],0,irnd(hisR,28,58));if(!p)return null;let newlyAppointed=p.role!=='prophet'||state.prophetId!==p.id;p.role='prophet';p.epithet=p.epithet||'the Star-Watcher';state.prophetId=p.id;if(newlyAppointed)eventChronicle('prophet',8,characterHome(p),`${p.name} was thereafter called ${p.epithet}; High Myth required a living named interpreter whenever prophecy entered public policy.`,{class:'crown',kind:'omen',participants:[p.id],causes:['High Myth made prophecy a formal office'],consequences:['a living named prophet entered the realm'],source:'disaster-system'});return p}
@@ -763,7 +764,7 @@ const prophetInvariantBaseEmitOmen=emitOmen;
 emitOmen=function(options={}){let level=options.level||threatState().myth,prophet=level==='high'?appointHighMythProphet():null,omen=prophetInvariantBaseEmitOmen(options);if(omen&&level==='high'&&prophet){omen.prophetId=prophet.id;disasterState().prophetId=prophet.id}return omen};
 
 /* ============================================================
- * ANNALS MODULE 37/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 37/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/disaster-acceptance-completion.js
  * ============================================================ */
 ;function plagueTradeAcceptanceProbe(seed){resetDisasterWorld(seed,'off');seedPlague();let source=world.settlements.find(s=>(s.disease?.infected||0)>0),road=world.roads.find(r=>r.a===source?.id||r.b===source?.id),target=road?world.settlements[road.a===source.id?road.b:road.a]:world.settlements.find(s=>s!==source);if(!source||!target)return{spread:false,quarantined:false,sourceId:source?.id??null,targetId:target?.id??null};source.disease.infected=Math.max(source.disease.infected,source.pop*0.3);source.disease.susceptible=Math.max(0,source.pop-source.disease.infected);for(let i=0;i<160&&!target.disease.quarantined;i++){plagueFromTrade({id:`acceptance-plague-${i}`,fromId:source.id,toId:target.id,amount:300,status:'arrived'});updatePlague()}return{spread:target.disease.infected>0,quarantined:target.disease.quarantined,sourceId:source.id,targetId:target.id,infected:Math.round(target.disease.infected),rate:Math.round(target.disease.infected/Math.max(1,target.pop)*10000)/10000}}
@@ -772,7 +773,7 @@ runDisasterAcceptance=function(seed){let plague=plagueTradeAcceptanceProbe(seed)
 if(typeof window!=='undefined')window.ANNALS_DEBUG.runDisasterAcceptance=runDisasterAcceptance;
 
 /* ============================================================
- * ANNALS MODULE 38/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 38/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/war-completion.js
  * ============================================================ */
 ;const WAR_PHASE_HISTORY_LIMIT=24,WAR_DISTRICT_RUIN_LIMIT=12;
@@ -809,7 +810,14 @@ function runWarAcceptance(seed){let newDynasty=runWarOutcomeProbe(seed,'new-dyna
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runWarAcceptance=runWarAcceptance;window.ANNALS_DEBUG.warSummary=()=>warSummary();window.ANNALS_DEBUG.startCivilWar=()=>startCivilWar()}
 
 /* ============================================================
- * ANNALS MODULE 39/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 39/93 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/war-territory-correction.js
+ * ============================================================ */
+;const warTerritoryBaseEndWar=endWar;
+endWar=function(c,outcome,winner){let result=warTerritoryBaseEndWar(c,outcome,winner);if(!result)return result;let resolved=result.outcome,target=world.settlements[result.targetSettlementId];if(resolved==='settlement-ceded'&&winner&&target)target.owner=winner.houseId;if(result.peace){result.peace.ownerChanges=world.settlements.map((s,i)=>({settlementId:s.id,before:result.startedOwners?.[i],after:s.owner})).filter(x=>x.before!==x.after)}return result};
+
+/* ============================================================
+ * ANNALS MODULE 40/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/war-acceptance-completion.js
  * ============================================================ */
 ;function completedWarOutcomeProbe(seed,outcome,rebelWins=true){resetWarAcceptanceWorld(seed);clock.day=500;world.houses[1].loyalty=8;if(world.houses[2])world.houses[2].loyalty=92;let c=startCivilWar();if(!c)return{outcome,failed:'no campaign'};c.forcedOutcome=outcome;let armies=c.armyIds.map(id=>campaignArmy(c,id)),rebel=armies.find(a=>a.side==='rebel'&&!a.isAlly),crown=armies.find(a=>a.side==='crown'&&!a.isAlly);if(rebel&&crown){rebel.strength=rebel.initialStrength=rebelWins?820:160;crown.strength=crown.initialStrength=rebelWins?170:820;rebel.supply=crown.supply=150}let marched=false,siegePrimed=false;for(let i=0;i<240&&c.status!=='ended';i++){clock.day++;warDay();marched=marched||warState().armies.some(a=>a.progress>.15);if(c.status==='siege'&&c.siege){let target=world.settlements[c.targetSettlementId],elapsed=clock.day-c.siege.startDay;if(!siegePrimed){c.siege.granary=Math.max(c.siege.granary,target.pop*.62);let besieger=campaignArmy(c,c.siege.armyId);if(besieger)besieger.supply=190;siegePrimed=true}if(elapsed>36)c.siege.granary=Math.min(c.siege.granary,target.pop*.02)}}let summary=warSummary().campaigns.find(x=>x.id===c.id),battleScar=summary?.battle?.scarId&&scarById(summary.battle.scarId);return{requested:outcome,marched,battle:summary?.battle||null,battleScar:battleScar?scarSummary(battleScar):null,siege:summary?.siege||null,outcome:summary?.outcome,warScore:summary?.warScore,exhaustion:summary?.exhaustion,occupation:summary?.occupation,allies:summary?.alliedHouseIds||[],ruinedDistricts:summary?.ruinedDistricts||[],commanderOutcome:summary?.commanderOutcome||null,peace:summary?.peace||null,owners:world.settlements.map(s=>s.owner),dynasties:dynastyState().registry.map(d=>dynastySummary(d)),armies:warSummary().armies}}
@@ -818,7 +826,7 @@ runWarAcceptance=function(seed){let newDynasty=runWarOutcomeProbe(seed,'new-dyna
 if(typeof window!=='undefined')window.ANNALS_DEBUG.runWarAcceptance=runWarAcceptance;
 
 /* ============================================================
- * ANNALS MODULE 40/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 41/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/growth-baseline.js
  * ============================================================ */
 ;function foundingExpansionCandidate(){return world.settlements.filter(s=>s.layout&&s.layout.lots.length<=420).slice().sort((a,b)=>(b.prosperity+b.pop/100-b.hunger*.3-b.unrest*.2)-(a.prosperity+a.pop/100-a.hunger*.3-a.unrest*.2)||a.id-b.id)[0]||null}
@@ -827,7 +835,7 @@ const foundingBaseGrowSettlement=growSettlement;
 growSettlement=function(s){let before=world.buildings.length;foundingBaseGrowSettlement(s);if(world.buildings.length>before){s.growth.last=Math.floor(clock.day);world.story.firstExpansionDone=true;return}if(world.story.firstExpansionDone||clock.day<720||clock.day<s.growth.next||s!==foundingExpansionCandidate())return;forceFoundingExpansion(s)};
 
 /* ============================================================
- * ANNALS MODULE 41/92 · SIMULATION & CHRONICLE SYSTEMS
+ * ANNALS MODULE 42/93 · SIMULATION & CHRONICLE SYSTEMS
  * Source: src/simulation/acceptance.js
  * ============================================================ */
 ;const ACCEPTANCE_REGRESSION_SEEDS=['1234567','987654','424242'],ACCEPTANCE_FIVE_MINUTE_DAYS=2400,ACCEPTANCE_THIRTY_MINUTE_DAYS=14400,ACCEPTANCE_GENERATION_LIMIT_MS=10000;
@@ -853,7 +861,7 @@ function acceptanceSummary(){let state=acceptanceState();if(!state.active)return
 function runAcceptanceSuite(seed,days=ACCEPTANCE_THIRTY_MINUTE_DAYS){let requestedDays=Math.max(1,Math.floor(days)),started=acceptanceNow(),generationStarted=acceptanceNow();try{clock={day:1,speed:8,acc:0};director={queue:[],until:0,suspend:0};world=makeWorld(String(seed));let generationMs=Math.round((acceptanceNow()-generationStarted)*10)/10;world.headless=true;firstEntries();startAcceptanceTracking();for(let i=0;i<requestedDays;i++){tick();director.queue.length=0}let summary=acceptanceSummary();clock.speed=0;let durationMs=Math.round((acceptanceNow()-started)*10)/10,generation={durationMs:generationMs,limitMs:ACCEPTANCE_GENERATION_LIMIT_MS,passed:generationMs<=ACCEPTANCE_GENERATION_LIMIT_MS};return{seed:String(seed),knownSeed:ACCEPTANCE_REGRESSION_SEEDS.includes(String(seed)),requestedDays,durationMs,generation,passed:generation.passed&&(requestedDays>=ACCEPTANCE_THIRTY_MINUTE_DAYS?summary.thirtyMinute.passed:requestedDays>=ACCEPTANCE_FIVE_MINUTE_DAYS?summary.fiveMinute.passed:true),fiveMinute:summary.fiveMinute,thirtyMinute:summary.thirtyMinute,counters:summary.counters,stability:stabilitySummary(),knownSeeds:[...ACCEPTANCE_REGRESSION_SEEDS],windows:summary.windows}}catch(error){return{seed:String(seed),knownSeed:ACCEPTANCE_REGRESSION_SEEDS.includes(String(seed)),requestedDays,durationMs:Math.round((acceptanceNow()-started)*10)/10,generation:{durationMs:Math.round((acceptanceNow()-generationStarted)*10)/10,limitMs:ACCEPTANCE_GENERATION_LIMIT_MS,passed:false},passed:false,error:String(error?.stack||error?.message||error),knownSeeds:[...ACCEPTANCE_REGRESSION_SEEDS],windows:{fiveMinuteDays:ACCEPTANCE_FIVE_MINUTE_DAYS,thirtyMinuteDays:ACCEPTANCE_THIRTY_MINUTE_DAYS}}}}
 
 /* ============================================================
- * ANNALS MODULE 42/92 · RENDERING
+ * ANNALS MODULE 43/93 · RENDERING
  * Source: src/rendering/scene.js
  * ============================================================ */
 function setupScene(){if(typeof THREE==='undefined')throw Error('Three.js r128 did not load');scene=new THREE.Scene();scene.fog=new THREE.Fog(0xa8b8c4,1500,7600);camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,12000);camera.position.set(0,1750,2650);camera.userData.target=new THREE.Vector3(0,0,0);renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));app.appendChild(renderer.domElement);scene.add(new THREE.HemisphereLight(0xd9ecff,0x4b3423,1.2));let sun=new THREE.DirectionalLight(0xfff1c2,1.5);sun.position.set(-1200,2300,900);scene.add(sun);terrainMesh();waterMesh();roadMeshes();settlementMeshes();labelsRefresh();if(typeof document!=='undefined'){drawer();hud()}}
@@ -877,7 +885,7 @@ function labelsRefresh(){if(typeof document==='undefined')return;if(!labels.leng
 function drawLabels(){for(const l of labels){let v=new THREE.Vector3(l.s.x,l.s.y+125,l.s.z).project(camera);l.el.style.left=(v.x*.5+.5)*innerWidth+'px';l.el.style.top=(-v.y*.5+.5)*innerHeight+'px';l.el.style.display=v.z<1&&camera.position.y>120?'block':'none'}}
 
 /* ============================================================
- * ANNALS MODULE 43/92 · RENDERING
+ * ANNALS MODULE 44/93 · RENDERING
  * Source: src/rendering/heraldry.js
  * ============================================================ */
 ;const sigilCanvasCache=new Map(),sigilDataCache=new Map(),sigilTextureCache=new Map(),sigilMaterialCache=new Map();
@@ -900,7 +908,7 @@ function armySigilEvidence(){let signatures=[];if(typeof warMarkerGroup!=='undef
 function heraldrySummary(){let armySignatures=armySigilEvidence();return{worldBanners:settlementHeraldryGroup?.children.length||0,signatures:world.houses.map(h=>h.sigil?.signature||null),charges:world.houses.map(h=>h.sigil?.charge||null),materials:sigilMaterialCache.size,textures:sigilTextureCache.size,armyBanners:armySignatures.length,armySignatures}}
 
 /* ============================================================
- * ANNALS MODULE 44/92 · UI & CONTROLS
+ * ANNALS MODULE 45/93 · UI & CONTROLS
  * Source: src/ui/interface.js
  * ============================================================ */
 function renderChronicle(){let rows=world.events.filter(e=>world.filter==='all'||e.class===world.filter).slice(0,120);entries.innerHTML=rows.map((e,i)=>e.header?`<div class="entry crown reign-header" data-i="${i}"><div class="date">${dt(e.day)}</div><p class="txt">${safeName(e.text)}</p></div>`:`<div class="entry ${e.class}" data-i="${i}"><div class="date">${dt(e.day)} · ${safeName(e.kind||e.class)}${e.location?` · ${safeName(e.location)}`:''}</div><p class="txt">${safeName(e.text)}</p></div>`).join('');[...entries.children].forEach((el,i)=>el.onclick=()=>fly(rows[i].pos,rows[i].header?430:520,1800))}
@@ -912,7 +920,7 @@ function showInspector(data){if(!data||typeof document==='undefined')return;let 
 function handlePick(e){let rect=renderer.domElement.getBoundingClientRect(),mouse=new THREE.Vector2((e.clientX-rect.left)/rect.width*2-1,-((e.clientY-rect.top)/rect.height*2-1)),ray=new THREE.Raycaster();ray.setFromCamera(mouse,camera);let hit=ray.intersectObjects(pickables,true)[0];if(hit){let o=hit.object;while(o&&!o.userData.pick)o=o.parent;showInspector(o&&o.userData.pick);director.suspend=clock.day+20}}
 
 /* ============================================================
- * ANNALS MODULE 45/92 · UI & CONTROLS
+ * ANNALS MODULE 46/93 · UI & CONTROLS
  * Source: src/ui/character-interface.js
  * ============================================================ */
 function showCharacter(id){let c=characterById(id);if(!c||typeof document==='undefined')return;let home=characterHome(c),house=characterHouse(c),el=document.getElementById('inspect');el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(c.name)}</h3><div class="kv"><b>Role</b><span>${safeName(c.role)}</span><b>Status</b><span>${safeName(c.status)}</span><b>Age</b><span>${Math.floor(c.age)}</span><b>Home</b><span>${safeName(home.name)}</span><b>House</b><span>${safeName(house?house.name:'Unaffiliated')}</span><b>Stable ID</b><span>${safeName(c.id)}</span></div>`;director.suspend=clock.day+20}
@@ -923,7 +931,7 @@ const baseDrawer=drawer;
 drawer=function(){baseDrawer();let alive=characterState().registry.filter(c=>c.status==='alive').length;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Named people</b><p class="small">${characterState().registry.length} recorded · ${alive} alive · bounded at ${CHARACTER_LIMIT}. Select a settlement to inspect its residents.</p></div><div class="section"><b>Pressure and layout</b>`)};
 
 /* ============================================================
- * ANNALS MODULE 46/92 · RENDERING
+ * ANNALS MODULE 47/93 · RENDERING
  * Source: src/rendering/economy.js
  * ============================================================ */
 let tradeMarkerGroup=null,tradeMarkerMeshes=new Map();
@@ -932,7 +940,7 @@ function ensureTradeMarkers(){if(!scene||typeof THREE==='undefined')return;if(!t
 function updateTradeMeshes(){if(world?.economyState)ensureTradeMarkers()}
 
 /* ============================================================
- * ANNALS MODULE 47/92 · RENDERING
+ * ANNALS MODULE 48/93 · RENDERING
  * Source: src/rendering/war.js
  * ============================================================ */
 let warMarkerGroup=null,warMarkerStamp='';
@@ -944,7 +952,7 @@ function refreshWarMarkers(){if(!warMarkerGroup||typeof THREE==='undefined')retu
 function updateWarMarkers(){if(!warMarkerGroup)return;warMarkerGroup.visible=!camera||camera.position.y<2600;let state=warState(),stamp=`${Math.floor(clock.day)}:${state.campaigns.map(c=>c.status).join(',')}:${state.armies.map(a=>`${a.status}:${Math.round(a.progress*20)}`).join(',')}:${camera&&camera.position.y<1200?'near':'far'}`;if(stamp!==warMarkerStamp){warMarkerStamp=stamp;refreshWarMarkers()}}
 
 /* ============================================================
- * ANNALS MODULE 48/92 · RENDERING
+ * ANNALS MODULE 49/93 · RENDERING
  * Source: src/rendering/war-completion.js
  * ============================================================ */
 ;function warCompletionMaterial(key,colour,opacity=1){let m=new THREE.MeshLambertMaterial({color:colour,transparent:opacity<1,opacity,depthWrite:opacity>=1});m.userData.shared=false;m.name=key;return m}
@@ -953,13 +961,13 @@ const warCompletionBaseRefreshMarkers=refreshWarMarkers;
 refreshWarMarkers=function(){warCompletionBaseRefreshMarkers();if(!warMarkerGroup)return;for(const c of warState().campaigns.filter(x=>x.status==='siege'&&x.siege))addSiegeCompletionMarkers(c)};
 
 /* ============================================================
- * ANNALS MODULE 49/92 · RENDERING
+ * ANNALS MODULE 50/93 · RENDERING
  * Source: src/rendering/threat-boundary.js
  * ============================================================ */
 ;
 
 /* ============================================================
- * ANNALS MODULE 50/92 · RENDERING
+ * ANNALS MODULE 51/93 · RENDERING
  * Source: src/rendering/threats.js
  * ============================================================ */
 let threatMarkerGroup=null,threatMarkerKey='';
@@ -970,7 +978,7 @@ function refreshThreatMarkers(){if(!threatMarkerGroup||typeof THREE==='undefined
 function updateThreatMarkers(){if(!threatMarkerGroup)return;let state=threatState(),key=[Math.floor(clock.day),state.dragon.awake,state.banditCamps.map(c=>`${c.id}:${c.status}:${c.ambushes}`).join(','),world.settlements.map(s=>`${s.id}:${Math.floor((s.disease?.infected||0)/10)}:${s.disease?.quarantined?1:0}`).join(',')].join('|');threatMarkerGroup.visible=!camera||camera.position.y<2800;if(key!==threatMarkerKey){threatMarkerKey=key;refreshThreatMarkers()}}
 
 /* ============================================================
- * ANNALS MODULE 51/92 · RENDERING
+ * ANNALS MODULE 52/93 · RENDERING
  * Source: src/rendering/disasters.js
  * ============================================================ */
 ;let disasterMarkerGroup=null,disasterMarkerKey='';
@@ -987,7 +995,7 @@ const disasterRenderBaseUpdateThreatMarkers=updateThreatMarkers;
 updateThreatMarkers=function(){disasterRenderBaseUpdateThreatMarkers();if(!disasterMarkerGroup)return;let s=disasterState(),key=[Math.floor(clock.day/4),s.fires.map(x=>`${x.id}:${x.damagedLotIds.length}`).join(','),s.floods.map(x=>`${x.id}:${x.damagedLotIds.length}`).join(','),s.quakes.map(x=>`${x.id}:${x.damagedLotIds.length}`).join(','),s.omens.map(x=>`${x.id}:${x.level}`).join(',')].join('|');disasterMarkerGroup.visible=!camera||camera.position.y<2800;if(key!==disasterMarkerKey){disasterMarkerKey=key;refreshDisasterMarkers()}};
 
 /* ============================================================
- * ANNALS MODULE 52/92 · CAMERA & DIRECTOR
+ * ANNALS MODULE 53/93 · CAMERA & DIRECTOR
  * Source: src/director/camera.js
  * ============================================================ */
 function fly(pos,alt=600,dur=2200){camera.userData.fly={t0:performance.now(),dur,from:camera.position.clone(),to:new THREE.Vector3(pos.x,alt,pos.z+.75*alt),tf:camera.userData.target.clone(),tt:new THREE.Vector3(pos.x,hWorld(pos.x,pos.z)+20,pos.z)};director.suspend=clock.day+4}
@@ -996,7 +1004,7 @@ function directorTick(){if(director.queue.length&&clock.day>director.suspend){di
 function loop(t){requestAnimationFrame(loop);let dtm=Math.min(.05,(t-(loop.last||t))/1000);loop.last=t;clock.acc+=dtm*clock.speed;while(clock.acc>=1){tick();clock.acc--}move(dtm);directorTick();if(typeof updateTradeMeshes==='function')updateTradeMeshes(dtm);if(typeof updateWarMarkers==='function')updateWarMarkers();if(typeof updateThreatMarkers==='function')updateThreatMarkers();if(typeof updateHeraldry==='function')updateHeraldry();drawLabels();hud();renderer.render(scene,camera)}
 
 /* ============================================================
- * ANNALS MODULE 53/92 · CAMERA & DIRECTOR
+ * ANNALS MODULE 54/93 · CAMERA & DIRECTOR
  * Source: src/director/cinematic.js
  * ============================================================ */
 ;const CAMERA_MODES=['free','follow','director'],CAMERA_COOLDOWN_DAYS=24;
@@ -1018,7 +1026,7 @@ function cameraSummary(){let s=cinematicState();return{mode:s.mode,follow:s.foll
 if(typeof window!=='undefined'){window.addEventListener('wheel',e=>{if(!camera)return;manualCameraInput();camera.position.y=clamp(camera.position.y+e.deltaY*.7,90,4200)},{passive:true});window.addEventListener('pointerdown',e=>{if(e.target===renderer?.domElement&&e.button===1)manualCameraInput()});window.ANNALS_CAMERA={setMode:setCameraMode,followTrade,followArmy,followDragon,summary:cameraSummary}}
 
 /* ============================================================
- * ANNALS MODULE 54/92 · RENDERING
+ * ANNALS MODULE 55/93 · RENDERING
  * Source: src/rendering/atmosphere.js
  * ============================================================ */
 ;const LOD_BANDS={far:2600,mid:1400,near:650,bubble:260},AMBIENT_LIGHT_LIMIT=8,AMBIENT_PARTICLE_LIMIT=96;
@@ -1038,7 +1046,7 @@ function updateAmbientWorld(){if(!ambientRoot||!camera)return;let band=lodBandFo
 function renderingSummary(){return{band:ambientBand,bands:{...LOD_BANDS},lightLimit:AMBIENT_LIGHT_LIMIT,activeLights:ambientLights.length,particleLimit:AMBIENT_PARTICLE_LIMIT,weatherParticles:weatherRoot?.children[0]?.geometry?.attributes?.position?.count||0,objects:{far:farRoot?.children.length||0,near:nearRoot?.children.length||0,bubble:bubbleRoot?.children.length||0},drawCalls:renderer?.info?.render?.calls||0,triangles:renderer?.info?.render?.triangles||0,season:world.season,weather:world.weather}}
 
 /* ============================================================
- * ANNALS MODULE 55/92 · RENDERING
+ * ANNALS MODULE 56/93 · RENDERING
  * Source: src/rendering/overlays.js
  * ============================================================ */
 ;const OVERLAY_TYPES=['none','territories','trade','prosperity','plague','unrest','terrain'];
@@ -1072,7 +1080,7 @@ function overlaySummary(){let a=overlayState().active;return{active:a,types:[...
 if(typeof window!=='undefined')window.ANNALS_OVERLAYS={set:setOverlay,summary:overlaySummary,types:[...OVERLAY_TYPES]};
 
 /* ============================================================
- * ANNALS MODULE 56/92 · RENDERING
+ * ANNALS MODULE 57/93 · RENDERING
  * Source: src/rendering/scars.js
  * ============================================================ */
 let scarMarkerGroup=null;
@@ -1083,7 +1091,7 @@ setupScene=function(){scarBaseSetupScene();refreshScarMarkers()};
 move=function(dt){scarBaseMove(dt);if(scarMarkerGroup)scarMarkerGroup.visible=camera.position.y<2600};
 
 /* ============================================================
- * ANNALS MODULE 57/92 · UI & CONTROLS
+ * ANNALS MODULE 58/93 · UI & CONTROLS
  * Source: src/ui/scar-interface.js
  * ============================================================ */
 function showScar(id){let scar=scarById(id);if(!scar||typeof document==='undefined')return;let el=document.getElementById('inspect'),history=scar.history.map(h=>`${dt(h.day)} · ${safeName(h.state)} · ${safeName(h.note)}`).join('<br>');el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(scar.name)}</h3><div class="kv"><b>Type</b><span>${safeName(scar.type)}</span><b>State</b><span>${safeName(scar.state)}</span><b>Created</b><span>${dt(scar.createdDay)}</span><b>Cause</b><span>${safeName(scar.cause)}</span><b>Events</b><span>${scar.relatedEventIds.length}</span><b>Stable ID</b><span>${safeName(scar.id)}</span></div><div class="section"><b>Recorded changes</b><p class="small">${history}</p></div>`;fly(scar,scar.state==='memorial'?360:460,1500);director.suspend=clock.day+20}
@@ -1094,7 +1102,7 @@ const scarBaseDrawer=drawer;
 drawer=function(){scarBaseDrawer();let active=scarState().registry.filter(s=>!s.erased).length;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Historical scars</b><p class="small">${active} persistent marks · bounded at ${SCAR_LIMIT}. Markers render only below 2.6 km camera altitude.</p></div><div class="section"><b>Pressure and layout</b>`)};
 
 /* ============================================================
- * ANNALS MODULE 58/92 · UI & CONTROLS
+ * ANNALS MODULE 59/93 · UI & CONTROLS
  * Source: src/ui/memory-interface.js
  * ============================================================ */
 function showMemory(id){let m=memoryById(id);if(!m||typeof document==='undefined')return;let el=document.getElementById('inspect'),scar=m.scarId&&scarById(m.scarId);el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(m.name)}</h3><div class="kv"><b>Type</b><span>${safeName(m.type)}</span><b>Date</b><span>${safeName(dt(m.day))}</span><b>State</b><span>${safeName(m.state)} · strength ${Math.floor(m.strength)}</span><b>Place</b><span>${safeName(m.location.name||'the recorded place')}</span><b>Causes</b><span>${safeName(m.causes.join(', ')||'not recorded')}</span><b>Consequences</b><span>${safeName(m.consequences.join(', ')||'not recorded')}</span><b>Stable ID</b><span>${safeName(m.id)}</span><b>Related memories</b><span>${m.relatedMemoryIds.length}</span>${scar?`<b>Scar</b><span>${safeName(scar.name)}</span>`:''}</div>`;fly(m.location,480,1500);director.suspend=clock.day+20}
@@ -1105,7 +1113,7 @@ drawer=function(){memoryBaseDrawer();let memories=memoryState().registry,active=
 exportChronicle=function(){let ordered=world.events.slice().reverse(),lastYear=0,lines=[`THE ANNALS OF ${world.title.toUpperCase()}`,`Seed ${world.seed}`,'A deterministic history of the realm','========================================',''];for(const e of ordered){let year=Math.floor((e.day-1)/360)+1;if(year!==lastYear){lines.push('',`YEAR ${year}`,'------');lastYear=year}let structured=e.eventId&&worldEventState().registry.find(x=>x.id===e.eventId),memory=structured&&structured.metadata&&memoryById(structured.metadata.memoryRefId);if(e.header)lines.push('',e.text.toUpperCase(),'');else{lines.push(`${dt(e.day)} [${String(e.kind||e.class).toUpperCase()}]${e.location?` — ${e.location}`:''}`,e.text);if(memory)lines.push(`Remembered as: ${memory.name} (${memory.id})`);lines.push('')}}lines.push(`Thus ends the surviving record of ${world.title}.`);let url=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=`annals-${world.seed}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 
 /* ============================================================
- * ANNALS MODULE 59/92 · UI & CONTROLS
+ * ANNALS MODULE 60/93 · UI & CONTROLS
  * Source: src/ui/dynasty-interface.js
  * ============================================================ */
 function showDynasty(id){let d=dynastyById(id);if(!d||typeof document==='undefined')return;let el=document.getElementById('inspect'),members=d.memberIds.map(characterById).filter(Boolean);el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(d.name)}</h3><div class="kv"><b>Status</b><span>${safeName(d.status)}</span><b>Founder</b><span>${safeName(characterById(d.founderId)?.name||'Unknown')}</span><b>Members</b><span>${members.map(c=>`${safeName(c.name)} · ${safeName(c.role)} · ${safeName(c.status)}`).join('<br>')}</span><b>Reigns</b><span>${d.reignIds.length}</span><b>Stable ID</b><span>${safeName(d.id)}</span></div>`}
@@ -1117,7 +1125,7 @@ const dynastyBaseExport=exportChronicle;
 exportChronicle=function(){let old=URL.createObjectURL,extra=dynastyState().reigns.map(r=>{let m=characterById(r.monarchId);return`${r.id}: ${m?m.name:r.monarchId} by ${r.basis}${r.contested?' [CONTESTED]':''}`}).join('\n');URL.createObjectURL=function(blob){return old(new Blob([blob,`\n\nDYNASTIC SUCCESSION\n--------------------\n${extra}`],{type:'text/plain;charset=utf-8'}))};try{dynastyBaseExport()}finally{URL.createObjectURL=old}};
 
 /* ============================================================
- * ANNALS MODULE 60/92 · UI & CONTROLS
+ * ANNALS MODULE 61/93 · UI & CONTROLS
  * Source: src/ui/notable-interface.js
  * ============================================================ */
 const notableBaseShowCharacter=showCharacter,notableBaseDrawer=drawer;
@@ -1125,7 +1133,7 @@ showCharacter=function(id){let c=characterById(id);if(!c||typeof document==='und
 drawer=function(){notableBaseDrawer();let alive=characterState().registry.filter(c=>c.status==='alive').length,repeat=characterState().registry.filter(c=>(c.appearances||0)>=3).length;drawer.innerHTML=drawer.innerHTML.replace(/bounded at \d+/,`bounded at ${NOTABLE_LIMIT}`).replace('Select a settlement to inspect its residents.',`${repeat} recurring lives have appeared at least three times. Select a settlement to inspect its residents.`)};
 
 /* ============================================================
- * ANNALS MODULE 61/92 · UI & CONTROLS
+ * ANNALS MODULE 62/93 · UI & CONTROLS
  * Source: src/ui/economy-interface.js
  * ============================================================ */
 const economyBaseShowInspector=showInspector,economyBaseDrawer=drawer,economyBaseHud=hud;
@@ -1134,7 +1142,7 @@ drawer=function(){economyBaseDrawer();initEconomy();let state=economyState(),act
 hud=function(){economyBaseHud();if(!world?.economyState||typeof document==='undefined')return;let state=economyState();meta.innerHTML+=`<span class="chip">Treasury ${Math.round(state.treasury)}</span><span class="chip">Caravans ${state.trades.filter(t=>t.status==='travelling').length}</span>`};
 
 /* ============================================================
- * ANNALS MODULE 62/92 · UI & CONTROLS
+ * ANNALS MODULE 63/93 · UI & CONTROLS
  * Source: src/ui/war-interface.js
  * ============================================================ */
 const warBaseDrawer=drawer,warBaseHud=hud;
@@ -1142,7 +1150,7 @@ drawer=function(){warBaseDrawer();let state=warState(),active=state.campaigns.fi
 hud=function(){warBaseHud();let active=warState().campaigns.find(c=>c.status!=='ended');if(active)meta.innerHTML+=`<span class="chip">${safeName(active.name)} · ${safeName(active.status)}</span>`};
 
 /* ============================================================
- * ANNALS MODULE 63/92 · UI & CONTROLS
+ * ANNALS MODULE 64/93 · UI & CONTROLS
  * Source: src/ui/threat-interface.js
  * ============================================================ */
 const threatBaseShowInspector=showInspector,threatBaseDrawer=drawer,threatBaseHud=hud;
@@ -1151,7 +1159,7 @@ drawer=function(){threatBaseDrawer();initThreats();let state=threatState(),infec
 hud=function(){threatBaseHud();if(!world?.threatState||typeof document==='undefined')return;let state=threatState(),infected=world.settlements.reduce((n,s)=>n+s.disease.infected,0);meta.innerHTML+=`<span class="chip">Myth ${safeName(state.myth)}</span><span class="chip">Plague ${Math.floor(infected)}</span>`};
 
 /* ============================================================
- * ANNALS MODULE 64/92 · UI & CONTROLS
+ * ANNALS MODULE 65/93 · UI & CONTROLS
  * Source: src/ui/camera-interface.js
  * ============================================================ */
 ;const cameraBaseDrawer=drawer,cameraBaseHud=hud,cameraBaseLoop=loop;
@@ -1162,7 +1170,7 @@ function renderLowerThird(){if(typeof document==='undefined')return;let s=cinema
 loop=function(t){cameraBaseLoop(t);renderLowerThird()};
 
 /* ============================================================
- * ANNALS MODULE 65/92 · UI & CONTROLS
+ * ANNALS MODULE 66/93 · UI & CONTROLS
  * Source: src/ui/product-surface.js
  * ============================================================ */
 ;function productUiState(){return world.productUiState||(world.productUiState={tab:'time'})}
@@ -1191,7 +1199,7 @@ if(typeof document!=='undefined'){let style=document.createElement('style');styl
 if(typeof window!=='undefined'){window.setDrawerTab=setDrawerTab;window.setTaxRate=setTaxRate;window.inspectTrade=inspectTrade;window.inspectArmy=inspectArmy;window.inspectBandit=inspectBandit;window.inspectDragon=inspectDragon;window.closeInspector=closeInspector}
 
 /* ============================================================
- * ANNALS MODULE 66/92 · UI & CONTROLS
+ * ANNALS MODULE 67/93 · UI & CONTROLS
  * Source: src/ui/economy-completion-interface.js
  * ============================================================ */
 ;const economyCompletionBaseInspectTrade=inspectTrade,economyCompletionBaseShowInspector=showInspector,economyCompletionBaseRatesPanel=ratesPanel,economyCompletionBaseWorldPanel=worldPanel;
@@ -1202,7 +1210,7 @@ worldPanel=function(){let base=economyCompletionBaseWorldPanel(),state=economyCo
 if(typeof window!=='undefined')window.inspectTrade=inspectTrade;
 
 /* ============================================================
- * ANNALS MODULE 67/92 · UI & CONTROLS
+ * ANNALS MODULE 68/93 · UI & CONTROLS
  * Source: src/ui/disaster-interface.js
  * ============================================================ */
 ;const disasterUiBaseActsPanel=actsPanel,disasterUiBaseWorldPanel=worldPanel,disasterUiBaseRatesPanel=ratesPanel,disasterUiBaseShowInspector=showInspector,disasterUiBaseHud=hud;
@@ -1215,7 +1223,7 @@ hud=function(){disasterUiBaseHud();if(typeof document==='undefined'||!world?.dis
 if(typeof window!=='undefined')window.postBanditBounty=postBanditBounty;
 
 /* ============================================================
- * ANNALS MODULE 68/92 · UI & CONTROLS
+ * ANNALS MODULE 69/93 · UI & CONTROLS
  * Source: src/ui/war-completion-interface.js
  * ============================================================ */
 ;function activeWarCampaign(){return warState().campaigns.find(c=>c.status!=='ended')||warState().campaigns.slice().reverse().find(Boolean)||null}
@@ -1229,7 +1237,7 @@ hud=function(){warCompletionUiBaseHud();let c=warState().campaigns.find(x=>x.sta
 if(typeof window!=='undefined'){window.inspectArmy=inspectArmy;window.startCivilWar=startCivilWar}
 
 /* ============================================================
- * ANNALS MODULE 69/92 · UI & CONTROLS
+ * ANNALS MODULE 70/93 · UI & CONTROLS
  * Source: src/ui/life-arc-interface.js
  * ============================================================ */
 ;function lifeArcPersonLink(c){return c?`<button onclick="showCharacter('${c.id}')">${safeName(c.name)}</button>`:'unknown'}
@@ -1239,7 +1247,7 @@ const lifeArcBaseHousesPanel=housesPanel;
 housesPanel=function(){let summary=lifeArcSummary(),recent=summary.marriages.slice(-4).reverse();return lifeArcBaseHousesPanel()+`<div class="section"><b>Families and remembered lives</b><div class="kv"><b>Living notables</b><span>${summary.living} / ${summary.limit}</span><b>Family links</b><span>${summary.familyCoverage}</span><b>Marriages</b><span>${summary.marriages.length}</span><b>Alliance births</b><span>${summary.births.length}</span><b>Recurring arcs</b><span>${summary.recurringArcs.length}</span></div><p class="small">${recent.length?recent.map(m=>{let a=characterById(m.aId),b=characterById(m.bId);return`${safeName(a?.name||m.aId)} and ${safeName(b?.name||m.bId)} · ${dt(m.day)}`}).join('<br>'):'No alliance marriage has yet entered the rolls.'}</p></div>`};
 
 /* ============================================================
- * ANNALS MODULE 70/92 · UI & CONTROLS
+ * ANNALS MODULE 71/93 · UI & CONTROLS
  * Source: src/ui/overlay-interface.js
  * ============================================================ */
 ;const overlayUiBaseDrawer=drawer,overlayUiBaseHud=hud;
@@ -1252,7 +1260,7 @@ if(typeof document!=='undefined'){let style=document.createElement('style');styl
 if(typeof window!=='undefined'){window.setDrawerTab=setDrawerTab;window.setOverlay=setOverlay}
 
 /* ============================================================
- * ANNALS MODULE 71/92 · RENDERING
+ * ANNALS MODULE 72/93 · RENDERING
  * Source: src/rendering/performance.js
  * ============================================================ */
 ;const PERFORMANCE_DRAW_CALL_BUDGET=250,PERFORMANCE_TRIANGLE_BUDGET=350000,PERFORMANCE_OBJECT_BUDGET=2400;
@@ -1298,7 +1306,7 @@ loop=function(t){let state=performanceState(),delta=state.lastFrame?Math.min(250
 if(typeof window!=='undefined')window.ANNALS_PERFORMANCE={summary:performanceSummary,setQuality:setPerformanceQuality,toggleMeter:togglePerformanceMeter,profiles:PERFORMANCE_PROFILES};
 
 /* ============================================================
- * ANNALS MODULE 72/92 · RENDERING
+ * ANNALS MODULE 73/93 · RENDERING
  * Source: src/rendering/performance-counts.js
  * ============================================================ */
 ;function countAllSceneNodes(){let count=0;if(scene)scene.traverse(()=>count++);return count}
@@ -1307,7 +1315,7 @@ const activeRenderablePerformanceSummary=performanceSummary;
 performanceSummary=function(){let summary=activeRenderablePerformanceSummary();summary.totalSceneNodes=countAllSceneNodes();return summary};
 
 /* ============================================================
- * ANNALS MODULE 73/92 · UI & CONTROLS
+ * ANNALS MODULE 74/93 · UI & CONTROLS
  * Source: src/ui/performance-interface.js
  * ============================================================ */
 ;function setPerformanceAuto(){let state=performanceState();state.forced=false;setPerformanceQuality(inferredPerformanceQuality(),false,'automatic device profile');return state.quality}
@@ -1319,13 +1327,13 @@ hud=function(){performanceBaseHud();let s=performanceState();meta.innerHTML+=`<s
 if(typeof window!=='undefined'){window.setPerformanceAuto=setPerformanceAuto;window.togglePerformanceMeter=togglePerformanceMeter;window.setPerformanceQuality=setPerformanceQuality}
 
 /* ============================================================
- * ANNALS MODULE 74/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 75/93 · DEBUG & ACCEPTANCE
  * Source: src/core/debug.js
  * ============================================================ */
 function runHeadless(seed,days,opt={}){clock={day:1,speed:8,acc:0};director={queue:[],until:0,suspend:0};world=makeWorld(seed);world.headless=true;if(opt.initialChronicle)firstEntries();for(let i=0;i<days;i++){if(opt.fireAt===i)act('fire');if(opt.droughtAt===i)act('drought');if(opt.festivalAt===i)act('festival');if(opt.grainAt===i)act('grain');tick();director.queue.length=0}return{seed,version:world.version,coastal:world.terrainSpec.coast.active,riverPaths:world.riverPaths.length,lakes:world.hydrology.lakes.length,resources:world.resources.reduce((a,r)=>(a[r.type]=(a[r.type]||0)+1,a),{}),events:world.events.map(e=>e.text),structuredEvents:structuredEvents(),eventLimit:WORLD_EVENT_LIMIT,eventCount:worldEventState().registry.length,settlements:world.settlements.map(s=>({name:s.name,type:s.type,x:Math.round(s.x),z:Math.round(s.z),lots:s.layout.lots.length,districts:s.layout.districts,site:s.site,hunger:s.hunger,unrest:s.unrest})),buildingCount:world.buildings.length,buildingTypes:[...new Set(world.buildings.map(b=>b.type))],buildingStates:world.buildings.reduce((a,b)=>(a[b.state]=(a[b.state]||0)+1,a),{}),roads:world.roads.map(r=>({a:r.a,b:r.b,points:r.pts.length,bridges:r.bridges.length,directness:directness(r)}))}}
 
 /* ============================================================
- * ANNALS MODULE 75/92 · ANIMATION & BOOT
+ * ANNALS MODULE 76/93 · ANIMATION & BOOT
  * Source: src/boot.js
  * ============================================================ */
 const ANNALS_SAFE_SEED='1234567';
@@ -1334,7 +1342,7 @@ function boot(){let requested=(location.hash.match(/s=([^&]+)/)||[])[1]||String(
 if(typeof window!=='undefined'){window.ANNALS_DEBUG={...(window.ANNALS_DEBUG||{}),makeWorld,runHeadless,hWorld,biomeAt:biome,structuredEvents,emitWorldEvent,eventLimit:WORLD_EVENT_LIMIT,safeSeed:ANNALS_SAFE_SEED,guards:runtimeGuardSummary,runtime:ANNALS_RUNTIME_INFO};window.ANNALS_RECOVERY={safeSeed:ANNALS_SAFE_SEED,retry:()=>{location.hash='s='+ANNALS_SAFE_SEED;location.reload()}};addEventListener('load',boot)}
 
 /* ============================================================
- * ANNALS MODULE 76/92 · UI & CONTROLS
+ * ANNALS MODULE 77/93 · UI & CONTROLS
  * Source: src/ui/acceptance-interface.js
  * ============================================================ */
 ;const acceptanceRequestedAtLoad=typeof location!=='undefined'&&location.hash.includes('accept=1'),acceptanceRequestedSeed=typeof location!=='undefined'?(location.hash.match(/s=([^&]+)/)||[])[1]||'1234567':'1234567';
@@ -1350,7 +1358,7 @@ if(typeof document!=='undefined'){let style=document.createElement('style');styl
 if(typeof window!=='undefined'){window.setDrawerTab=setDrawerTab;window.runAcceptanceInPlace=runAcceptanceInPlace;addEventListener('load',()=>{startAcceptanceTracking();if(window.ANNALS_DEBUG)Object.assign(window.ANNALS_DEBUG,{acceptanceSummary,runAcceptance:runAcceptanceSuite,acceptanceSeeds:[...ACCEPTANCE_REGRESSION_SEEDS],acceptanceWindows:{fiveMinuteDays:ACCEPTANCE_FIVE_MINUTE_DAYS,thirtyMinuteDays:ACCEPTANCE_THIRTY_MINUTE_DAYS}});if(acceptanceRequestedAtLoad){productUiState().tab='acceptance';drawer();setTimeout(()=>runAcceptanceInPlace(decodeURIComponent(acceptanceRequestedSeed)),80)}})}
 
 /* ============================================================
- * ANNALS MODULE 77/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 78/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/character-debug.js
  * ============================================================ */
 const baseRunHeadlessCharacters=runHeadless;
@@ -1358,7 +1366,7 @@ runHeadless=function(seed,days,opt={}){let result=baseRunHeadlessCharacters(seed
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.characters=()=>{initCharacters();return characterState().registry.map(characterSummary)};window.ANNALS_DEBUG.characterLimit=CHARACTER_LIMIT}
 
 /* ============================================================
- * ANNALS MODULE 78/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 79/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/scar-debug.js
  * ============================================================ */
 const scarBaseRunHeadless=runHeadless;
@@ -1366,7 +1374,7 @@ runHeadless=function(seed,days,opt={}){let result=scarBaseRunHeadless(seed,days,
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.scars=()=>scarState().registry.map(scarSummary);window.ANNALS_DEBUG.scarLimit=SCAR_LIMIT}
 
 /* ============================================================
- * ANNALS MODULE 79/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 80/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/memory-debug.js
  * ============================================================ */
 const memoryBaseRunHeadless=runHeadless;
@@ -1374,7 +1382,7 @@ runHeadless=function(seed,days,opt={}){let result=memoryBaseRunHeadless(seed,day
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.memories=()=>memoryState().registry.map(memorySummary);window.ANNALS_DEBUG.memoryLimit=MEMORY_LIMIT}
 
 /* ============================================================
- * ANNALS MODULE 80/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 81/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/dynasty-debug.js
  * ============================================================ */
 const dynastyBaseRunHeadless=runHeadless;
@@ -1382,7 +1390,7 @@ runHeadless=function(seed,days,opt={}){let result=dynastyBaseRunHeadless(seed,da
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.dynasties=()=>{initDynasties();return dynastyState().registry.map(dynastySummary)};window.ANNALS_DEBUG.reigns=()=>dynastyState().reigns.map(r=>({...r}))}
 
 /* ============================================================
- * ANNALS MODULE 81/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 82/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/notable-debug.js
  * ============================================================ */
 const notableBaseRunHeadless=runHeadless;
@@ -1390,7 +1398,7 @@ runHeadless=function(seed,days,opt={}){let result=notableBaseRunHeadless(seed,da
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.notables=()=>characterState().registry.map(characterSummary);window.ANNALS_DEBUG.notableLimit=NOTABLE_LIMIT}
 
 /* ============================================================
- * ANNALS MODULE 82/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 83/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/economy-debug.js
  * ============================================================ */
 const economyBaseRunHeadless=runHeadless;
@@ -1398,7 +1406,7 @@ runHeadless=function(seed,days,opt={}){let result=economyBaseRunHeadless(seed,da
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.economy=()=>economySummary()}
 
 /* ============================================================
- * ANNALS MODULE 83/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 84/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/war-debug.js
  * ============================================================ */
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.warSummary=()=>warSummary();window.ANNALS_DEBUG.warCampaignLimit=WAR_CAMPAIGN_LIMIT;window.ANNALS_DEBUG.armyLimit=ARMY_LIMIT;window.ANNALS_DEBUG.startCivilWar=()=>startCivilWar()}
@@ -1406,7 +1414,7 @@ const warBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=warBaseRunHeadless(seed,days,opt);result.war=warSummary();return result};
 
 /* ============================================================
- * ANNALS MODULE 84/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 85/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/threat-debug.js
  * ============================================================ */
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.threatSummary=()=>threatSummary();window.ANNALS_DEBUG.setMythLevel=level=>setMythLevel(level);window.ANNALS_DEBUG.banditLimit=BANDIT_LIMIT}
@@ -1414,7 +1422,7 @@ const threatBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=threatBaseRunHeadless(seed,days,opt);result.threats=threatSummary();return result};
 
 /* ============================================================
- * ANNALS MODULE 85/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 86/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/camera-debug.js
  * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.cameraSummary=()=>cameraSummary();window.ANNALS_DEBUG.cameraModes=[...CAMERA_MODES];window.ANNALS_DEBUG.setCameraMode=(m)=>setCameraMode(m)}
@@ -1422,7 +1430,7 @@ const cameraBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=cameraBaseRunHeadless(seed,days,opt);let s=world.cinematicState||{mode:'director',shots:[],lastCategory:{}};result.camera={modes:[...CAMERA_MODES],mode:s.mode,shotCount:s.shots.length,shotTypes:[...new Set(s.shots.map(x=>x.type))],categories:[...new Set(s.shots.map(x=>x.category))],cooldownDays:CAMERA_COOLDOWN_DAYS};return result};
 
 /* ============================================================
- * ANNALS MODULE 86/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 87/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/rendering-debug.js
  * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.renderingSummary=()=>renderingSummary();window.ANNALS_DEBUG.lodBands={...LOD_BANDS}}
@@ -1430,7 +1438,7 @@ const renderingBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=renderingBaseRunHeadless(seed,days,opt);result.rendering={bands:{...LOD_BANDS},lightLimit:AMBIENT_LIGHT_LIMIT,particleLimit:AMBIENT_PARTICLE_LIMIT,seasons:['Spring','Summer','Autumn','Winter'],weather:['Clear','Rain','Storm']};return result};
 
 /* ============================================================
- * ANNALS MODULE 87/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 88/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/product-ui-debug.js
  * ============================================================ */
 ;function productUiSummary(){let e=economyState();return{tabs:['time','rates','acts','world','houses'],activeTab:world.productUiState?.tab||'time',acts:['grain','festival','drought','fire'],taxRate:e.taxRate,hotkeys:['Space','Digit1','Digit2','Digit3','Digit4','KeyH','KeyC','Escape'],inspectors:['settlement','building','character','scar','memory','dynasty','trade','army','bandit-camp','dragon'],copyLink:true,exportChronicle:true}}
@@ -1439,7 +1447,7 @@ const productUiBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=productUiBaseRunHeadless(seed,days,opt);result.productUi=productUiSummary();return result};
 
 /* ============================================================
- * ANNALS MODULE 88/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 89/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/overlay-debug.js
  * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.overlaySummary=()=>overlaySummary();window.ANNALS_DEBUG.overlayTypes=[...OVERLAY_TYPES];window.ANNALS_DEBUG.setOverlay=t=>setOverlay(t)}
@@ -1447,7 +1455,7 @@ const overlayDebugBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=overlayDebugBaseRunHeadless(seed,days,opt),state=world.overlayState||{active:'none'};result.overlays={types:[...OVERLAY_TYPES],active:state.active,singleActive:true,settlements:world.settlements.length,owners:world.settlements.map(s=>s.owner),tradeRoutes:world.roads.filter(r=>routeTradeStats(r).volume>0).length,prosperity:world.settlements.map(s=>Math.round(s.prosperity)),plague:world.settlements.map(s=>Math.round(plagueRate(s)*10000)/100),unrest:world.settlements.map(s=>Math.round(s.unrest)),terrainSamples:25*25};return result};
 
 /* ============================================================
- * ANNALS MODULE 89/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 90/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/performance-debug.js
  * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.performanceSummary=()=>performanceSummary();window.ANNALS_DEBUG.performanceProfiles=JSON.parse(JSON.stringify(PERFORMANCE_PROFILES));window.ANNALS_DEBUG.setPerformanceQuality=(q)=>setPerformanceQuality(q)}
@@ -1455,7 +1463,7 @@ const performanceBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=performanceBaseRunHeadless(seed,days,opt),collections=performanceCollections();result.performance={profiles:Object.keys(PERFORMANCE_PROFILES),drawCallBudget:PERFORMANCE_DRAW_CALL_BUDGET,triangleBudget:PERFORMANCE_TRIANGLE_BUDGET,sceneObjectBudget:PERFORMANCE_OBJECT_BUDGET,collections,collectionBounds:{chronicle:240,structuredEvents:WORLD_EVENT_LIMIT,characters:128,trades:TRADE_LIMIT,banditCamps:BANDIT_LIMIT,dragonRaids:DRAGON_HISTORY_LIMIT}};return result};
 
 /* ============================================================
- * ANNALS MODULE 90/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 91/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/soak-debug.js
  * ============================================================ */
 ;const SOAK_THRESHOLDS={populationMin:800,populationMax:60000,treasuryMin:0,treasuryMax:75000,livingNotablesMin:70,chronicleRateMin:2,chronicleRateMax:30,lastChronicleGapMax:720,distinctOwnersMin:2};
@@ -1466,7 +1474,7 @@ function runStabilitySoak(seed,years=20,opt={}){let requestedYears=Math.max(1,Ma
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runSoak=runStabilitySoak;window.ANNALS_DEBUG.stability=stabilitySummary;window.ANNALS_DEBUG.soakThresholds={...SOAK_THRESHOLDS}}
 
 /* ============================================================
- * ANNALS MODULE 91/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 92/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/culture-debug.js
  * ============================================================ */
 ;function cultureSummary(){initCharacters();let culture=world.culture||cultureSummaryData(),places=world.settlements.map(s=>s.name),people=characterState().registry.slice(0,32).map(c=>({id:c.id,name:c.name,givenName:c.givenName,gender:c.gender,houseId:c.houseId,homeId:c.homeId})),houses=world.houses.map(h=>({id:h.id,name:h.name,familyName:h.familyName,seat:world.settlements[h.seatSettlement]?.name||null,colour:h.colour,secondaryColour:h.secondaryColour,motto:h.motto,sigil:{...h.sigil}})),suffixMatches=places.filter(name=>culture.suffixes.some(suffix=>name.toLowerCase().replace(/\d+$/,'').endsWith(suffix.toLowerCase()))).length,signature=JSON.stringify({seed:world.seed,title:world.title,culture:culture.id,places,houses:houses.map(h=>[h.name,h.sigil.signature]),people:people.map(p=>p.name)});return{seed:world.seed,title:world.title,fullTitle:`The Annals of ${world.title}`,culture,places,people,houses,suffixMatches,allPlacesMatch:suffixMatches===places.length,distinctSigils:new Set(houses.map(h=>h.sigil.signature)).size,genderBanks:{male:people.filter(p=>p.gender==='male').length,female:people.filter(p=>p.gender==='female').length,neutral:people.filter(p=>p.gender==='neutral').length},signature,heraldry:typeof heraldrySummary==='function'?heraldrySummary():null}}
@@ -1475,7 +1483,7 @@ runHeadless=function(seed,days,opt={}){let result=cultureBaseRunHeadless(seed,da
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.cultureSummary=cultureSummary;window.ANNALS_DEBUG.heraldry=()=>typeof heraldrySummary==='function'?heraldrySummary():null;window.ANNALS_DEBUG.houseSigils=()=>world.houses.map(h=>({id:h.id,name:h.name,signature:h.sigil.signature,dataUrl:houseSigilDataUrl(h)}));window.ANNALS_DEBUG.startCivilWar=()=>{let campaign=startCivilWar();if(typeof refreshWarMarkers==='function')refreshWarMarkers();return campaign?.id||null}}
 
 /* ============================================================
- * ANNALS MODULE 92/92 · DEBUG & ACCEPTANCE
+ * ANNALS MODULE 93/93 · DEBUG & ACCEPTANCE
  * Source: src/simulation/chronicle-regression.js
  * ============================================================ */
 const CHRONICLE_LIMIT=240;
