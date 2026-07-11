@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import fs from 'node:fs';
 
 const browser=await chromium.launch({headless:true});
 try{
@@ -19,5 +20,6 @@ try{
     const afterDispatch=ANNALS_CAMERA.summary();
     return{prepared,point,roots,nearby,before,directResult,afterDirect,dispatchResult,afterDispatch,trades:economyState().trades.map(t=>({id:t.id,status:t.status,progress:t.progress}))};
   });
-  console.log(JSON.stringify(result,null,2));
+  fs.writeFileSync('camera-click-debug.json',`${JSON.stringify(result,null,2)}\n`);
+  console.log('camera click diagnostic written');
 }finally{await browser.close()}
