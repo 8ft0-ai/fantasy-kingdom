@@ -75,6 +75,7 @@ ui/camera-completion-interface.js
 ui/overlay-interface.js
 rendering/performance.js
 rendering/performance-counts.js
+rendering/visual-r128-compat.js
 rendering/visual-completion.js
 ui/performance-interface.js
 core/debug.js
