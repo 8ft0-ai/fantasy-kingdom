@@ -39,6 +39,11 @@ jobs:
           ANNALS_BASE_URL: http://127.0.0.1:4173
         run: node .github/scripts/browser-smoke.mjs
 
+      - name: Run runtime guard smoke test
+        env:
+          ANNALS_BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/runtime-guard-smoke.mjs
+
       - name: Run overlay smoke test
         env:
           ANNALS_BASE_URL: http://127.0.0.1:4173
@@ -57,6 +62,7 @@ jobs:
           path: |
             screenshots/
             browser-smoke-report.json
+            runtime-guard-smoke-report.json
             overlay-smoke-report.json
             performance-smoke-report.json
             browser-smoke-server.log

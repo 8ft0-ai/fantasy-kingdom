@@ -21,17 +21,17 @@ The maintainable source is split by subsystem under `src/`, but GitHub Pages sti
 
 | Path | Purpose |
 | --- | --- |
-| `src/shell.html` | HTML shell containing build placeholders for styles and scripts. |
+| `src/shell.html` | HTML shell containing the runtime contract and build placeholders for styles and scripts. |
 | `src/styles.css` | Runtime styles. |
-| `src/core/` | Shared constants, random-number helpers, runtime state and debug helpers. |
-| `src/world/` | Terrain, hydrology, resources, settlements, roads and procedural layouts. |
-| `src/simulation/` | Time, economy, crises, Chronicle events and simulation acts. |
+| `src/core/` | Shared constants, random-number helpers, runtime state, assertions and debug helpers. |
+| `src/world/` | Terrain, hydrology, resources, settlements, roads, procedural layouts and generated-world guards. |
+| `src/simulation/` | Time, economy, crises, Chronicle events, long-run stability and simulation acts. |
 | `src/rendering/` | Three.js scene, terrain, water, roads, settlements and building meshes. |
 | `src/ui/` | Chronicle rendering, controls, inspectors and export/share behaviour. |
 | `src/director/` | Camera movement, picking and cinematic director behaviour. |
-| `src/boot.js` | Browser boot path and event wiring. |
+| `src/boot.js` | Browser boot path, dependency checks and event wiring. |
 | `src/manifest.txt` | Ordered JavaScript module list used to generate the runtime. |
-| `scripts/build.py` | Regenerates `annals.html` or checks that it is current. |
+| `scripts/build.py` | Validates the manifest and regenerates or checks `annals.html`. |
 | `annals.html` | Generated, single-file deployable runtime committed to the repository. |
 | `index.html` | Lightweight GitHub Pages redirect preserving seed hashes. |
 
@@ -49,7 +49,37 @@ Before committing, verify that the generated runtime is current:
 python3 scripts/build.py --check
 ```
 
-Both source changes and the regenerated `annals.html` should be committed together. CI rejects a pull request when the generated artefact is stale or its inline JavaScript is syntactically invalid.
+Both source changes and the regenerated `annals.html` should be committed together. CI rejects a pull request when the generated artefact is stale, its inline JavaScript is syntactically invalid, the manifest is unsafe or out of order, a module is duplicated or missing, or runtime source introduces browser persistence.
+
+### Generated section markers
+
+`annals.html` begins with a runtime-contract header and a generated module index. Every JavaScript module is preceded by a searchable banner such as:
+
+```text
+ANNALS MODULE 03/65 · WORLD GENERATION
+Source: src/world/generation.js
+```
+
+The banner order is generated directly from `src/manifest.txt`. Do not edit `annals.html` to move or rename sections; edit the source module or manifest and rebuild it.
+
+### Runtime guards
+
+The runtime checks:
+
+- Three.js loaded at revision 128;
+- generation and history RNG streams are reproducible and distinct;
+- world collections exist and use finite coordinates;
+- settlement, house and building IDs are unique;
+- roads reference real settlements and contain usable paths;
+- the renderer, named cast and initial Chronicle are ready before the forge screen disappears.
+
+In a browser console, inspect the current result with:
+
+```js
+ANNALS_GUARDS.summary()
+```
+
+Failures use the existing recoverable boot screen and safe-seed retry path.
 
 ## Running locally
 
@@ -86,7 +116,7 @@ The same seed regenerates the same initial kingdom. The runtime keeps separate s
 - the generation stream controls the initial map, settlement layout, buildings, roads and procedural visual placement;
 - the history stream controls Chronicle events, simulation rolls, manual acts, war, trade and fates.
 
-This separation prevents world-generation changes from unnecessarily rewriting the historical sequence, and history-system changes from unexpectedly reshaping the starting map.
+This separation prevents world-generation changes from unnecessarily rewriting the historical sequence, and history-system changes from unexpectedly reshaping the starting map. Runtime guards probe fresh streams, so validating this boundary does not consume or alter the live streams.
 
 ## Exporting the Chronicle
 
@@ -111,6 +141,8 @@ The export is generated in the browser and requires no backend.
 
 Use the repository root as the GitHub Pages source. `index.html` remains lightweight and redirects to the generated `annals.html` while preserving hash seeds. No deployment build step is required because the generated runtime is committed.
 
+The same repository root can be deployed to Netlify as a static site. Use no build command and publish the repository root.
+
 ## Validation baseline
 
 Before opening a pull request, run:
@@ -127,4 +159,4 @@ Then load these seeds in a browser or equivalent test harness:
 #s=424242
 ```
 
-Confirm that the app gets past **Forging the realm…**, the Chronicle receives entries, time controls and watch mode work, export/share behaviour still works, and the root `index.html` preserves the seed hash when redirecting.
+Confirm that the app gets past **Forging the realm…**, `ANNALS_GUARDS.summary()` reports a ready boot, the Chronicle receives entries, time controls and watch mode work, export/share behaviour still works, and the root `index.html` preserves the seed hash when redirecting.

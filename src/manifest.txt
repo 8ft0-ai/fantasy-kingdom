@@ -1,5 +1,7 @@
 core/runtime.js
+core/guards.js
 world/generation.js
+world/guards.js
 simulation/events.js
 simulation/characters.js
 simulation/dynasties.js

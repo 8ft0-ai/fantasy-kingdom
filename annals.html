@@ -1,8 +1,16 @@
 <!doctype html>
+<!--
+ANNALS · generated single-file runtime · v0.8
+Generated from src/manifest.txt by scripts/build.py; do not edit annals.html directly.
+Runtime contract: vanilla JavaScript, Three.js r128 from CDN, no framework, no backend,
+no external media assets, no browser persistence, and no deployment build step.
+Determinism contract: URL seed plus separate generation and history RNG streams.
+-->
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="annals-runtime" content="v0.8; three-r128; single-file">
 <title>ANNALS</title>
 <style>
 html,body{margin:0;height:100%;overflow:hidden;background:#10100f;color:#2b231b;font:13px system-ui}#app{position:fixed;inset:0}.panel{position:fixed;z-index:3;background:#eadcc0ee;border:1px solid #7d6a52;border-radius:12px;padding:10px;box-shadow:0 8px 28px #0007}#forge{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:#17130f;color:#eadcc0;font:32px Georgia}#hud{left:12px;right:370px;top:12px;display:flex;gap:9px;align-items:center}#title{font:24px Georgia}#meta{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid #77634b66;border-radius:99px;padding:3px 7px;background:#fff7}button{border:1px solid #7d6a52;border-radius:8px;background:#fff4d6;padding:5px 8px;font-weight:700;cursor:pointer}button.active{background:#c9a227}#speed{margin-left:auto;display:flex;gap:5px}#drawer{left:12px;top:78px;bottom:12px;width:300px;overflow:auto}#chron{right:12px;top:12px;bottom:12px;width:340px;overflow:auto}#inspect{right:372px;bottom:12px;width:280px;max-height:360px;overflow:auto;display:none}#chron h2{font:28px Georgia;margin:6px 0 8px}.entry{border-top:1px solid #7d6a5244;padding:8px 0;cursor:pointer}.date{font-size:11px;font-weight:700;color:#6a5941}.txt{font:17px Georgia;line-height:1.25;margin-top:2px}.war .txt{color:#681d16}.trade .txt{color:#24536b}.fate .txt{color:#51386f}.crown .txt{color:#59451c}.reign-header{margin:10px -4px 2px;padding:10px 6px;border-top:3px double #7d6a52;border-bottom:1px solid #7d6a52;background:#fff3}.reign-header .txt{font-size:19px;font-variant:small-caps;letter-spacing:.03em}.label{position:fixed;transform:translate(-50%,-50%);pointer-events:none;color:white;text-shadow:0 1px 4px #000;font-weight:700;text-align:center}.bar{height:8px;border-radius:99px;background:#0002;overflow:hidden}.bar span{display:block;height:100%;background:#c9a227}.small{font-size:12px;line-height:1.4;color:#584934}.section{border-top:1px solid #7d6a524c;margin-top:10px;padding-top:10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.inspector-title{font:22px Georgia;margin:0 0 6px}.kv{display:grid;grid-template-columns:86px 1fr;gap:4px 8px}.kv b{color:#59451c}.district-chip{display:inline-block;margin:2px 2px 0 0;padding:2px 6px;border:1px solid #7d6a5244;border-radius:99px;background:#fff6}body.watch #drawer,body.watch #chron,body.watch #inspect{display:none!important}body.clean #hud,body.clean #drawer,body.clean #chron,body.clean #inspect{display:none!important}@media(max-width:900px){#hud{right:12px;flex-wrap:wrap}#drawer{width:270px}#chron{width:300px}#inspect{left:12px;right:auto;bottom:12px;width:270px}}
@@ -17,6 +25,78 @@ html,body{margin:0;height:100%;overflow:hidden;background:#10100f;color:#2b231b;
 <div id="inspect" class="panel"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+/*
+ * ANNALS GENERATED MODULE INDEX
+ * Runtime order is defined by src/manifest.txt.
+ * Generation and history RNG streams are separated in core/runtime.js.
+ * 01. core/runtime.js
+ * 02. core/guards.js
+ * 03. world/generation.js
+ * 04. world/guards.js
+ * 05. simulation/events.js
+ * 06. simulation/characters.js
+ * 07. simulation/dynasties.js
+ * 08. simulation/notables.js
+ * 09. simulation/scars.js
+ * 10. simulation/memory.js
+ * 11. simulation/history.js
+ * 12. simulation/character-history.js
+ * 13. simulation/dynasty-history.js
+ * 14. simulation/notable-history.js
+ * 15. simulation/economy.js
+ * 16. simulation/scar-history.js
+ * 17. simulation/memory-history.js
+ * 18. simulation/war.js
+ * 19. simulation/threat-boundary.js
+ * 20. simulation/threats.js
+ * 21. simulation/stability.js
+ * 22. rendering/scene.js
+ * 23. ui/interface.js
+ * 24. ui/character-interface.js
+ * 25. rendering/economy.js
+ * 26. rendering/war.js
+ * 27. rendering/threat-boundary.js
+ * 28. rendering/threats.js
+ * 29. director/camera.js
+ * 30. director/cinematic.js
+ * 31. rendering/atmosphere.js
+ * 32. rendering/overlays.js
+ * 33. rendering/scars.js
+ * 34. ui/scar-interface.js
+ * 35. ui/memory-interface.js
+ * 36. ui/dynasty-interface.js
+ * 37. ui/notable-interface.js
+ * 38. ui/economy-interface.js
+ * 39. ui/war-interface.js
+ * 40. ui/threat-interface.js
+ * 41. ui/camera-interface.js
+ * 42. ui/product-surface.js
+ * 43. ui/overlay-interface.js
+ * 44. rendering/performance.js
+ * 45. rendering/performance-counts.js
+ * 46. ui/performance-interface.js
+ * 47. core/debug.js
+ * 48. boot.js
+ * 49. simulation/character-debug.js
+ * 50. simulation/scar-debug.js
+ * 51. simulation/memory-debug.js
+ * 52. simulation/dynasty-debug.js
+ * 53. simulation/notable-debug.js
+ * 54. simulation/economy-debug.js
+ * 55. simulation/war-debug.js
+ * 56. simulation/threat-debug.js
+ * 57. simulation/camera-debug.js
+ * 58. simulation/rendering-debug.js
+ * 59. simulation/product-ui-debug.js
+ * 60. simulation/overlay-debug.js
+ * 61. simulation/performance-debug.js
+ * 62. simulation/soak-debug.js
+ * 63. simulation/chronicle-regression.js
+ */
+/* ============================================================
+ * ANNALS MODULE 01/63 · CONSTANTS, RNG & RUNTIME STATE
+ * Source: src/core/runtime.js
+ * ============================================================ */
 'use strict';
 const W=6000,HW=W/2,TAU=Math.PI*2;
 const A='Vael Oster Ald Bran Mere Har Fen Cor Raven Stone Thorn Wych'.split(' '),B='mere ford holt wick fall haven bridge field barrow gate watch'.split(' '),BEAST='Stag Wolf Oak Comet Tower Wave Key Sun'.split(' ');
@@ -36,6 +116,37 @@ function nearRiver(paths,x,z){let d=1e9;for(const p of paths||[])for(const q of 
 function slope(x,z){return(Math.abs(hWorld(x+42,z)-hWorld(x-42,z))+Math.abs(hWorld(x,z+42)-hWorld(x,z-42)))/168}
 function moisture(x,z){let r=nearRiver(world?world.rivers:[],x,z);return clamp(fbm(terrainSpec.moist,x/740+2,z/740-1)+(r<520?(520-r)/1700:0)+(terrainSpec.coast.active?clamp((440-Math.abs(coastDist(x,z)))/1800,0,.22):0)-Math.max(0,hWorld(x,z)-360)/1700,0,1)}
 function biome(x,z){let h=hWorld(x,z),m=moisture(x,z);return h<2?'water':h>520?'stone':m>.62?'forest':h<150&&m>.42?'farmland':m<.28?'dry steppe':'grassland'}
+
+/* ============================================================
+ * ANNALS MODULE 02/63 · RUNTIME GUARDS & ASSERTIONS
+ * Source: src/core/guards.js
+ * ============================================================ */
+;const ANNALS_RUNTIME_INFO=Object.freeze({
+  name:'ANNALS',
+  version:'v0.8',
+  runtime:'single generated HTML file',
+  language:'vanilla JavaScript',
+  threeRevision:'128',
+  sourceManifest:'src/manifest.txt',
+  generatedBy:'scripts/build.py',
+  persistence:'none'
+});
+function annalsAssert(condition,message){if(!condition)throw new Error(`[ANNALS guard] ${message}`);return condition}
+function annalsFinitePoint(point,label){annalsAssert(point&&Number.isFinite(point.x)&&Number.isFinite(point.z),`${label} has non-finite coordinates`);if('y'in point)annalsAssert(Number.isFinite(point.y),`${label} has a non-finite height`);return true}
+function annalsUniqueIds(items,label){let ids=new Set();for(const item of items){annalsAssert(item&&item.id!==undefined&&item.id!==null,`${label} contains an item without an id`);annalsAssert(!ids.has(item.id),`${label} contains duplicate id ${item.id}`);ids.add(item.id)}return ids}
+function annalsRngProbe(seed,tag,count=8){let stream=rng(String(seed),tag),values=[];for(let i=0;i<count;i++)values.push(Math.floor(stream()*4294967296)>>>0);return values}
+function annalsDigest(values){let hash=2166136261>>>0;for(const value of values){hash^=value>>>0;hash=Math.imul(hash,16777619)>>>0}return hash.toString(16).padStart(8,'0')}
+function assertRngStreams(seed){let generationA=annalsRngProbe(seed,'generation'),history=annalsRngProbe(seed,'history'),generationB=annalsRngProbe(seed,'generation');annalsAssert(generationA.every((value,index)=>value===generationB[index]),'generation RNG is not reproducible');annalsAssert(generationA.some((value,index)=>value!==history[index]),'generation and history RNG streams are not separated');return{generation:annalsDigest(generationA),history:annalsDigest(history),reproducible:true,separated:true}}
+function assertWorldShape(candidate){annalsAssert(candidate&&typeof candidate==='object','world was not created');annalsAssert(String(candidate.seed||'').length>0,'world seed is missing');annalsAssert(typeof candidate.title==='string'&&candidate.title.trim().length>0,'world title is missing');for(const [name,min] of [['settlements',3],['houses',2],['roads',1],['buildings',1],['resources',1],['riverPaths',1]])annalsAssert(Array.isArray(candidate[name])&&candidate[name].length>=min,`world ${name} collection is missing or too small`);annalsAssert(Array.isArray(candidate.events),'world Chronicle collection is missing');annalsAssert(candidate.hydrology&&candidate.hydrology.mouth,'world hydrology mouth is missing');let settlements=annalsUniqueIds(candidate.settlements,'settlements'),houses=annalsUniqueIds(candidate.houses,'houses');annalsUniqueIds(candidate.buildings,'buildings');candidate.settlements.forEach((item,index)=>annalsFinitePoint(item,`settlement ${index}`));candidate.resources.forEach((item,index)=>annalsFinitePoint(item,`resource ${index}`));candidate.buildings.forEach((item,index)=>annalsFinitePoint(item,`building ${index}`));candidate.roads.forEach((road,index)=>{annalsAssert(settlements.has(road.a)&&settlements.has(road.b),`road ${index} references an unknown settlement`);annalsAssert(Array.isArray(road.pts)&&road.pts.length>=2,`road ${index} has no usable path`);road.pts.forEach((point,pointIndex)=>annalsFinitePoint(point,`road ${index} point ${pointIndex}`))});candidate.settlements.forEach((settlement,index)=>annalsAssert(houses.has(settlement.owner),`settlement ${index} references an unknown house`));return{valid:true,settlements:candidate.settlements.length,houses:candidate.houses.length,roads:candidate.roads.length,buildings:candidate.buildings.length,resources:candidate.resources.length}}
+function assertRuntimeDependencies(){annalsAssert(typeof THREE!=='undefined','Three.js did not load');annalsAssert(String(THREE.REVISION)===ANNALS_RUNTIME_INFO.threeRevision,`expected Three.js r${ANNALS_RUNTIME_INFO.threeRevision}, received r${THREE.REVISION}`);return{threeLoaded:true,threeRevision:String(THREE.REVISION)}}
+function assertBootReady(){annalsAssert(world&&world.guardState?.world?.valid,'world guards did not complete');annalsAssert(scene&&camera&&renderer,'Three.js scene, camera or renderer is missing');annalsAssert(renderer.domElement&&renderer.domElement.tagName==='CANVAS','renderer canvas is missing');annalsAssert(Array.isArray(world.events)&&world.events.length>0,'initial Chronicle entries are missing');let people=typeof characterState==='function'?characterState().registry:[];annalsAssert(people.length>0,'named character registry is empty');world.guardState.boot={ready:true,chronicleEntries:world.events.length,characters:people.length};return world.guardState.boot}
+function runtimeGuardSummary(){let dependencies={threeLoaded:typeof THREE!=='undefined',threeRevision:typeof THREE!=='undefined'?String(THREE.REVISION):null};return{runtime:{...ANNALS_RUNTIME_INFO},dependencies,rng:world?.guardState?.rng||null,world:world?.guardState?.world||null,boot:world?.guardState?.boot||null,seed:world?.seed||null,title:world?.title||null}}
+if(typeof window!=='undefined')window.ANNALS_GUARDS={info:ANNALS_RUNTIME_INFO,summary:runtimeGuardSummary,assertRngStreams,assertWorldShape};
+
+/* ============================================================
+ * ANNALS MODULE 03/63 · WORLD GENERATION
+ * Source: src/world/generation.js
+ * ============================================================ */
 function riverFrom(x,z,target){let pts=[];for(let i=0;i<120;i++){let h=hWorld(x,z);pts.push({x,z,y:h});if(h<3||Math.abs(x)>2880||Math.abs(z)>2880||(target&&dist({x,z},target)<100))break;let best,score=1e9;for(let a=0;a<TAU;a+=.63){let nx=x+90*Math.cos(a),nz=z+90*Math.sin(a),cost=hWorld(nx,nz)-h+(target?dist({x:nx,z:nz},target)/130:Math.max(Math.abs(nx),Math.abs(nz))/850)+16*signed(terrainSpec.seed+i,nx/380,nz/380);if(cost<score){best={x:nx,z:nz};score=cost}}x=best.x;z=best.z}return pts}
 function hydrology(){let highs=[];for(let i=0;i<140;i++){let x=rnd(genR,-2600,2600),z=rnd(genR,-2600,2600),h=hWorld(x,z);if(h>250)highs.push({x,z,h})}highs.sort((a,b)=>b.h-a.h);let paths=[],starts=[];for(const s of highs){if(paths.length>=3)break;if(starts.some(p=>dist(p,s)<950))continue;let p=riverFrom(s.x,s.z);if(p.length>18){paths.push(p);starts.push(s)}}if(!paths.length)paths.push(riverFrom(0,-1200));let main=paths[0];for(let i=1;i<3;i++){let j=main[Math.min(main.length-4,Math.floor(main.length*(.3+.18*i)))],p=riverFrom(j.x+rnd(genR,-1200,1200),j.z+rnd(genR,-1200,1200),j);if(p.length>12)paths.push(p)}let lakes=[];for(const p of paths)for(let i=8;i<p.length-8;i+=13)if(Math.abs(p[i-2].y-p[i+2].y)<8&&p[i].y<120&&genR()<.35)lakes.push({x:p[i].x,z:p[i].z,r:rnd(genR,110,240)});return{paths,lakes:lakes.slice(0,4),mouth:main.at(-1)}}
 function resources(h){let out=[],add=(type,x,z,val=1)=>{if(out.length<120&&(hWorld(x,z)>2||type==='fishing'))out.push({type,x,z,y:hWorld(x,z),val})};for(let i=0;i<220;i++){let x=rnd(genR,-2700,2700),z=rnd(genR,-2700,2700),b=biome(x,z),hh=hWorld(x,z),r=nearRiver(h.paths,x,z);if((b==='farmland'||hh<160&&moisture(x,z)>.42)&&r<650)add('farmland',x,z,1.2);else if(b==='forest'&&genR()<.45)add('forest',x,z);else if(hh>250&&slope(x,z)>.12&&genR()<.25)add('ore',x,z,1.3)}for(const p of h.paths)for(let i=5;i<p.length;i+=10)add('fishing',p[i].x+rnd(genR,-90,90),p[i].z+rnd(genR,-90,90),1.1);if(terrainSpec.coast.active){for(let i=0;i<300;i++){let x=rnd(genR,-2850,2850),z=rnd(genR,-2850,2850),hh=hWorld(x,z),d=coastDist(x,z);if(d>-140&&d<290&&hh>3&&hh<180&&slope(x,z)<.5)add('harbour',x,z,1.7)}if(!out.some(x=>x.type==='harbour'))add('harbour',0,0,1.2)}return out}
@@ -70,13 +181,31 @@ function markBuildingState(b,state){b.state=state;let s=world.settlements[b.sett
 function damageBuildings(s,n=2,cause='fire'){let pool=s.layout?s.layout.lots.filter(l=>!['wall','gate','keep'].includes(l.type)&&l.building&&l.building.state==='inhabited'):[];for(let i=0;i<n&&pool.length;i++){let lot=pool.splice(irnd(hisR,0,pool.length-1),1)[0],b=lot.building;markBuildingState(b,'ruin');b.ruinDay=clock.day;chron('fate',8,lot,`A ${cause} left lot ${lot.id} in ${s.name} a ruin; the plot remains in the town record so rebuilding can follow the old street line.`)}refreshSettlementDetails()}
 function rebuildTick(s){if(!s.layout)return;for(const lot of s.layout.lots){let b=lot.building;if(!b)continue;if(b.state==='ruin'&&clock.day-b.ruinDay>36&&s.prosperity>38&&food(s)>.06*s.pop){markBuildingState(b,'rebuilding');b.rebuildDay=clock.day;chron('trade',6,lot,`${s.name} reopened lot ${lot.id}; masons kept the old boundary while raising a new ${b.tier} ${b.type}.`);refreshSettlementDetails()}else if(b.state==='rebuilding'&&clock.day-b.rebuildDay>24){markBuildingState(b,'inhabited');refreshSettlementDetails()}}}
 function makeWorld(seed){genR=rng(seed,'generation');hisR=rng(seed,'history');world=null;terrainSpec=makeTerrainSpec(seed);let hyd=hydrology(),res=resources(hyd),set=settlements(hyd,res),roads=[];for(let i=1;i<set.length;i++){roads.push(route(set[0],set[i],hyd));if(i<set.length-1&&i%2)roads.push(route(set[i],set[i+1],hyd))}world={seed,title:place(genR),version:'v0.8',terrainSpec,hydrology:hyd,riverPaths:hyd.paths,rivers:hyd.paths,resources:res,settlements:set,houses:[],buildings:[],roads,events:[],filter:'all',season:'Spring',weather:'Clear',drought:false,story:{last:0,drought:112+Math.floor(hisR()*29)}};for(let i=0;i<6;i++)world.houses.push({id:i,name:'House '+(i?pick(genR,BEAST)+' '+pick(genR,B):pick(genR,BEAST)),seatSettlement:Math.min(i,set.length-1),colour:['#8b1e2d','#235d86','#3d7b47','#8b6b23','#6f3c87','#7b3f22'][i],loyalty:i?irnd(genR,46,85):100,rebellious:false});settlementLayouts();return world}
+
+/* ============================================================
+ * ANNALS MODULE 04/63 · RUNTIME GUARDS & ASSERTIONS
+ * Source: src/world/guards.js
+ * ============================================================ */
+;const annalsBaseMakeWorld=makeWorld;
+makeWorld=function(seed){let candidate=annalsBaseMakeWorld(seed),rngSummary=assertRngStreams(seed),worldSummary=assertWorldShape(candidate);candidate.guardState={rng:rngSummary,world:worldSummary,boot:null};return candidate};
+
+/* ============================================================
+ * ANNALS MODULE 05/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/events.js
+ * ============================================================ */
 const WORLD_EVENT_LIMIT=320;
 function eventTarget(target){if(target&&Number.isFinite(target.x)&&Number.isFinite(target.z))return{x:target.x,y:Number.isFinite(target.y)?target.y:hWorld(target.x,target.z),z:target.z,entityId:target.id??target.lotId??null,name:target.name||null};return{x:0,y:0,z:0,entityId:null,name:null}}
 function worldEventState(){return world.eventState||(world.eventState={nextId:1,registry:[]})}
 function worldEventSummary(ev){return{id:ev.id,day:ev.day,type:ev.type,severity:ev.severity,location:{...ev.location},causes:[...ev.causes],consequences:[...ev.consequences],participants:[...ev.participants],metadata:{...ev.metadata}}}
 function consumeWorldEvent(ev){let c=ev.metadata&&ev.metadata.chronicle;if(c)chron(c.class||annalClass(ev.type),c.priority??ev.severity,ev.location,c.text,{kind:c.kind||ev.type,header:!!c.header,eventId:ev.id,queueDirector:false});let d=ev.metadata&&ev.metadata.director;if(d!==false&&ev.location&&Number.isFinite(ev.location.x)&&Number.isFinite(ev.location.z))director.queue.push({day:ev.day,priority:d&&Number.isFinite(d.priority)?d.priority:ev.severity,pos:{x:ev.location.x,y:ev.location.y,z:ev.location.z},eventId:ev.id})}
 function emitWorldEvent(type,details={}){let state=worldEventState(),target=eventTarget(details.location),ev={id:`${world.seed}:${state.nextId++}`,day:Math.floor(clock.day),type:String(type||'event'),severity:clamp(details.severity??5,0,10),location:target,causes:Array.isArray(details.causes)?details.causes.slice(0,8).map(String):[],consequences:Array.isArray(details.consequences)?details.consequences.slice(0,8).map(String):[],participants:Array.isArray(details.participants)?details.participants.slice(0,12).map(String):[],metadata:details.metadata&&typeof details.metadata==='object'?{...details.metadata}:{}};state.registry.unshift(ev);if(state.registry.length>WORLD_EVENT_LIMIT)state.registry.length=WORLD_EVENT_LIMIT;consumeWorldEvent(ev);return ev}
-function structuredEvents(){return worldEventState().registry.map(worldEventSummary)}const CHARACTER_LIMIT=48;
+function structuredEvents(){return worldEventState().registry.map(worldEventSummary)}
+
+/* ============================================================
+ * ANNALS MODULE 06/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/characters.js
+ * ============================================================ */
+const CHARACTER_LIMIT=48;
 const CHARACTER_ROLES=['monarch','heir','noble','commander','merchant','clergy'];
 const CHARACTER_SURNAMES='Vale Thornmere Ashford Raven Holt Fenwick Stonebridge Alder Merewatch'.split(' ');
 function characterState(){return world.characterState||(world.characterState={nextId:1,registry:[]})}
@@ -92,6 +221,11 @@ function characterSummary(c){return{id:c.id,name:c.name,age:c.age,role:c.role,st
 function setCharacterStatus(c,status,reason){if(!c||c.status===status)return c;c.status=status;c.statusDay=Math.floor(clock.day);let home=characterHome(c);eventChronicle('character-status',status==='dead'?9:7,home,`${c.name}, ${c.role} of ${home.name}, was declared ${status}; ${reason}.`,{class:status==='dead'?'fate':'crown',kind:status,causes:[reason],consequences:[`${c.name} remains ${status}`],participants:[c.id,c.name],source:'character-system'});return c}
 function appointCharacter(c,role,home=characterHome(c)){if(!c)return null;c.role=role;c.homeId=home.id;c.status='alive';c.statusDay=Math.floor(clock.day);eventChronicle('appointment',7,home,`${c.name} was appointed ${role} at ${home.name}; the office thereafter carried a known face.`,{class:'crown',kind:'appointment',causes:['office required a named holder'],consequences:[`${c.name} became ${role}`],participants:[c.id,c.name],source:'character-system'});return c}
 function birthCharacter(home,houseId=null){let c=createCharacter('noble',home,houseId,0);if(c)eventChronicle('birth',6,home,`${c.name} was born in ${home.name}; the household entered the child among the living heirs of memory.`,{class:'fate',kind:'birth',causes:['birth'],consequences:['a named life entered the record'],participants:[c.id,c.name],source:'character-system'});return c}
+
+/* ============================================================
+ * ANNALS MODULE 07/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/dynasties.js
+ * ============================================================ */
 const DYNASTY_LIMIT=12,REIGN_LIMIT=64;
 function dynastyState(){return world.dynastyState||(world.dynastyState={nextId:1,registry:[],reigns:[]})}
 function familyInit(c){c.parentIds=c.parentIds||[];c.childIds=c.childIds||[];c.siblingIds=c.siblingIds||[];c.spouseId=c.spouseId||null;c.dynastyId=c.dynastyId||null;c.claimStrength=Number.isFinite(c.claimStrength)?c.claimStrength:0;c.legitimacy=Number.isFinite(c.legitimacy)?c.legitimacy:50;return c}
@@ -106,6 +240,11 @@ function claimScore(c){let house=Number.isInteger(c.houseId)?world.houses[c.hous
 function successionCandidates(){initDynasties();return characterState().registry.filter(c=>c.status==='alive'&&['heir','noble','commander'].includes(c.role)).map(c=>({c,score:claimScore(c)})).sort((a,b)=>b.score-a.score||a.c.id.localeCompare(b.c.id))}
 function recordReign(monarch,predecessor,basis,contested,claim){let s=dynastyState(),r={id:`${world.seed}:reign${s.reigns.length+1}`,monarchId:monarch.id,predecessorId:predecessor&&predecessor.id||null,dynastyId:monarch.dynastyId,basis,contested,claim,startDay:Math.floor(clock.day)};s.reigns.push(r);if(s.reigns.length>REIGN_LIMIT)s.reigns.shift();let d=dynastyById(monarch.dynastyId);if(d&&!d.reignIds.includes(r.id))d.reignIds.push(r.id);return r}
 function dynastySummary(d){return{id:d.id,name:d.name,status:d.status,founderId:d.founderId,memberIds:[...d.memberIds],reignIds:[...d.reignIds],createdDay:d.createdDay,displacedDay:d.displacedDay,extinctDay:d.extinctDay}}
+
+/* ============================================================
+ * ANNALS MODULE 08/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/notables.js
+ * ============================================================ */
 const NOTABLE_LIMIT=128;
 const NOTABLE_TRAITS='brave cautious ambitious pious shrewd loyal cruel generous patient proud'.split(' ');
 const NOTABLE_AGENDAS=['secure the succession','increase house influence','protect local trade','strengthen the faith','command the royal host','enrich the treasury','avenge an old slight','restore a damaged settlement'];
@@ -118,6 +257,11 @@ initCharacters=function(){let state=characterState();if(!state.registry.length)n
 characterSummary=function(c){let base=notableBaseSummary(c);return{...base,traits:[...(c.traits||[])],agenda:c.agenda||null,grudges:(c.grudges||[]).map(g=>({...g})),epithet:c.epithet||null,spouseId:c.spouseId||null,parentIds:[...(c.parentIds||[])],childIds:[...(c.childIds||[])],appearances:c.appearances||0,deathCause:c.deathCause||null}}
 function notableByNeed(kind,home){let alive=characterState().registry.filter(c=>c.status==='alive'),preferred=kind==='war'?['commander','noble']:kind==='trade'?['merchant','master of coin','smith']:kind==='fate'?['clergy','high priest','prophet']:[];return alive.find(c=>c.homeId===home.id&&preferred.includes(c.role))||alive.find(c=>preferred.includes(c.role))||alive[0]||null}
 function addGrudge(a,b,reason,strength=40){if(!a||!b||a.id===b.id)return;let existing=(a.grudges||[]).find(g=>g.characterId===b.id);if(existing)existing.strength=clamp(existing.strength+10,0,100);else{a.grudges=a.grudges||[];a.grudges.push({characterId:b.id,reason,strength});if(a.grudges.length>6)a.grudges.shift()}}
+
+/* ============================================================
+ * ANNALS MODULE 09/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/scars.js
+ * ============================================================ */
 const SCAR_LIMIT=80;
 const SCAR_TYPES=['battlefield','fire-scar','ruined-structure','abandoned-settlement','plague-marker','omen-site'];
 function scarState(){return world.scarState||(world.scarState={nextId:1,registry:[]})}
@@ -129,6 +273,11 @@ function scarsNear(target,radius=220){return scarState().registry.filter(s=>!s.e
 function scarSummary(s){return{id:s.id,name:s.name,type:s.type,state:s.state,createdDay:s.createdDay,stateDay:s.stateDay,cause:s.cause,x:Math.round(s.x),y:Math.round(s.y),z:Math.round(s.z),settlementId:s.settlementId,relatedEventIds:[...s.relatedEventIds],history:s.history.map(h=>({...h}))}}
 function setScarState(scar,state,note){if(!scar||scar.erased||scar.state===state)return scar;scar.state=state;scar.stateDay=Math.floor(clock.day);scar.history.push({day:Math.floor(clock.day),state,note:String(note||state)});if(scar.history.length>12)scar.history.shift();if(typeof refreshScarMarkers==='function')refreshScarMarkers();return scar}
 function linkScarEvent(scar,eventId){if(!scar||!eventId)return;if(!scar.relatedEventIds.includes(eventId))scar.relatedEventIds.push(eventId);if(scar.relatedEventIds.length>16)scar.relatedEventIds.shift()}
+
+/* ============================================================
+ * ANNALS MODULE 10/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/memory.js
+ * ============================================================ */
 const MEMORY_LIMIT=180;
 const MEMORY_MAJOR_TYPES=['fire','rebellion','drought','food-shortage','succession','character-status','scar-restoration','scar-memorial','omen-site','dragon','war'];
 function memoryState(){return world.memoryState||(world.memoryState={nextId:1,registry:[]})}
@@ -142,6 +291,11 @@ function decayMemories(){for(const m of memoryState().registry){let age=clock.da
 const memoryBaseEmitWorldEvent=emitWorldEvent;
 emitWorldEvent=function(type,details={}){let prior=relevantMemory(type,details),copy={...details,metadata:details.metadata&&typeof details.metadata==='object'?{...details.metadata}:{}};if(prior&&copy.metadata.chronicle){copy.metadata.chronicle={...copy.metadata.chronicle,text:`${copy.metadata.chronicle.text} The chroniclers compared it with ${prior.name}.`};copy.metadata.memoryRefId=prior.id;prior.lastRecalledDay=Math.floor(clock.day);prior.strength=clamp(prior.strength+8,20,100)}let ev=memoryBaseEmitWorldEvent(type,copy),current=recordMemory(ev);if(prior&&current){current.relatedMemoryIds.push(prior.id);prior.relatedMemoryIds.push(current.id);prior.relatedMemoryIds=prior.relatedMemoryIds.slice(-12)}return ev}
 function memoryById(id){return memoryState().registry.find(m=>m.id===id)||null}
+
+/* ============================================================
+ * ANNALS MODULE 11/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/history.js
+ * ============================================================ */
 function dt(d){return`Year ${Math.floor((d-1)/360)+1}, ${['Spring','Summer','Autumn','Winter'][Math.floor((d-1)%360/90)]} ${(d-1)%90+1}`}
 function food(s){return s.stores.grain+.8*s.stores.fish}
 function pressure(){return world.settlements.slice().sort((a,b)=>b.hunger-a.hunger||b.unrest-a.unrest)[0]}
@@ -160,20 +314,40 @@ function changeReign(){let state=annalsState(),cap=world.settlements[0],old=stat
 function firstEntries(){let cap=world.settlements[0],harbour=world.settlements.find(s=>s.site.harbour),kinds=[...new Set(world.buildings.map(b=>b.type))].slice(0,10),state=annalsState();chron('crown',9,cap,`Here begin the years of ${state.monarch}, first sovereign of ${world.title}, under the sign of ${world.houses[0].name}.`,{kind:'coronation',header:true});chron('fate',8,world.hydrology.mouth,`${world.title} was shaped by a mountain spine and ${world.riverPaths.length} river courses; roads and towns would follow water before ambition.`,{kind:'omen'});if(harbour)chron('trade',8,harbour,`${harbour.name} claimed the sheltered coast because fishing water, warehouse lots and road access made a credible sea gate.`,{kind:'trade'});chron('trade',7,cap,`${cap.name} grew around a market square, ${cap.layout.districts.length} districts and ${cap.layout.lots.length} recorded lots; its keep held the defensible high ground.`,{kind:'trade'});chron('crown',6,cap,`${world.houses.length} great houses swore fealty while ${world.buildings.length} buildings took shape as ${kinds.join(', ')} and other civic forms.`,{kind:'coronation'})}
 function tick(){clock.day++;world.season=['Spring','Summer','Autumn','Winter'][Math.floor((clock.day-1)%360/90)];world.weather=hisR()<.08?'Rain':hisR()<.1?'Storm':'Clear';if(clock.day===world.story.drought&&!world.drought){world.drought=true;let s=pressure();eventChronicle('drought',9,s,`A dry season settled over ${world.title}; wells sank and hunger began to travel the roads.`,{class:'fate',kind:'disaster',causes:['prolonged dry weather'],consequences:['reduced grain growth','rising hunger pressure'],participants:[s.name]})}for(const s of world.settlements){let grow=.02*s.pop*s.fert*(world.season==='Winter'?.55:world.season==='Summer'?1.16:1)*(world.weather==='Rain'?1.08:world.weather==='Storm'?.82:1)*(world.drought?.52:1),fish=.004*s.pop*(s.site.waterAccess!=='none'?1.5:.55);s.stores.grain=clamp(s.stores.grain+grow-.018*s.pop,0,1.25*s.pop+1200);s.stores.fish=clamp(s.stores.fish+fish-.004*s.pop,0,.35*s.pop+500);let short=clamp((.11*s.pop-food(s))/Math.max(1,.11*s.pop),0,1);if(short){s.hunger=clamp(s.hunger+3*short+.08,0,100);s.unrest=clamp(s.unrest+2*short+.04,0,100);s.prosperity=clamp(s.prosperity-.7*short,0,100)}else{s.hunger=clamp(s.hunger-.35,0,100);s.unrest=clamp(s.unrest-.12,0,100)}s.pop=clamp(s.pop*(1.00035-(s.hunger>55?.0008:0)),30,9000);if(short&&s.crisis.short++>10&&clock.day-s.crisis.last>45){s.crisis.last=clock.day;eventChronicle('food-shortage',8,s,`Food shortage in ${s.name} raised hunger to ${Math.floor(s.hunger)}; unrest followed because full tax rolls could not answer empty bowls.`,{class:'trade',kind:'famine',causes:['stores below settlement demand'],consequences:['hunger increased','unrest increased'],participants:[s.name],metadata:{hunger:Math.floor(s.hunger)}})}growSettlement(s);rebuildTick(s)}for(const h of world.houses.slice(1)){let s=world.settlements[h.seatSettlement];h.loyalty=clamp(h.loyalty+.002*s.prosperity-.014*s.unrest-.012*s.hunger,0,100);if(!h.rebellious&&h.loyalty<30&&s.unrest>70){h.rebellious=true;eventChronicle('rebellion',10,s,`${h.name} raised a rebel banner at ${s.name}; hunger became unrest, and unrest broke loyalty.`,{class:'war',kind:'war',causes:['house loyalty fell below 30','settlement unrest exceeded 70'],consequences:['house entered rebellion'],participants:[h.name,s.name]})}}if(clock.day-world.story.last>90){world.story.last=clock.day;let p=pressure(),lean=p.hunger>45;eventChronicle(lean?'food-shortage':'harvest',lean?8:5,p,lean?`The harvest ledger named ${p.name} as the lean place, showing how geography, stores and roads had made a political pressure point.`:'The harvest was entered; roads carried grain, household counts and building petitions between the towns.',{class:'trade',kind:lean?'famine':'harvest',causes:lean?['persistent hunger pressure']:['seasonal production and open roads'],consequences:lean?['political pressure concentrated']:['grain and petitions circulated'],participants:[p.name]})}let state=annalsState();if(clock.day>=state.nextEntry){addNarrativeEvent();state.nextEntry+=60+irnd(hisR,0,44)}if(clock.day>=state.nextReign){changeReign();state.nextReign+=720+irnd(hisR,0,359)}if(typeof document!=='undefined'&&!world.headless&&clock.day%8===0){hud();drawer();labelsRefresh()}}
 function act(a){let s=pressure();if(a==='drought'){world.drought=true;eventChronicle('drought',9,s,'Emergency drought measures were declared; the choice would test whether grain stores could quiet unrest.',{class:'fate',kind:'disaster',source:'manual-act',causes:['royal drought declaration'],consequences:['grain growth reduced','pressure on stores increased'],participants:[s.name]})}if(a==='grain'){s.stores.grain+=.18*s.pop;s.hunger=clamp(s.hunger-14,0,100);eventChronicle('grain-relief',7,s,`Grain relief reached ${s.name}; material stores cooled political heat and delayed new unrest.`,{class:'trade',kind:'trade',source:'manual-act',causes:['grain released from reserve'],consequences:['hunger reduced','unrest risk delayed'],participants:[s.name]})}if(a==='festival'){s.unrest=clamp(s.unrest-15,0,100);eventChronicle('festival',6,s,`A festival filled ${s.name}; lanterns made the realm seem orderly for one night.`,{class:'crown',kind:'festival',source:'manual-act',causes:['festival proclaimed'],consequences:['unrest reduced'],participants:[s.name]})}if(a==='fire'){s.unrest=clamp(s.unrest+8,0,100);s.prosperity=clamp(s.prosperity-8,0,100);let damaged=irnd(hisR,1,s.type==='village'?2:4);damageBuildings(s,damaged,'great fire');eventChronicle('fire',8,s,`A great fire damaged ${s.name}; street lots survived in the rolls, but hungry households pressed the granaries harder.`,{class:'fate',kind:'disaster',source:'manual-act',causes:['urban fire'],consequences:[`${damaged} buildings damaged`,'prosperity reduced','unrest increased'],participants:[s.name]})}if(typeof document!=='undefined'&&!world.headless){drawer();hud()}}
+
+/* ============================================================
+ * ANNALS MODULE 12/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/character-history.js
+ * ============================================================ */
 const baseFirstEntries=firstEntries,baseAddNarrativeEvent=addNarrativeEvent;
 annalsState=function(){initCharacters();let monarch=characterById(world.story.monarchId)||characterForRole('monarch');return world.story.annals||(world.story.annals={reign:1,monarch:monarch.name,sequence:0,nextEntry:45,nextReign:720})};
 firstEntries=function(){initCharacters();baseFirstEntries();let cap=world.settlements[0],monarch=characterById(world.story.monarchId),heir=characterById(world.story.heirId),merchant=characterForRole('merchant'),cleric=characterForRole('clergy');eventChronicle('royal-household',8,cap,`${monarch.name} held the crown while ${heir.name} was named heir; the succession therefore had living names rather than empty titles.`,{class:'crown',kind:'coronation',participants:[monarch.id,monarch.name,heir.id,heir.name],consequences:['monarch and heir entered the Chronicle'],source:'character-system'});if(merchant)eventChronicle('trade',6,characterHome(merchant),`${merchant.name}, merchant of ${characterHome(merchant).name}, entered the customs rolls and would be named again wherever trade altered the realm.`,{class:'trade',kind:'trade',participants:[merchant.id,merchant.name],source:'character-system'});if(cleric)eventChronicle('appointment',6,characterHome(cleric),`${cleric.name} was confirmed among the clergy of ${characterHome(cleric).name}; thereafter rites and omens had a remembered witness.`,{class:'crown',kind:'appointment',participants:[cleric.id,cleric.name],source:'character-system'})};
 addNarrativeEvent=function(){initCharacters();let state=annalsState(),s=pressure(),kind=ANNAL_KINDS[state.sequence++%ANNAL_KINDS.length],alive=characterState().registry.filter(c=>c.status==='alive'),c=alive[state.sequence%Math.max(1,alive.length)];if(kind==='birth'){birthCharacter(s,s.owner);return}if(kind==='death'&&c&&c.role!=='monarch'&&c.role!=='heir'){setCharacterStatus(c,'dead','illness carried the named life from the rolls');return}if(s.hunger>55)kind='famine';else if(world.drought&&hisR()<.35)kind='disaster';else if(world.houses.some(h=>h.rebellious)&&hisR()<.45)kind='war';let witness=c?`${c.name}, ${c.role} of ${characterHome(c).name}, was named among those who witnessed it. `:'',parts=[witness+annalText(kind,s)];if(world.events.length>6&&state.sequence%3===0)parts.push(remembered(priorEvent()));if(state.sequence%4===0)parts.push(pick(hisR,ANNAL_RUMOURS));eventChronicle(kind,kind==='war'||kind==='disaster'||kind==='dragon'?9:6,s,parts.filter(Boolean).join(' '),{class:annalClass(kind),kind,participants:c?[c.id,c.name,s.name]:[s.name],source:'character-system'})};
 changeReign=function(){initCharacters();let state=annalsState(),cap=world.settlements[0],old=characterById(world.story.monarchId),heir=characterById(world.story.heirId);if(old)setCharacterStatus(old,'dead','the reign ended and the crown passed onward');if(!heir||heir.status!=='alive')heir=characterForRole('noble')||createCharacter('heir',cap,0,irnd(hisR,18,35));heir.role='monarch';heir.homeId=cap.id;world.story.monarchId=heir.id;let next=characterState().registry.find(c=>c.status==='alive'&&c.id!==heir.id&&c.role==='noble')||createCharacter('heir',cap,0,irnd(hisR,12,28));next.role='heir';world.story.heirId=next.id;state.reign++;state.monarch=heir.name;chron('crown',10,cap,`Here begin the years of ${heir.name}, ${state.reign} sovereign of ${world.title}.`,{kind:'coronation',header:true});eventChronicle('succession',10,cap,`${heir.name} received the crown at ${cap.name}, because the realm would not endure an empty throne; ${next.name} was thereafter named heir.`,{class:'crown',kind:'coronation',participants:[heir.id,heir.name,next.id,next.name],causes:['death of the prior monarch'],consequences:['new monarch installed','new heir appointed'],source:'character-system'})};
+
+/* ============================================================
+ * ANNALS MODULE 13/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/dynasty-history.js
+ * ============================================================ */
 const dynastyBaseFirstEntries=firstEntries,dynastyBaseChangeReign=changeReign,dynastyBaseBirth=birthCharacter;
 firstEntries=function(){initDynasties();dynastyBaseFirstEntries();let monarch=characterById(world.story.monarchId),heir=characterById(world.story.heirId),d=dynastyById(monarch.dynastyId);recordReign(monarch,null,'founding acclamation',false,monarch.claimStrength);eventChronicle('dynasty-founded',8,characterHome(monarch),`${d.name} entered the royal rolls under ${monarch.name}; ${heir.name}, child of the sovereign, stood first in the succession.`,{class:'crown',kind:'dynasty',participants:[monarch.id,heir.id,d.id],consequences:['a ruling line entered history'],source:'dynasty-system'})};
 birthCharacter=function(home,houseId=null){let c=dynastyBaseBirth(home,houseId);if(c){let parent=characterById(world.story.monarchId),d=parent&&dynastyById(parent.dynastyId);if(d&&d.memberIds.length<DYNASTY_LIMIT*4){addToDynasty(d,c,45,68);linkParent(parent,c);let spouse=parent.spouseId&&characterById(parent.spouseId);if(spouse)linkParent(spouse,c);eventChronicle('heir-birth',7,home,`${c.name}, child of ${parent.name}, was entered among the heirs of ${d.name}.`,{class:'crown',kind:'birth',participants:[c.id,parent.id,d.id],consequences:['the succession widened'],source:'dynasty-system'})}}return c};
 changeReign=function(){initDynasties();let state=annalsState(),cap=world.settlements[0],old=characterById(world.story.monarchId),candidates=successionCandidates();if(old&&old.status==='alive')setCharacterStatus(old,'dead','the reign ended and the succession opened');candidates=successionCandidates();let first=candidates[0],second=candidates[1],forced=state.reign%3===2,contested=!!(second&&(forced||first.score-second.score<12||cap.unrest>58)),winner=first&&first.c;if(!winner){winner=characterState().registry.find(c=>c.status==='alive'&&c.id!==old?.id)||createCharacter('noble',cap,0,irnd(hisR,22,45));if(winner){familyInit(winner);winner.role='noble';if(!winner.dynastyId){let d=createDynasty(`House ${winner.name.split(' ').slice(-1)[0]}`,winner)||dynastyState().registry[0];addToDynasty(d,winner,55,52)}}}if(!winner)return;let priorDynasty=old&&dynastyById(old.dynastyId),newDynasty=dynastyById(winner.dynastyId)||priorDynasty||dynastyState().registry[0];if(priorDynasty&&newDynasty&&priorDynasty.id!==newDynasty.id){priorDynasty.status='displaced';priorDynasty.displacedDay=Math.floor(clock.day);newDynasty.status='ruling'}winner.role='monarch';winner.homeId=cap.id;world.story.monarchId=winner.id;let heir=characterState().registry.find(c=>c.status==='alive'&&c.id!==winner.id&&Array.isArray(c.parentIds)&&c.parentIds.includes(winner.id))||characterState().registry.find(c=>c.status==='alive'&&c.id!==winner.id&&c.dynastyId===winner.dynastyId&&['noble','heir'].includes(c.role))||characterState().registry.find(c=>c.status==='alive'&&c.id!==winner.id);if(!heir){heir=createCharacter('heir',cap,winner.houseId,irnd(hisR,10,26));if(heir){addToDynasty(newDynasty,heir,60,70);linkParent(winner,heir)}}if(heir){heir.role='heir';world.story.heirId=heir.id}else world.story.heirId=null;let relation=old?familyTerm(winner,old):null,basis=relation?`${relation} of ${old.name}`:winner.dynastyId===old?.dynastyId?'senior dynastic claim':'support of the great houses';state.reign++;state.monarch=winner.name;let reign=recordReign(winner,old,basis,contested,Math.round(first?first.score:winner.claimStrength));chron('crown',10,cap,`Here begin the years of ${winner.name}, ${state.reign} sovereign of ${world.title}, by ${basis}${contested?' after a contested succession':''}.`,{kind:'coronation',header:true});if(contested&&second){let rival=second.c;eventChronicle('contested-succession',10,cap,`${winner.name} took the crown by ${basis}, while ${rival.name} pressed a rival claim for ${dynastyById(rival.dynastyId)?.name||'another line'}; loyalty and unrest divided the realm.`,{class:'war',kind:'succession',participants:[winner.id,rival.id,reign.id],causes:['competing claims','political support divided'],consequences:['the succession was contested'],source:'dynasty-system'});winner.legitimacy=clamp(winner.legitimacy-8,0,100);rival.status='disgraced';rival.statusDay=Math.floor(clock.day)}else eventChronicle('succession',9,cap,heir?`${winner.name} received the crown by ${basis}; ${heir.name} was thereafter named heir of ${newDynasty?.name||'the ruling line'}.`:`${winner.name} received the crown by ${basis}; no settled heir was named, and the council retained the succession rolls.`,{class:'crown',kind:'coronation',participants:[winner.id,heir?.id,reign.id].filter(Boolean),causes:['death of the prior monarch'],consequences:['ordinary succession completed'],source:'dynasty-system'});for(const d of dynastyState().registry){let living=d.memberIds.map(characterById).filter(c=>c&&c.status==='alive');if(!living.length&&d.status!=='extinct'){d.status='extinct';d.extinctDay=Math.floor(clock.day)}}};
+
+/* ============================================================
+ * ANNALS MODULE 14/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/notable-history.js
+ * ============================================================ */
 const notableBaseAddNarrativeEvent=addNarrativeEvent,notableBaseTick=tick,notableBaseSetStatus=setCharacterStatus;
 setCharacterStatus=function(c,status,reason){if(c&&status==='dead')c.deathCause=String(reason||'unknown cause');return notableBaseSetStatus(c,status,reason)};
 addNarrativeEvent=function(){initCharacters();let before=world.events.length;notableBaseAddNarrativeEvent();let latest=world.events[0];if(latest&&world.events.length>before){let home=world.settlements.find(s=>s.name===latest.location)||world.settlements[0],notable=notableByNeed(latest.class,home);if(notable){notable.appearances=(notable.appearances||0)+1;let structured=latest.eventId&&worldEventState().registry.find(e=>e.id===latest.eventId);if(structured&&!structured.participants.includes(notable.id))structured.participants.push(notable.id);if(notable.appearances===3&&!notable.epithet){notable.epithet=latest.class==='war'?'the Steadfast':latest.class==='trade'?'the Ledger-Keeper':latest.class==='fate'?'the Far-Seeing':'the Remembered';eventChronicle('epithet',7,characterHome(notable),`${notable.name} was thereafter called ${notable.epithet}, for the Chronicle had named the same life through several turns of the realm.`,{class:'crown',kind:'epithet',participants:[notable.id],consequences:['a notable gained an epithet'],source:'notable-system'})}}}}
 function advanceNotableLives(){let living=characterState().registry.filter(c=>c.status==='alive');for(const c of living){c.age=Math.max(0,(clock.day-c.bornDay)/360);if(c.age>72&&hisR()<0.00018*(c.age-68)){setCharacterStatus(c,'dead','age closed the long account');continue}if(c.role!=='monarch'&&c.role!=='heir'&&hisR()<0.000012){let cause=pick(hisR,['wounds from a distant skirmish','plague carried along the road','assassination after a bitter grudge','a fire in the crowded quarter','illness after winter']);setCharacterStatus(c,'dead',cause)}}if(Math.floor(clock.day)%180===0&&living.length<100){let home=pick(hisR,world.settlements),house=world.houses.length?irnd(hisR,0,world.houses.length-1):null;birthCharacter(home,house)}}
 tick=function(){notableBaseTick();advanceNotableLives()};
+
+/* ============================================================
+ * ANNALS MODULE 15/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/economy.js
+ * ============================================================ */
 const ECONOMY_GOODS=['grain','fish','timber','ore','tools','cloth','wine'],TRADE_LIMIT=48;
 function economyState(){return world.economyState||(world.economyState={treasury:900,taxRate:.08,nextTradeId:1,trades:[],completed:0,taxCollected:0})}
 function initSettlementEconomy(s){s.stores=s.stores||{};s.prices=s.prices||{};let near=world.resources.filter(r=>Math.hypot(r.x-s.x,r.z-s.z)<650),count=t=>near.filter(r=>r.type===t).length,capital=s.type==='capital';let initial={grain:s.stores.grain??Math.max(120,s.pop*.55+count('farmland')*90),fish:s.stores.fish??Math.max(40,s.pop*.12+count('fishing')*55),timber:80+count('forest')*55,ore:35+count('ore')*50,tools:capital?90:35,cloth:capital?100:25,wine:capital?75:18};for(const g of ECONOMY_GOODS){s.stores[g]=clamp(Number.isFinite(s.stores[g])?s.stores[g]:initial[g],0,Math.max(300,s.pop*1.8));s.prices[g]=1}s.economy={lastShortageDay:-999,lastTradeDay:-999,produced:{},consumed:{}};return s}
@@ -190,13 +364,28 @@ const economyBaseTick=tick,economyBaseAct=act;
 tick=function(){economyBaseTick();economyDay()};
 act=function(a){economyBaseAct(a);if(a==='grain'){let s=pressure(),state=economyState(),cost=Math.min(state.treasury,s.pop*.025);state.treasury=clamp(state.treasury-cost,0,100000);s.stores.grain=clamp(s.stores.grain+cost*3,0,s.pop*1.8)}};
 function economySummary(){initEconomy();let state=economyState();return{goods:[...ECONOMY_GOODS],treasury:Math.round(state.treasury*100)/100,taxRate:state.taxRate,tradeLimit:TRADE_LIMIT,trades:state.trades.length,travelling:state.trades.filter(t=>t.status==='travelling').length,completed:state.completed,taxCollected:Math.round(state.taxCollected*100)/100,settlements:world.settlements.map(s=>({id:s.id,name:s.name,stores:Object.fromEntries(ECONOMY_GOODS.map(g=>[g,Math.round(s.stores[g]*10)/10])),prices:{...s.prices},hunger:Math.round(s.hunger*10)/10,unrest:Math.round(s.unrest*10)/10}))}}
+
+/* ============================================================
+ * ANNALS MODULE 16/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/scar-history.js
+ * ============================================================ */
 const scarBaseEventChronicle=eventChronicle,scarBaseFirstEntries=firstEntries,scarBaseTick=tick;
 eventChronicle=function(type,severity,location,text,details={}){let mapped={fire:'fire-scar',rebellion:'battlefield'},scar=details.scarId?scarById(details.scarId):null,scarType=details.scarType||mapped[type];if(!scar&&scarType)scar=createHistoricalScar(scarType,location,details.scarCause||(details.causes&&details.causes[0])||type,{state:details.scarState||(scarType==='fire-scar'?'ruin':'marked'),name:details.scarName});let ev=scarBaseEventChronicle(type,severity,scar||location,text,details);if(scar){ev.metadata.scarId=scar.id;linkScarEvent(scar,ev.id);let entry=world.events.find(e=>e.eventId===ev.id);if(entry){entry.scarId=scar.id;entry.location=scar.name;entry.pos={x:scar.x,y:scar.y,z:scar.z}}}return ev};
 firstEntries=function(){scarBaseFirstEntries();if(!scarState().registry.length){let site=createHistoricalScar('omen-site',world.hydrology.mouth,'the realm was founded beneath uncertain signs',{state:'marked',name:`Founding Omen of ${world.title}`});eventChronicle('omen-site',6,site,`${site.name} was entered into the rolls; later generations would return to the same ground whenever the realm sought meaning in its beginnings.`,{class:'fate',kind:'omen',scarId:site.id,participants:[site.name],source:'scar-system'})}};
 function advanceHistoricalScars(){for(const scar of scarState().registry){if(scar.erased)continue;let age=clock.day-scar.stateDay;if(scar.type==='fire-scar'&&scar.state==='ruin'&&age>=60){setScarState(scar,'rebuilding','masons returned to the burned ground');eventChronicle('scar-restoration',7,scar,`${scar.name} entered rebuilding; the old fire remained part of the place even as new walls rose.`,{class:'trade',kind:'rebuilding',scarId:scar.id,causes:['prosperity returned to damaged ground'],consequences:['scar entered rebuilding'],participants:[scar.name],source:'scar-system'})}else if(scar.type==='fire-scar'&&scar.state==='rebuilding'&&age>=60){setScarState(scar,'memorial','the rebuilt quarter retained a memorial stone');eventChronicle('scar-memorial',6,scar,`${scar.name} was dedicated as a memorial; rebuilding altered the site without erasing the fire from memory.`,{class:'crown',kind:'memorial',scarId:scar.id,causes:['rebuilding completed'],consequences:['scar became a memorial'],participants:[scar.name],source:'scar-system'})}else if(scar.type==='battlefield'&&scar.state==='marked'&&age>=120){setScarState(scar,'memorial','the battlefield was marked for remembrance');eventChronicle('scar-memorial',7,scar,`${scar.name} received standing stones; the rebellion ended, but the ground kept its name.`,{class:'war',kind:'memorial',scarId:scar.id,causes:['battlefield endured in public memory'],consequences:['scar became a memorial'],participants:[scar.name],source:'scar-system'})}}}
 tick=function(){scarBaseTick();advanceHistoricalScars()};
+
+/* ============================================================
+ * ANNALS MODULE 17/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/memory-history.js
+ * ============================================================ */
 const memoryBaseTick=tick;
 tick=function(){memoryBaseTick();if(clock.day%30===0)decayMemories()};
+
+/* ============================================================
+ * ANNALS MODULE 18/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/war.js
+ * ============================================================ */
 const WAR_CAMPAIGN_LIMIT=12,ARMY_LIMIT=24;
 function warState(){return world.warState||(world.warState={nextCampaignId:1,nextArmyId:1,campaigns:[],armies:[],nextWarDay:420,completed:0})}
 function livingCommander(houseId){return characterState().registry.find(c=>c.status==='alive'&&c.houseId===houseId&&c.role==='commander')||characterState().registry.find(c=>c.status==='alive'&&c.houseId===houseId&&['noble','master-of-coin'].includes(c.role))||characterState().registry.find(c=>c.status==='alive'&&c.role==='commander')||null}
@@ -215,7 +404,18 @@ function endWar(campaign,outcome,winner){campaign.status='ended';campaign.endDay
 function warDay(){let state=warState();if(clock.day>=state.nextWarDay&&!state.campaigns.some(c=>c.status!=='ended')){startCivilWar();state.nextWarDay+=1080+irnd(hisR,0,360)}for(const campaign of state.campaigns){if(campaign.status==='marching'){let armies=campaign.armyIds.map(id=>state.armies.find(a=>a.id===id)).filter(Boolean);armies.forEach(marchArmy);if(armies.length>=2&&armies[0].progress+armies[1].progress>=1)resolveBattle(campaign,armies[0],armies[1])}else if(campaign.status==='siege')advanceSiege(campaign)}}
 const warBaseTick=tick;
 tick=function(){warBaseTick();warDay()};
-function warSummary(){let state=warState();return{campaignLimit:WAR_CAMPAIGN_LIMIT,armyLimit:ARMY_LIMIT,completed:state.completed,campaigns:state.campaigns.map(c=>({id:c.id,name:c.name,status:c.status,startDay:c.startDay,endDay:c.endDay,outcome:c.outcome,warScore:c.warScore,battle:c.battle?{name:c.battle.name,day:c.battle.day,scarId:c.battle.scarId,phases:[...c.battle.phases]}:null,siege:c.siege?{startDay:c.siege.startDay,targetId:c.siege.targetId,granary:Math.round(c.siege.granary)}:null})),armies:state.armies.map(a=>({id:a.id,campaignId:a.campaignId,side:a.side,houseId:a.houseId,commanderId:a.commanderId,strength:a.strength,initialStrength:a.initialStrength,morale:Math.round(a.morale),supply:Math.round(a.supply),progress:Math.round(a.progress*100)/100,status:a.status})),owners:world.settlements.map(s=>({id:s.id,owner:s.owner}))}};
+function warSummary(){let state=warState();return{campaignLimit:WAR_CAMPAIGN_LIMIT,armyLimit:ARMY_LIMIT,completed:state.completed,campaigns:state.campaigns.map(c=>({id:c.id,name:c.name,status:c.status,startDay:c.startDay,endDay:c.endDay,outcome:c.outcome,warScore:c.warScore,battle:c.battle?{name:c.battle.name,day:c.battle.day,scarId:c.battle.scarId,phases:[...c.battle.phases]}:null,siege:c.siege?{startDay:c.siege.startDay,targetId:c.siege.targetId,granary:Math.round(c.siege.granary)}:null})),armies:state.armies.map(a=>({id:a.id,campaignId:a.campaignId,side:a.side,houseId:a.houseId,commanderId:a.commanderId,strength:a.strength,initialStrength:a.initialStrength,morale:Math.round(a.morale),supply:Math.round(a.supply),progress:Math.round(a.progress*100)/100,status:a.status})),owners:world.settlements.map(s=>({id:s.id,owner:s.owner}))}}
+
+/* ============================================================
+ * ANNALS MODULE 19/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/threat-boundary.js
+ * ============================================================ */
+;
+
+/* ============================================================
+ * ANNALS MODULE 20/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/threats.js
+ * ============================================================ */
 const BANDIT_LIMIT=4,DRAGON_HISTORY_LIMIT=8,MYTH_LEVELS=['off','low','high'];
 function threatState(){return world.threatState||(world.threatState={myth:'low',nextCampId:1,plagueSeeded:false,banditCamps:[],dragon:{awake:false,lastRaid:-9999,raids:[]},lastPlagueEntry:-999,lastBanditEntry:-999})}
 function initThreats(){initEconomy();initCharacters();let state=threatState();for(const s of world.settlements)if(!s.disease)s.disease={susceptible:s.pop,infected:0,recovered:0,dead:0,quarantined:false,lastEntry:-999};return state}
@@ -233,7 +433,13 @@ const threatBaseLaunchTrade=launchTrade,threatBaseCompleteTrades=completeTrades,
 launchTrade=function(candidate){initThreats();if(candidate&&(candidate.from.disease?.quarantined||candidate.to.disease?.quarantined))return null;return threatBaseLaunchTrade(candidate)};
 completeTrades=function(){threatBaseCompleteTrades();initThreats();for(const t of economyState().trades)plagueFromTrade(t)};
 tick=function(){threatBaseTick();updatePlague();updateBandits();updateDragon()};
-function threatSummary(){initThreats();let state=threatState();return{myth:state.myth,banditLimit:BANDIT_LIMIT,banditCamps:state.banditCamps.map(c=>({...c})),dragon:{awake:state.dragon.awake,lastRaid:state.dragon.lastRaid,raids:state.dragon.raids.map(r=>({...r}))},plague:world.settlements.map(s=>({id:s.id,name:s.name,infected:Math.round(s.disease.infected),recovered:Math.round(s.disease.recovered),dead:Math.round(s.disease.dead),quarantined:s.disease.quarantined}))}};const STABILITY_ARCHIVE_LIMIT=256,STABILITY_RECENT_DEAD=24,STABILITY_CHECKPOINT_LIMIT=32;
+function threatSummary(){initThreats();let state=threatState();return{myth:state.myth,banditLimit:BANDIT_LIMIT,banditCamps:state.banditCamps.map(c=>({...c})),dragon:{awake:state.dragon.awake,lastRaid:state.dragon.lastRaid,raids:state.dragon.raids.map(r=>({...r}))},plague:world.settlements.map(s=>({id:s.id,name:s.name,infected:Math.round(s.disease.infected),recovered:Math.round(s.disease.recovered),dead:Math.round(s.disease.dead),quarantined:s.disease.quarantined}))}}
+
+/* ============================================================
+ * ANNALS MODULE 21/63 · SIMULATION & CHRONICLE SYSTEMS
+ * Source: src/simulation/stability.js
+ * ============================================================ */
+;const STABILITY_ARCHIVE_LIMIT=256,STABILITY_RECENT_DEAD=24,STABILITY_CHECKPOINT_LIMIT=32;
 function stabilityState(){return world.stabilityState||(world.stabilityState={notableArchive:[],eventTotals:{},chronicleByYear:{},chronicleKinds:{},chronicleTotal:0,lastChronicleDay:0,narrativeLast:{},suppressedNarrative:{},interventions:{population:0,treasury:0,relief:0,unrest:0,drought:0,plague:0,warCompaction:0,notableCompaction:0,notableRecovery:0,territoryRecovery:0,banditPatrols:0},droughtStart:null,checkpoints:[]})}
 const stabilityBaseChron=chron;
 chron=function(cls,priority,target,text,meta={}){let ev=stabilityBaseChron(cls,priority,target,text,meta),state=stabilityState(),year=Math.floor((clock.day-1)/360)+1,kind=meta.kind||cls;state.chronicleTotal++;state.lastChronicleDay=Math.floor(clock.day);state.chronicleByYear[year]=(state.chronicleByYear[year]||0)+1;state.chronicleKinds[kind]=(state.chronicleKinds[kind]||0)+1;let years=Object.keys(state.chronicleByYear).map(Number).sort((a,b)=>a-b);while(years.length>220){delete state.chronicleByYear[years.shift()]}return ev};
@@ -261,6 +467,11 @@ function stabilityFiniteValues(){let values=[clock.day,economyState().treasury,e
 function recentChronicleRate(years=20){let state=stabilityState(),year=Math.floor((clock.day-1)/360)+1,total=0;for(let y=Math.max(1,year-years+1);y<=year;y++)total+=state.chronicleByYear[y]||0;return Math.round(total/Math.max(1,Math.min(year,years))*100)/100}
 function stabilitySnapshot(){initEconomy();initCharacters();initThreats();let state=stabilityState(),chars=characterState(),all=[...chars.registry,...state.notableArchive],population=world.settlements.reduce((n,s)=>n+s.pop,0),activeWars=warState().campaigns.filter(c=>c.status!=='ended').length,disasters=Object.entries(state.eventTotals).filter(([k])=>['drought','fire','plague-outbreak','plague-spread','plague-toll','dragon-raid'].includes(k)).reduce((n,[,v])=>n+v,0);return{day:Math.floor(clock.day),year:Math.floor((clock.day-1)/360)+1,finite:stabilityFiniteValues(),population:Math.round(population),populationMin:Math.round(Math.min(...world.settlements.map(s=>s.pop))),populationMax:Math.round(Math.max(...world.settlements.map(s=>s.pop))),treasury:Math.round(economyState().treasury*100)/100,settlements:world.settlements.length,houses:world.houses.length,distinctOwners:new Set(world.settlements.map(s=>s.owner)).size,rebelliousHouses:world.houses.filter(h=>h.rebellious).length,livingNotables:chars.registry.filter(c=>c.status==='alive').length,notableRegistry:chars.registry.length,notableArchive:state.notableArchive.length,deaths:all.filter(c=>c.status==='dead').length,reigns:annalsState().reign,warsCompleted:warState().completed,activeWars,campaigns:warState().campaigns.length,armies:warState().armies.length,disasters,chronicleTotal:state.chronicleTotal,chronicleRate:recentChronicleRate(),lastChronicleDay:state.lastChronicleDay,chronicleKinds:{...state.chronicleKinds},eventTotals:{...state.eventTotals},suppressedNarrative:{...state.suppressedNarrative},trades:economyState().trades.length,banditCamps:threatState().banditCamps.length,dragonRaids:threatState().dragon.raids.length,worldEvents:worldEventState().registry.length,scars:world.scarState?.registry?.length||0,memories:world.memoryState?.registry?.length||0,interventions:{...state.interventions}}}
 function stabilitySummary(){return stabilitySnapshot()}
+
+/* ============================================================
+ * ANNALS MODULE 22/63 · RENDERING
+ * Source: src/rendering/scene.js
+ * ============================================================ */
 function setupScene(){if(typeof THREE==='undefined')throw Error('Three.js r128 did not load');scene=new THREE.Scene();scene.fog=new THREE.Fog(0xa8b8c4,1500,7600);camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,12000);camera.position.set(0,1750,2650);camera.userData.target=new THREE.Vector3(0,0,0);renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));app.appendChild(renderer.domElement);scene.add(new THREE.HemisphereLight(0xd9ecff,0x4b3423,1.2));let sun=new THREE.DirectionalLight(0xfff1c2,1.5);sun.position.set(-1200,2300,900);scene.add(sun);terrainMesh();waterMesh();roadMeshes();settlementMeshes();labelsRefresh();if(typeof document!=='undefined'){drawer();hud()}}
 function mat(c){return new THREE.MeshLambertMaterial({color:c})}
 const mats={};function getMat(k,c){return mats[k]||(mats[k]=mat(c))}
@@ -280,6 +491,11 @@ function addBuildingMesh(lot){let b=lot.building,g=new THREE.Group,[w,h,d]=build
 function refreshSettlementDetails(){if(!scene||!settlementDetailGroup)return;scene.remove(settlementDetailGroup);pickables=[];settlementDetailGroup=new THREE.Group();scene.add(settlementDetailGroup);for(const s of world.settlements)addSettlementDetail(s)}
 function labelsRefresh(){if(typeof document==='undefined')return;if(!labels.length)for(const s of world.settlements){let el=document.createElement('div');el.className='label';document.body.appendChild(el);labels.push({el,s})}for(const l of labels)l.el.innerHTML=l.s.name+(l.s.site.harbour?' ⚓':'')}
 function drawLabels(){for(const l of labels){let v=new THREE.Vector3(l.s.x,l.s.y+125,l.s.z).project(camera);l.el.style.left=(v.x*.5+.5)*innerWidth+'px';l.el.style.top=(-v.y*.5+.5)*innerHeight+'px';l.el.style.display=v.z<1&&camera.position.y>120?'block':'none'}}
+
+/* ============================================================
+ * ANNALS MODULE 23/63 · UI & CONTROLS
+ * Source: src/ui/interface.js
+ * ============================================================ */
 function renderChronicle(){let rows=world.events.filter(e=>world.filter==='all'||e.class===world.filter).slice(0,120);entries.innerHTML=rows.map((e,i)=>e.header?`<div class="entry crown reign-header" data-i="${i}"><div class="date">${dt(e.day)}</div><p class="txt">${safeName(e.text)}</p></div>`:`<div class="entry ${e.class}" data-i="${i}"><div class="date">${dt(e.day)} · ${safeName(e.kind||e.class)}${e.location?` · ${safeName(e.location)}`:''}</div><p class="txt">${safeName(e.text)}</p></div>`).join('');[...entries.children].forEach((el,i)=>el.onclick=()=>fly(rows[i].pos,rows[i].header?430:520,1800))}
 function drawer(){let counts=world.resources.reduce((a,r)=>(a[r.type]=(a[r.type]||0)+1,a),{}),bridges=world.roads.reduce((a,r)=>a+r.bridges.length,0),types=[...new Set(world.buildings.map(b=>b.type))];drawer.innerHTML=`<b>ANNALS ${world.version}</b><p class="small">Seeded terrain, cost-routed roads, settlement streets, persistent lots, districts and procedural building archetypes.</p><p class="small">Rivers <b>${world.riverPaths.length}</b> · Lakes <b>${world.hydrology.lakes.length}</b> · Resources <b>${world.resources.length}</b> · Bridges <b>${bridges}</b></p><p class="small">Buildings <b>${world.buildings.length}</b> · Archetypes <b>${types.length}</b>: ${types.slice(0,10).join(', ')}</p><p class="small">farmland ${counts.farmland||0}, forest ${counts.forest||0}, ore ${counts.ore||0}, fishing ${counts.fishing||0}, harbour ${counts.harbour||0}</p><div class="section"><b>Pressure and layout</b>${world.settlements.map(s=>`<p class="small"><b>${s.name}</b> ${s.type} · ${s.layout.lots.length} lots · ${s.layout.districts.join(', ')}<br>H ${Math.floor(s.hunger)} U ${Math.floor(s.unrest)} P ${Math.floor(s.prosperity)}<span class="bar"><span style="width:${s.hunger}%"></span></span></p>`).join('')}</div><div class="section grid"><button onclick="act('drought')">Drought</button><button onclick="act('fire')">Fire</button><button onclick="act('festival')">Festival</button><button onclick="act('grain')">Grain</button></div><div class="section"><button onclick="location.hash='s='+Date.now();location.reload()">Reforge</button> <button onclick="navigator.clipboard&&navigator.clipboard.writeText(location.href)">Copy link</button> <button onclick="exportChronicle()">Export</button> <button onclick="document.body.classList.toggle('watch')">Watch</button><p class="small">Seed ${world.seed}. Hotkeys: Space, 1–4, H, C. Click buildings near settlements for lot and goods details.</p></div>`}
 function hud(){let p=pressure();meta.innerHTML=`<span class="chip">${dt(clock.day)}</span><span class="chip">${world.season} · ${world.weather}${world.drought?' · Drought':''}</span><span class="chip">${terrainSpec.coast.active?'Coastal':'Inland'}</span><span class="chip">Buildings ${world.buildings.length}</span><span class="chip">Pressure ${p.name} H${Math.floor(p.hunger)} U${Math.floor(p.unrest)}</span>`;document.querySelectorAll('#speed button').forEach(b=>b.classList.toggle('active',+b.dataset.speed===clock.speed))}
@@ -287,32 +503,68 @@ function formatChronicleExport(){let ordered=world.events.slice().reverse(),earl
 function exportChronicle(){let url=URL.createObjectURL(new Blob([formatChronicleExport()],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=`annals-${world.seed}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function showInspector(data){if(!data||typeof document==='undefined')return;let el=document.getElementById('inspect');el.style.display='block';if(data.kind==='settlement'){let s=data.settlement;el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(s.name)}</h3><div class="kv"><b>Type</b><span>${s.type}</span><b>Lots</b><span>${s.layout.lots.length}</span><b>Districts</b><span>${s.layout.districts.map(d=>`<span class='district-chip'>${d}</span>`).join('')}</span><b>Stores</b><span>${Math.round(s.stores.grain)} grain, ${Math.round(s.stores.fish)} fish</span><b>State</b><span>Hunger ${Math.floor(s.hunger)}, unrest ${Math.floor(s.unrest)}</span></div>`;return}let b=data.building,lot=data.lot,s=world.settlements[b.settlementId],goods=Object.keys(b.stored||{}).map(k=>`${b.stored[k]} ${k}`).join(', ')||'household goods';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(b.type)} on lot ${safeName(b.lotId)}</h3><div class="kv"><b>Settlement</b><span>${safeName(s.name)}</span><b>District</b><span>${safeName(b.district)}</span><b>Type</b><span>${safeName(b.type)}</span><b>Tier</b><span>${safeName(b.tier)}</span><b>State</b><span>${safeName(b.state)}</span><b>Households</b><span>${b.households||0}</span><b>Stored goods</b><span>${safeName(goods)}</span><b>Lot identity</b><span>${safeName(lot.id)} persists through ruins and rebuilds</span></div>`}
 function handlePick(e){let rect=renderer.domElement.getBoundingClientRect(),mouse=new THREE.Vector2((e.clientX-rect.left)/rect.width*2-1,-((e.clientY-rect.top)/rect.height*2-1)),ray=new THREE.Raycaster();ray.setFromCamera(mouse,camera);let hit=ray.intersectObjects(pickables,true)[0];if(hit){let o=hit.object;while(o&&!o.userData.pick)o=o.parent;showInspector(o&&o.userData.pick);director.suspend=clock.day+20}}
+
+/* ============================================================
+ * ANNALS MODULE 24/63 · UI & CONTROLS
+ * Source: src/ui/character-interface.js
+ * ============================================================ */
 function showCharacter(id){let c=characterById(id);if(!c||typeof document==='undefined')return;let home=characterHome(c),house=characterHouse(c),el=document.getElementById('inspect');el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(c.name)}</h3><div class="kv"><b>Role</b><span>${safeName(c.role)}</span><b>Status</b><span>${safeName(c.status)}</span><b>Age</b><span>${Math.floor(c.age)}</span><b>Home</b><span>${safeName(home.name)}</span><b>House</b><span>${safeName(house?house.name:'Unaffiliated')}</span><b>Stable ID</b><span>${safeName(c.id)}</span></div>`;director.suspend=clock.day+20}
 const baseShowInspector=showInspector;
 showInspector=function(data){if(data&&data.kind==='settlement'){let s=data.settlement,people=charactersAt(s.id);baseShowInspector(data);let el=document.getElementById('inspect'),list=people.map(c=>`<button onclick="showCharacter('${c.id}')">${safeName(c.name)} · ${safeName(c.role)} · ${safeName(c.status)}</button>`).join(' ');el.innerHTML+=`<div class="section"><b>Named people</b><p class="small">${people.length?list:'No named residents recorded.'}</p></div>`;return}baseShowInspector(data)};
 renderChronicle=function(){let rows=world.events.filter(e=>world.filter==='all'||e.class===world.filter).slice(0,120);entries.innerHTML=rows.map((e,i)=>e.header?`<div class="entry crown reign-header" data-i="${i}"><div class="date">${dt(e.day)}</div><p class="txt">${safeName(e.text)}</p></div>`:`<div class="entry ${e.class}" data-i="${i}"><div class="date">${dt(e.day)} · ${safeName(e.kind||e.class)}${e.location?` · ${safeName(e.location)}`:''}</div><p class="txt">${safeName(e.text)}</p></div>`).join('');[...entries.children].forEach((el,i)=>el.onclick=()=>{let row=rows[i],structured=row.eventId&&worldEventState().registry.find(e=>e.id===row.eventId),id=structured&&structured.participants.find(p=>characterById(p));if(id)showCharacter(id);else fly(row.pos,row.header?430:520,1800)})};
 const baseDrawer=drawer;
 drawer=function(){baseDrawer();let alive=characterState().registry.filter(c=>c.status==='alive').length;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Named people</b><p class="small">${characterState().registry.length} recorded · ${alive} alive · bounded at ${CHARACTER_LIMIT}. Select a settlement to inspect its residents.</p></div><div class="section"><b>Pressure and layout</b>`)};
+
+/* ============================================================
+ * ANNALS MODULE 25/63 · RENDERING
+ * Source: src/rendering/economy.js
+ * ============================================================ */
 let tradeMarkerGroup=null,tradeMarkerMeshes=new Map();
 function ensureTradeMarkers(){if(!scene||typeof THREE==='undefined')return;if(!tradeMarkerGroup){tradeMarkerGroup=new THREE.Group();scene.add(tradeMarkerGroup)}let active=economyState().trades.filter(t=>t.status==='travelling'),ids=new Set(active.map(t=>t.id));for(const [id,m] of tradeMarkerMeshes)if(!ids.has(id)){tradeMarkerGroup.remove(m);tradeMarkerMeshes.delete(id)}for(const t of active){let m=tradeMarkerMeshes.get(t.id);if(!m){m=new THREE.Mesh(new THREE.BoxBufferGeometry(18,14,28),new THREE.MeshLambertMaterial({color:0xb78632}));tradeMarkerGroup.add(m);tradeMarkerMeshes.set(t.id,m)}let pts=t.points||[],f=clamp(t.progress,0,1)*(Math.max(1,pts.length-1)),i=Math.min(pts.length-1,Math.floor(f)),j=Math.min(pts.length-1,i+1),u=f-i,a=pts[i]||world.settlements[t.fromId],b=pts[j]||a;m.position.set(a.x+(b.x-a.x)*u,(a.y||hWorld(a.x,a.z))+16,a.z+(b.z-a.z)*u);m.rotation.y=Math.atan2((b.x-a.x),(b.z-a.z))}tradeMarkerGroup.visible=camera?camera.position.y<2800:true}
 function updateTradeMeshes(){if(world?.economyState)ensureTradeMarkers()}
+
+/* ============================================================
+ * ANNALS MODULE 26/63 · RENDERING
+ * Source: src/rendering/war.js
+ * ============================================================ */
 let warMarkerGroup=null,warMarkerStamp='';
 const warBaseSetupScene=setupScene;
 setupScene=function(){warBaseSetupScene();warMarkerGroup=new THREE.Group();scene.add(warMarkerGroup)};
 function warMarkerMaterial(houseId){let colour=world.houses[houseId]?.colour||'#7d6847';return getMat(`war-house-${houseId}`,colour)}
 function clearWarMarkers(){if(!warMarkerGroup)return;while(warMarkerGroup.children.length){let child=warMarkerGroup.children.pop();child.traverse?.(o=>{if(o.geometry)o.geometry.dispose()})}}
 function refreshWarMarkers(){if(!warMarkerGroup||typeof THREE==='undefined')return;clearWarMarkers();let state=warState();for(const a of state.armies.filter(a=>['marching','victorious','besieging'].includes(a.status))){let p=armyPosition(a),g=new THREE.Group(),banner=new THREE.Mesh(new THREE.BoxBufferGeometry(18,34,4),warMarkerMaterial(a.houseId)),pole=new THREE.Mesh(new THREE.CylinderBufferGeometry(2,2,42,6),getMat('war-pole',0x3e2d1f));banner.position.set(8,28,0);pole.position.y=20;g.add(pole,banner);if(camera&&camera.position.y<1200){for(let i=0;i<Math.min(8,Math.max(3,Math.round(a.strength/90)));i++){let soldier=new THREE.Mesh(new THREE.CylinderBufferGeometry(3,4,13,6),warMarkerMaterial(a.houseId));soldier.position.set((i%4-1.5)*9,7,(Math.floor(i/4)-.5)*10);g.add(soldier)}}g.position.set(p.x,p.y+7,p.z);warMarkerGroup.add(g)}for(const c of state.campaigns.filter(c=>c.status==='siege'&&c.siege)){let p=c.siege.camp,g=new THREE.Group();for(let i=0;i<5;i++){let tent=new THREE.Mesh(new THREE.ConeBufferGeometry(12,18,4),getMat('siege-tent',0x7f6542));tent.position.set((i-2)*24,9,(i%2)*18);g.add(tent)}let fire=new THREE.Mesh(new THREE.SphereBufferGeometry(5,8,6),getMat('siege-fire',0xd46b2c));fire.position.set(0,5,28);g.add(fire);g.position.set(p.x,p.y+4,p.z);warMarkerGroup.add(g)}}
-function updateWarMarkers(){if(!warMarkerGroup)return;warMarkerGroup.visible=!camera||camera.position.y<2600;let state=warState(),stamp=`${Math.floor(clock.day)}:${state.campaigns.map(c=>c.status).join(',')}:${state.armies.map(a=>`${a.status}:${Math.round(a.progress*20)}`).join(',')}:${camera&&camera.position.y<1200?'near':'far'}`;if(stamp!==warMarkerStamp){warMarkerStamp=stamp;refreshWarMarkers()}};
+function updateWarMarkers(){if(!warMarkerGroup)return;warMarkerGroup.visible=!camera||camera.position.y<2600;let state=warState(),stamp=`${Math.floor(clock.day)}:${state.campaigns.map(c=>c.status).join(',')}:${state.armies.map(a=>`${a.status}:${Math.round(a.progress*20)}`).join(',')}:${camera&&camera.position.y<1200?'near':'far'}`;if(stamp!==warMarkerStamp){warMarkerStamp=stamp;refreshWarMarkers()}}
+
+/* ============================================================
+ * ANNALS MODULE 27/63 · RENDERING
+ * Source: src/rendering/threat-boundary.js
+ * ============================================================ */
+;
+
+/* ============================================================
+ * ANNALS MODULE 28/63 · RENDERING
+ * Source: src/rendering/threats.js
+ * ============================================================ */
 let threatMarkerGroup=null,threatMarkerKey='';
 const threatBaseSetupScene=setupScene;
 setupScene=function(){threatBaseSetupScene();threatMarkerGroup=new THREE.Group();scene.add(threatMarkerGroup)};
 function clearThreatMarkers(){if(!threatMarkerGroup)return;while(threatMarkerGroup.children.length)threatMarkerGroup.remove(threatMarkerGroup.children[0])}
 function refreshThreatMarkers(){if(!threatMarkerGroup||typeof THREE==='undefined')return;clearThreatMarkers();initThreats();for(const s of world.settlements){let d=s.disease,rate=d.infected/Math.max(1,s.pop);if(rate<.01)continue;let g=new THREE.Group(),pyres=Math.min(5,Math.max(1,Math.round(rate*24)));for(let i=0;i<pyres;i++){let base=new THREE.Mesh(new THREE.CylinderBufferGeometry(5,7,4,6),getMat('pyre-wood',0x4a2f22)),flame=new THREE.Mesh(new THREE.ConeBufferGeometry(4,14,6),getMat('pyre-flame',0xd46a2e));base.position.set((i-2)*12,2,(i%2)*10);flame.position.set((i-2)*12,11,(i%2)*10);g.add(base,flame)}g.position.set(s.x+55,s.y+5,s.z+45);threatMarkerGroup.add(g)}for(const camp of threatState().banditCamps.filter(c=>c.status==='active')){let g=new THREE.Group();for(let i=0;i<3;i++){let tent=new THREE.Mesh(new THREE.ConeBufferGeometry(11,16,4),getMat('bandit-tent',0x55432f));tent.position.set((i-1)*22,8,(i%2)*14);g.add(tent)}let fire=new THREE.Mesh(new THREE.SphereBufferGeometry(4,8,6),getMat('bandit-fire',0xb84f28));fire.position.set(0,5,24);g.add(fire);g.position.set(camp.x,camp.y+4,camp.z);threatMarkerGroup.add(g)}let dragon=threatState().dragon;if(dragon.awake&&dragon.raids.length){let raid=dragon.raids[dragon.raids.length-1],s=world.settlements[raid.settlementId],g=new THREE.Group(),body=new THREE.Mesh(new THREE.ConeBufferGeometry(18,48,5),getMat('dragon-body',0x392f34)),wing1=new THREE.Mesh(new THREE.ConeBufferGeometry(26,58,3),getMat('dragon-wing',0x4b3a42)),wing2=wing1.clone();body.rotation.z=Math.PI/2;wing1.rotation.z=Math.PI/2;wing1.rotation.y=.65;wing2.rotation.z=Math.PI/2;wing2.rotation.y=-.65;g.add(body,wing1,wing2);g.position.set(s.x,s.y+180,s.z);threatMarkerGroup.add(g)}}
 function updateThreatMarkers(){if(!threatMarkerGroup)return;let state=threatState(),key=[Math.floor(clock.day),state.dragon.awake,state.banditCamps.map(c=>`${c.id}:${c.status}:${c.ambushes}`).join(','),world.settlements.map(s=>`${s.id}:${Math.floor((s.disease?.infected||0)/10)}:${s.disease?.quarantined?1:0}`).join(',')].join('|');threatMarkerGroup.visible=!camera||camera.position.y<2800;if(key!==threatMarkerKey){threatMarkerKey=key;refreshThreatMarkers()}}
+
+/* ============================================================
+ * ANNALS MODULE 29/63 · CAMERA & DIRECTOR
+ * Source: src/director/camera.js
+ * ============================================================ */
 function fly(pos,alt=600,dur=2200){camera.userData.fly={t0:performance.now(),dur,from:camera.position.clone(),to:new THREE.Vector3(pos.x,alt,pos.z+.75*alt),tf:camera.userData.target.clone(),tt:new THREE.Vector3(pos.x,hWorld(pos.x,pos.z)+20,pos.z)};director.suspend=clock.day+4}
 function move(dt){let t=camera.userData.target,sp=900*dt;if(keys.KeyW)t.z-=sp;if(keys.KeyS)t.z+=sp;if(keys.KeyA)t.x-=sp;if(keys.KeyD)t.x+=sp;let alt=clamp(camera.position.y,60,4200),to=new THREE.Vector3(t.x,alt,t.z+alt/Math.tan(.55));if(camera.userData.fly){let f=camera.userData.fly,u=clamp((performance.now()-f.t0)/f.dur,0,1),e=u*u*(3-2*u);to.lerpVectors(f.from,f.to,e);t.lerpVectors(f.tf,f.tt,e);if(u>=1)camera.userData.fly=null}camera.position.lerp(to,1-Math.exp(-5*dt));camera.lookAt(t.x,hWorld(t.x,t.z)+20,t.z);if(settlementDetailGroup)settlementDetailGroup.visible=camera.position.y<2500}
 function directorTick(){if(director.queue.length&&clock.day>director.suspend){director.queue.sort((a,b)=>b.priority-a.priority);let e=director.queue.shift();director.until=clock.day+Math.max(8,22-e.priority);fly(e.pos,e.priority>8?420:720,2200)}if(clock.day>director.until&&clock.day>director.suspend){fly(pick(hisR,world.settlements),900,3500);director.until=clock.day+18}}
 function loop(t){requestAnimationFrame(loop);let dtm=Math.min(.05,(t-(loop.last||t))/1000);loop.last=t;clock.acc+=dtm*clock.speed;while(clock.acc>=1){tick();clock.acc--}move(dtm);directorTick();if(typeof updateTradeMeshes==='function')updateTradeMeshes(dtm);if(typeof updateWarMarkers==='function')updateWarMarkers();if(typeof updateThreatMarkers==='function')updateThreatMarkers();drawLabels();hud();renderer.render(scene,camera)}
+
+/* ============================================================
+ * ANNALS MODULE 30/63 · CAMERA & DIRECTOR
+ * Source: src/director/cinematic.js
+ * ============================================================ */
 ;const CAMERA_MODES=['free','follow','director'],CAMERA_COOLDOWN_DAYS=24;
 function cinematicState(){return world.cinematicState||(world.cinematicState={mode:'director',follow:null,shot:null,lastCategory:{},manualUntil:0,shots:[],lowerThird:null,orbit:0,zoom:900})}
 function setCameraMode(mode,target=null){let s=cinematicState();s.mode=CAMERA_MODES.includes(mode)?mode:'director';s.follow=target;camera.userData.fly=null;if(s.mode==='free')director.suspend=Math.max(director.suspend,clock.day+30);return s.mode}
@@ -330,6 +582,11 @@ move=function(dt){let s=cinematicState(),target=camera.userData.target,desiredTa
 directorTick=function(){if(typeof updateAmbientWorld==='function')updateAmbientWorld();let s=cinematicState();if(s.mode==='free'&&clock.day<s.manualUntil)return;if(s.mode==='follow')return;if(director.queue.length&&clock.day>director.suspend){director.queue.sort((a,b)=>b.priority-a.priority||b.day-a.day);let idx=director.queue.findIndex(e=>(e.priority||0)>=9||clock.day-(s.lastCategory[shotCategory(e)]??-999)>CAMERA_COOLDOWN_DAYS);if(idx>=0){let e=director.queue.splice(idx,1)[0];if(!s.shot||(e.priority||0)>s.shot.priority||clock.day>director.until)beginShot(e)}}if((!s.shot||clock.day>director.until)&&clock.day>director.suspend){let p=pick(hisR,world.settlements);beginShot({pos:p,location:p.name,text:`Evening light moved across ${p.name}.`,kind:'idle',class:'trade',priority:3})}}
 function cameraSummary(){let s=cinematicState();return{mode:s.mode,follow:s.follow?{...s.follow}:null,shot:s.shot?{type:s.shot.type,category:s.shot.category,priority:s.shot.priority}:null,manualUntil:s.manualUntil,shots:s.shots.slice(-20),terrainClearance:Math.round(camera?camera.position.y-hWorld(camera.position.x,camera.position.z):0)}}
 if(typeof window!=='undefined'){window.addEventListener('wheel',e=>{if(!camera)return;manualCameraInput();camera.position.y=clamp(camera.position.y+e.deltaY*.7,90,4200)},{passive:true});window.addEventListener('pointerdown',e=>{if(e.target===renderer?.domElement&&e.button===1)manualCameraInput()});window.ANNALS_CAMERA={setMode:setCameraMode,followTrade,followArmy,followDragon,summary:cameraSummary}}
+
+/* ============================================================
+ * ANNALS MODULE 31/63 · RENDERING
+ * Source: src/rendering/atmosphere.js
+ * ============================================================ */
 ;const LOD_BANDS={far:2600,mid:1400,near:650,bubble:260},AMBIENT_LIGHT_LIMIT=8,AMBIENT_PARTICLE_LIMIT=96;
 let ambientRoot=null,farRoot=null,nearRoot=null,bubbleRoot=null,weatherRoot=null,ambientLights=[],ambientBand='far',ambientStamp='';
 function lodBandForAltitude(y){return y>LOD_BANDS.far?'far':y>LOD_BANDS.mid?'mid':y>LOD_BANDS.near?'near':'bubble'}
@@ -345,6 +602,11 @@ function setupAmbientWorld(){ambientRoot=new THREE.Group();farRoot=new THREE.Gro
 const atmosphereBaseSetupScene=setupScene;setupScene=function(){atmosphereBaseSetupScene();setupAmbientWorld()};
 function updateAmbientWorld(){if(!ambientRoot||!camera)return;let band=lodBandForAltitude(camera.position.y),s=nearestSettlementToCamera(),stamp=`${band}:${s?.id}:${world.season}:${world.weather}`;if(stamp!==ambientStamp){ambientStamp=stamp;ambientBand=band;let p=seasonPalette();scene.background=new THREE.Color(p.sky);scene.fog.color.setHex(p.fog);farRoot.visible=band==='far';settlementDetailGroup.visible=band!=='far';nearRoot.visible=band==='near'||band==='bubble';bubbleRoot.visible=band==='bubble';weatherRoot.visible=band!=='far';if(s&&(band==='near'||band==='bubble'))addNearProps(s);if(s&&band==='bubble'){addBubbleLife(s);configureSettlementLights(s)}else{clearGroup(bubbleRoot);for(const l of ambientLights)scene.remove(l);ambientLights=[]}weatherParticles()}if(bubbleRoot.visible){let t=performance.now()*.001;for(const o of bubbleRoot.children){if(o.userData.smoke){o.position.y+=.03;o.position.x+=Math.sin(t+o.userData.phase)*.015}else if(o.userData.bird){o.position.x+=Math.sin(t*.8+o.userData.phase)*.12;o.position.z+=Math.cos(t*.7+o.userData.phase)*.1}else if(o.userData.phase!=null)o.rotation.y=t*.3+o.userData.phase}}let pts=weatherRoot.children[0];if(pts){pts.position.x=camera.userData.target.x;pts.position.z=camera.userData.target.z;pts.position.y-=world.season==='Winter'?.5:1.7;if(pts.position.y<-220)pts.position.y=0}}
 function renderingSummary(){return{band:ambientBand,bands:{...LOD_BANDS},lightLimit:AMBIENT_LIGHT_LIMIT,activeLights:ambientLights.length,particleLimit:AMBIENT_PARTICLE_LIMIT,weatherParticles:weatherRoot?.children[0]?.geometry?.attributes?.position?.count||0,objects:{far:farRoot?.children.length||0,near:nearRoot?.children.length||0,bubble:bubbleRoot?.children.length||0},drawCalls:renderer?.info?.render?.calls||0,triangles:renderer?.info?.render?.triangles||0,season:world.season,weather:world.weather}}
+
+/* ============================================================
+ * ANNALS MODULE 32/63 · RENDERING
+ * Source: src/rendering/overlays.js
+ * ============================================================ */
 ;const OVERLAY_TYPES=['none','territories','trade','prosperity','plague','unrest','terrain'];
 let overlayRoot=null,overlayStamp='',overlayLegend=null;
 function overlayState(){return world.overlayState||(world.overlayState={active:'none',lastBuildDay:-1,builds:0})}
@@ -373,24 +635,45 @@ const overlayBaseSetupScene=setupScene;setupScene=function(){overlayBaseSetupSce
 function updateOverlayWorld(force=false){if(!overlayRoot||!camera)return;let sig=overlaySignature();if(force||sig!==overlayStamp){overlayStamp=sig;rebuildOverlay()}overlayRoot.visible=overlayState().active!=='none'&&camera.position.y>350;updateOverlayLegend()}
 const overlayBaseLoop=loop;loop=function(t){overlayBaseLoop(t);if(typeof updateAmbientWorld==='function')updateAmbientWorld();updateOverlayWorld()};
 function overlaySummary(){let a=overlayState().active;return{active:a,types:[...OVERLAY_TYPES],singleActive:true,visible:!!overlayRoot?.visible,objects:overlayRoot?.children.length||0,builds:overlayState().builds,lastBuildDay:overlayState().lastBuildDay,owners:world.settlements.map(s=>s.owner),tradeRoutes:world.roads.filter(r=>routeTradeStats(r).volume>0).length,prosperity:world.settlements.map(s=>Math.round(s.prosperity)),plague:world.settlements.map(s=>Math.round(plagueRate(s)*10000)/100),unrest:world.settlements.map(s=>Math.round(s.unrest))}}
-if(typeof window!=='undefined')window.ANNALS_OVERLAYS={set:setOverlay,summary:overlaySummary,types:[...OVERLAY_TYPES]};let scarMarkerGroup=null;
+if(typeof window!=='undefined')window.ANNALS_OVERLAYS={set:setOverlay,summary:overlaySummary,types:[...OVERLAY_TYPES]};
+
+/* ============================================================
+ * ANNALS MODULE 33/63 · RENDERING
+ * Source: src/rendering/scars.js
+ * ============================================================ */
+let scarMarkerGroup=null;
 function scarMarkerMesh(scar){let group=new THREE.Group(),state=scar.state,type=scar.type,baseColor=type==='battlefield'?0x6f5a49:type==='fire-scar'?0x4a3025:type==='plague-marker'?0x5d6b45:type==='omen-site'?0x66517a:0x77706a,base=new THREE.Mesh(new THREE.CylinderBufferGeometry(20,26,8,8),getMat(`scar-${type}`,baseColor));base.position.y=4;group.add(addPick(base,{kind:'scar',scar}));if(state==='rebuilding'){let frame=new THREE.Mesh(new THREE.BoxBufferGeometry(38,28,38),getMat('scar-frame',0xc4a66a));frame.position.y=18;group.add(addPick(frame,{kind:'scar',scar}))}else if(state==='memorial'){let stone=new THREE.Mesh(new THREE.ConeBufferGeometry(13,58,5),getMat('scar-memorial',0xb4aa92));stone.position.y=29;group.add(addPick(stone,{kind:'scar',scar}))}else{let mark=new THREE.Mesh(type==='battlefield'?new THREE.ConeBufferGeometry(18,32,4):new THREE.TorusBufferGeometry(22,5,6,16),getMat(`scar-mark-${type}`,type==='fire-scar'?0x2a1712:0x8b7b63));mark.position.y=type==='battlefield'?16:14;if(type!=='battlefield')mark.rotation.x=Math.PI/2;group.add(addPick(mark,{kind:'scar',scar}))}group.position.set(scar.x,scar.y+5,scar.z);return group}
 function refreshScarMarkers(){if(!scene||typeof THREE==='undefined')return;if(scarMarkerGroup)scene.remove(scarMarkerGroup);scarMarkerGroup=new THREE.Group();for(const scar of scarState().registry)if(!scar.erased)scarMarkerGroup.add(scarMarkerMesh(scar));scene.add(scarMarkerGroup)}
 const scarBaseSetupScene=setupScene,scarBaseMove=move;
 setupScene=function(){scarBaseSetupScene();refreshScarMarkers()};
 move=function(dt){scarBaseMove(dt);if(scarMarkerGroup)scarMarkerGroup.visible=camera.position.y<2600};
+
+/* ============================================================
+ * ANNALS MODULE 34/63 · UI & CONTROLS
+ * Source: src/ui/scar-interface.js
+ * ============================================================ */
 function showScar(id){let scar=scarById(id);if(!scar||typeof document==='undefined')return;let el=document.getElementById('inspect'),history=scar.history.map(h=>`${dt(h.day)} · ${safeName(h.state)} · ${safeName(h.note)}`).join('<br>');el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(scar.name)}</h3><div class="kv"><b>Type</b><span>${safeName(scar.type)}</span><b>State</b><span>${safeName(scar.state)}</span><b>Created</b><span>${dt(scar.createdDay)}</span><b>Cause</b><span>${safeName(scar.cause)}</span><b>Events</b><span>${scar.relatedEventIds.length}</span><b>Stable ID</b><span>${safeName(scar.id)}</span></div><div class="section"><b>Recorded changes</b><p class="small">${history}</p></div>`;fly(scar,scar.state==='memorial'?360:460,1500);director.suspend=clock.day+20}
 const scarBaseShowInspector=showInspector;
 showInspector=function(data){if(data&&data.kind==='scar'){showScar(data.scar.id);return}scarBaseShowInspector(data);if(data&&data.kind==='settlement'){let scars=scarsNear(data.settlement,260),el=document.getElementById('inspect');el.innerHTML+=`<div class="section"><b>Historical scars</b><p class="small">${scars.length?scars.map(s=>`<button onclick="showScar('${s.id}')">${safeName(s.name)} · ${safeName(s.state)}</button>`).join(' '):'No persistent marks recorded nearby.'}</p></div>`}};
 renderChronicle=function(){let rows=world.events.filter(e=>world.filter==='all'||e.class===world.filter).slice(0,120);entries.innerHTML=rows.map((e,i)=>e.header?`<div class="entry crown reign-header" data-i="${i}"><div class="date">${dt(e.day)}</div><p class="txt">${safeName(e.text)}</p></div>`:`<div class="entry ${e.class}" data-i="${i}"><div class="date">${dt(e.day)} · ${safeName(e.kind||e.class)}${e.location?` · ${safeName(e.location)}`:''}</div><p class="txt">${safeName(e.text)}</p></div>`).join('');[...entries.children].forEach((el,i)=>el.onclick=()=>{let row=rows[i];if(row.scarId&&scarById(row.scarId)){showScar(row.scarId);return}let structured=row.eventId&&worldEventState().registry.find(e=>e.id===row.eventId),id=structured&&structured.participants.find(p=>characterById(p));if(id)showCharacter(id);else fly(row.pos,row.header?430:520,1800)})};
 const scarBaseDrawer=drawer;
 drawer=function(){scarBaseDrawer();let active=scarState().registry.filter(s=>!s.erased).length;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Historical scars</b><p class="small">${active} persistent marks · bounded at ${SCAR_LIMIT}. Markers render only below 2.6 km camera altitude.</p></div><div class="section"><b>Pressure and layout</b>`)};
+
+/* ============================================================
+ * ANNALS MODULE 35/63 · UI & CONTROLS
+ * Source: src/ui/memory-interface.js
+ * ============================================================ */
 function showMemory(id){let m=memoryById(id);if(!m||typeof document==='undefined')return;let el=document.getElementById('inspect'),scar=m.scarId&&scarById(m.scarId);el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(m.name)}</h3><div class="kv"><b>Type</b><span>${safeName(m.type)}</span><b>Date</b><span>${safeName(dt(m.day))}</span><b>State</b><span>${safeName(m.state)} · strength ${Math.floor(m.strength)}</span><b>Place</b><span>${safeName(m.location.name||'the recorded place')}</span><b>Causes</b><span>${safeName(m.causes.join(', ')||'not recorded')}</span><b>Consequences</b><span>${safeName(m.consequences.join(', ')||'not recorded')}</span><b>Stable ID</b><span>${safeName(m.id)}</span><b>Related memories</b><span>${m.relatedMemoryIds.length}</span>${scar?`<b>Scar</b><span>${safeName(scar.name)}</span>`:''}</div>`;fly(m.location,480,1500);director.suspend=clock.day+20}
 const memoryBaseRenderChronicle=renderChronicle;
 renderChronicle=function(){memoryBaseRenderChronicle();let rows=world.events.filter(e=>world.filter==='all'||e.class===world.filter).slice(0,120);[...entries.children].forEach((el,i)=>{let row=rows[i],structured=row&&row.eventId&&worldEventState().registry.find(e=>e.id===row.eventId),memoryId=structured&&structured.metadata&&structured.metadata.memoryRefId;if(memoryId)el.onclick=()=>showMemory(memoryId)})};
 const memoryBaseDrawer=drawer;
 drawer=function(){memoryBaseDrawer();let memories=memoryState().registry,active=memories.filter(m=>m.state==='active').length;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Historical memory</b><p class="small">${memories.length} memories · ${active} active · bounded at ${MEMORY_LIMIT}. Later Chronicle entries can return to remembered events.</p></div><div class="section"><b>Pressure and layout</b>`)};
 exportChronicle=function(){let ordered=world.events.slice().reverse(),lastYear=0,lines=[`THE ANNALS OF ${world.title.toUpperCase()}`,`Seed ${world.seed}`,'A deterministic history of the realm','========================================',''];for(const e of ordered){let year=Math.floor((e.day-1)/360)+1;if(year!==lastYear){lines.push('',`YEAR ${year}`,'------');lastYear=year}let structured=e.eventId&&worldEventState().registry.find(x=>x.id===e.eventId),memory=structured&&structured.metadata&&memoryById(structured.metadata.memoryRefId);if(e.header)lines.push('',e.text.toUpperCase(),'');else{lines.push(`${dt(e.day)} [${String(e.kind||e.class).toUpperCase()}]${e.location?` — ${e.location}`:''}`,e.text);if(memory)lines.push(`Remembered as: ${memory.name} (${memory.id})`);lines.push('')}}lines.push(`Thus ends the surviving record of ${world.title}.`);let url=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=`annals-${world.seed}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+
+/* ============================================================
+ * ANNALS MODULE 36/63 · UI & CONTROLS
+ * Source: src/ui/dynasty-interface.js
+ * ============================================================ */
 function showDynasty(id){let d=dynastyById(id);if(!d||typeof document==='undefined')return;let el=document.getElementById('inspect'),members=d.memberIds.map(characterById).filter(Boolean);el.style.display='block';el.innerHTML=`<button style="float:right" onclick="document.getElementById('inspect').style.display='none'">×</button><h3 class="inspector-title">${safeName(d.name)}</h3><div class="kv"><b>Status</b><span>${safeName(d.status)}</span><b>Founder</b><span>${safeName(characterById(d.founderId)?.name||'Unknown')}</span><b>Members</b><span>${members.map(c=>`${safeName(c.name)} · ${safeName(c.role)} · ${safeName(c.status)}`).join('<br>')}</span><b>Reigns</b><span>${d.reignIds.length}</span><b>Stable ID</b><span>${safeName(d.id)}</span></div>`}
 const dynastyBaseShowCharacter=showCharacter;
 showCharacter=function(id){dynastyBaseShowCharacter(id);let c=characterById(id),d=c&&dynastyById(c.dynastyId),el=document.getElementById('inspect');if(c&&d)el.innerHTML+=`<div class="section"><b>Dynasty</b><p class="small"><button onclick="showDynasty('${d.id}')">${safeName(d.name)}</button><br>Claim ${Math.round(c.claimStrength)} · legitimacy ${Math.round(c.legitimacy)}${c.spouseId?` · spouse ${safeName(characterById(c.spouseId)?.name||'unknown')}`:''}${c.parentIds.length?` · child of ${c.parentIds.map(id=>safeName(characterById(id)?.name||'unknown')).join(' and ')}`:''}</p></div>`};
@@ -398,25 +681,56 @@ const dynastyBaseDrawer=drawer;
 drawer=function(){dynastyBaseDrawer();initDynasties();let ruling=dynastyState().registry.find(d=>d.status==='ruling');drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Named people</b>',`<div class="section"><b>Dynasty</b><p class="small">${ruling?safeName(ruling.name):'No ruling line'} · ${dynastyState().registry.length} recorded lines · ${dynastyState().reigns.length} bounded reign records.</p></div><div class="section"><b>Named people</b>`)};
 const dynastyBaseExport=exportChronicle;
 exportChronicle=function(){let old=URL.createObjectURL,extra=dynastyState().reigns.map(r=>{let m=characterById(r.monarchId);return`${r.id}: ${m?m.name:r.monarchId} by ${r.basis}${r.contested?' [CONTESTED]':''}`}).join('\n');URL.createObjectURL=function(blob){return old(new Blob([blob,`\n\nDYNASTIC SUCCESSION\n--------------------\n${extra}`],{type:'text/plain;charset=utf-8'}))};try{dynastyBaseExport()}finally{URL.createObjectURL=old}};
+
+/* ============================================================
+ * ANNALS MODULE 37/63 · UI & CONTROLS
+ * Source: src/ui/notable-interface.js
+ * ============================================================ */
 const notableBaseShowCharacter=showCharacter,notableBaseDrawer=drawer;
 showCharacter=function(id){let c=characterById(id);if(!c||typeof document==='undefined')return;notableBaseShowCharacter(id);let el=document.getElementById('inspect'),spouse=c.spouseId&&characterById(c.spouseId),heirs=(c.childIds||[]).map(characterById).filter(Boolean),grudges=(c.grudges||[]).map(g=>{let other=characterById(g.characterId);return`${other?other.name:g.characterId}: ${g.reason} (${g.strength})`});el.innerHTML=el.innerHTML.replace('</div>',`<b>Traits</b><span>${safeName((c.traits||[]).join(', ')||'none recorded')}</span><b>Agenda</b><span>${safeName(c.agenda||'none recorded')}</span><b>Spouse</b><span>${safeName(spouse?spouse.name:'none')}</span><b>Heirs</b><span>${safeName(heirs.map(h=>h.name).join(', ')||'none')}</span><b>Grudges</b><span>${safeName(grudges.join('; ')||'none')}</span><b>Appearances</b><span>${c.appearances||0}${c.epithet?` · ${safeName(c.epithet)}`:''}</span>${c.deathCause?`<b>Death</b><span>${safeName(c.deathCause)}</span>`:''}</div>`)};
 drawer=function(){notableBaseDrawer();let alive=characterState().registry.filter(c=>c.status==='alive').length,repeat=characterState().registry.filter(c=>(c.appearances||0)>=3).length;drawer.innerHTML=drawer.innerHTML.replace(/bounded at \d+/,`bounded at ${NOTABLE_LIMIT}`).replace('Select a settlement to inspect its residents.',`${repeat} recurring lives have appeared at least three times. Select a settlement to inspect its residents.`)};
+
+/* ============================================================
+ * ANNALS MODULE 38/63 · UI & CONTROLS
+ * Source: src/ui/economy-interface.js
+ * ============================================================ */
 const economyBaseShowInspector=showInspector,economyBaseDrawer=drawer,economyBaseHud=hud;
 showInspector=function(data){economyBaseShowInspector(data);if(!data||data.kind!=='settlement'||typeof document==='undefined')return;initEconomy();let s=data.settlement,el=document.getElementById('inspect'),rows=ECONOMY_GOODS.map(g=>`<b>${safeName(g)}</b><span>${Math.round(s.stores[g]*10)/10} stored · price ${s.prices[g].toFixed(2)}</span>`).join('');el.innerHTML+=`<div class="section"><b>Market stores and prices</b><div class="kv">${rows}</div></div>`};
 drawer=function(){economyBaseDrawer();initEconomy();let state=economyState(),active=state.trades.filter(t=>t.status==='travelling');drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Realm economy</b><p class="small">Treasury <b>${Math.round(state.treasury)}</b> crowns · tax ${(state.taxRate*100).toFixed(0)}% · ${active.length} caravans travelling · ${state.completed} completed.</p><p class="small">Seven goods: ${ECONOMY_GOODS.join(', ')}. Trade is price-driven and bounded at ${TRADE_LIMIT} records.</p></div><div class="section"><b>Pressure and layout</b>`)};
 hud=function(){economyBaseHud();if(!world?.economyState||typeof document==='undefined')return;let state=economyState();meta.innerHTML+=`<span class="chip">Treasury ${Math.round(state.treasury)}</span><span class="chip">Caravans ${state.trades.filter(t=>t.status==='travelling').length}</span>`};
+
+/* ============================================================
+ * ANNALS MODULE 39/63 · UI & CONTROLS
+ * Source: src/ui/war-interface.js
+ * ============================================================ */
 const warBaseDrawer=drawer,warBaseHud=hud;
 drawer=function(){warBaseDrawer();let state=warState(),active=state.campaigns.find(c=>c.status!=='ended'),armies=state.armies.filter(a=>['marching','besieging','victorious'].includes(a.status));let summary=active?`${safeName(active.name)} · ${safeName(active.status)} · ${armies.length} active armies`:`${state.completed} campaigns concluded`;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>War and peace</b><p class="small">${summary}</p>${active&&active.battle?`<p class="small"><b>${safeName(active.battle.name)}</b> · ${safeName(active.battle.phases.join(' → '))}</p>`:''}${armies.map(a=>`<p class="small">${safeName(world.houses[a.houseId]?.name||'Unknown banner')} · ${safeName(a.status)} · ${a.strength} strength · ${Math.round(a.supply)} supply</p>`).join('')}</div><div class="section"><b>Pressure and layout</b>`)};
-hud=function(){warBaseHud();let active=warState().campaigns.find(c=>c.status!=='ended');if(active)meta.innerHTML+=`<span class="chip">${safeName(active.name)} · ${safeName(active.status)}</span>`};const threatBaseShowInspector=showInspector,threatBaseDrawer=drawer,threatBaseHud=hud;
+hud=function(){warBaseHud();let active=warState().campaigns.find(c=>c.status!=='ended');if(active)meta.innerHTML+=`<span class="chip">${safeName(active.name)} · ${safeName(active.status)}</span>`};
+
+/* ============================================================
+ * ANNALS MODULE 40/63 · UI & CONTROLS
+ * Source: src/ui/threat-interface.js
+ * ============================================================ */
+const threatBaseShowInspector=showInspector,threatBaseDrawer=drawer,threatBaseHud=hud;
 showInspector=function(data){threatBaseShowInspector(data);if(!data||data.kind!=='settlement'||typeof document==='undefined')return;initThreats();let s=data.settlement,d=s.disease,el=document.getElementById('inspect');el.innerHTML+=`<div class="section"><b>Health and threats</b><div class="kv"><b>Infected</b><span>${Math.floor(d.infected)}</span><b>Recovered</b><span>${Math.floor(d.recovered)}</span><b>Plague dead</b><span>${Math.floor(d.dead)}</span><b>Quarantine</b><span>${d.quarantined?'Gates closed':'Open'}</span></div></div>`};
 drawer=function(){threatBaseDrawer();initThreats();let state=threatState(),infected=world.settlements.reduce((n,s)=>n+s.disease.infected,0),quarantined=world.settlements.filter(s=>s.disease.quarantined).length,active=state.banditCamps.filter(c=>c.status==='active').length;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',`<div class="section"><b>Threats and Myth</b><p class="small">${Math.floor(infected)} infected · ${quarantined} quarantined · ${active} bandit camps · ${state.dragon.raids.length} dragon raids.</p><div class="grid"><button onclick="setMythLevel('off')" ${state.myth==='off'?'disabled':''}>Myth Off</button><button onclick="setMythLevel('low')" ${state.myth==='low'?'disabled':''}>Myth Low</button><button onclick="setMythLevel('high')" ${state.myth==='high'?'disabled':''}>Myth High</button></div><p class="small">Myth changes dragon timing and severity; disease and banditry remain grounded threats.</p></div><div class="section"><b>Pressure and layout</b>`) };
 hud=function(){threatBaseHud();if(!world?.threatState||typeof document==='undefined')return;let state=threatState(),infected=world.settlements.reduce((n,s)=>n+s.disease.infected,0);meta.innerHTML+=`<span class="chip">Myth ${safeName(state.myth)}</span><span class="chip">Plague ${Math.floor(infected)}</span>`};
+
+/* ============================================================
+ * ANNALS MODULE 41/63 · UI & CONTROLS
+ * Source: src/ui/camera-interface.js
+ * ============================================================ */
 ;const cameraBaseDrawer=drawer,cameraBaseHud=hud,cameraBaseLoop=loop;
 function cameraFollowButtons(){let trades=economyState().trades.filter(t=>t.status==='travelling').slice(0,2),armies=warState().armies.filter(a=>['marching','victorious','besieging'].includes(a.status)).slice(0,2),dragon=threatState().dragon.awake;return[...trades.map(t=>`<button onclick="ANNALS_CAMERA.followTrade('${t.id}')">Follow ${safeName(t.good)} caravan</button>`),...armies.map(a=>`<button onclick="ANNALS_CAMERA.followArmy('${a.id}')">Follow ${safeName(a.side)} army</button>`),dragon?`<button onclick="ANNALS_CAMERA.followDragon()">Follow dragon</button>`:''].filter(Boolean).join(' ')}
 drawer=function(){cameraBaseDrawer();let s=cinematicState(),controls=`<div class="section"><b>Cinematic camera</b><p class="small">Mode <b>${safeName(s.mode)}</b>. Manual movement or zoom suspends the Director.</p><p><button onclick="setCameraMode('free')">Free</button> <button onclick="setCameraMode('director')">Director</button></p><p>${cameraFollowButtons()||'<span class="small">No moving subject is currently available to follow.</span>'}</p></div>`;drawer.innerHTML=drawer.innerHTML.replace('<div class="section"><b>Pressure and layout</b>',controls+'<div class="section"><b>Pressure and layout</b>')};
 hud=function(){cameraBaseHud();let s=cinematicState();meta.innerHTML+=`<span class="chip">Camera ${safeName(s.mode)}</span>${s.follow?`<span class="chip">Following ${safeName(s.follow.name)}</span>`:''}`};
 function renderLowerThird(){if(typeof document==='undefined')return;let s=cinematicState(),el=document.getElementById('cinematic-beat');if(!el){el=document.createElement('div');el.id='cinematic-beat';el.className='panel';el.style.cssText='left:50%;bottom:26px;transform:translateX(-50%);max-width:520px;text-align:center;display:none;pointer-events:none;background:#17130fdd;color:#eadcc0;border-color:#c9a227';document.body.appendChild(el)}let beat=s.lowerThird,visible=beat&&clock.day<=beat.until&&(document.body.classList.contains('watch')||s.mode==='director');el.style.display=visible?'block':'none';if(visible)el.innerHTML=`<b style="font:20px Georgia">${safeName(beat.title)}</b><div style="margin-top:4px">${safeName(beat.text).slice(0,180)}</div>`}
 loop=function(t){cameraBaseLoop(t);renderLowerThird()};
+
+/* ============================================================
+ * ANNALS MODULE 42/63 · UI & CONTROLS
+ * Source: src/ui/product-surface.js
+ * ============================================================ */
 ;function productUiState(){return world.productUiState||(world.productUiState={tab:'time'})}
 function setDrawerTab(tab){productUiState().tab=['time','rates','acts','world','houses'].includes(tab)?tab:'time';drawer()}
 function setTaxRate(value){let rate=clamp(Number(value)/100,0,0.3),state=economyState();state.taxRate=rate;for(const h of world.houses.slice(1)){h.loyalty=clamp(h.loyalty-(rate-.08)*1.5,0,100)}hud();drawer()}
@@ -440,6 +754,11 @@ const productBaseHud=hud;
 hud=function(){let monarch=uiMonarch(),e=economyState(),cam=typeof cinematicState==='function'?cinematicState():{mode:'director'},pop=uiPopulation();meta.innerHTML=`<span class="chip">${dt(clock.day)}</span><span class="chip">${world.season} · ${world.weather}${world.drought?' · Drought':''}</span><span class="chip">♛ ${safeName(monarch?.name||annalsState().monarch)}</span><span class="chip">Treasury ${Math.round(e.treasury)}</span><span class="chip">Population ${pop.toLocaleString()}</span><span class="chip">Camera ${safeName(cam.mode)}</span>`;document.querySelectorAll('#speed button').forEach(b=>b.classList.toggle('active',+b.dataset.speed===clock.speed))};
 if(typeof document!=='undefined'){let style=document.createElement('style');style.textContent='.ui-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:9px 0}.ui-tabs button{padding:4px 7px}.house-card{border-top:1px solid #7d6a5244;padding:8px 0}.house-sigil{display:inline-block;width:12px;height:12px;border:1px solid #3b2c1d;margin-right:5px;vertical-align:-1px}input[type=range]{width:100%;accent-color:#9b7518}';document.head.appendChild(style)}
 if(typeof window!=='undefined'){window.setDrawerTab=setDrawerTab;window.setTaxRate=setTaxRate;window.inspectTrade=inspectTrade;window.inspectArmy=inspectArmy;window.inspectBandit=inspectBandit;window.inspectDragon=inspectDragon;window.closeInspector=closeInspector}
+
+/* ============================================================
+ * ANNALS MODULE 43/63 · UI & CONTROLS
+ * Source: src/ui/overlay-interface.js
+ * ============================================================ */
 ;const overlayUiBaseDrawer=drawer,overlayUiBaseHud=hud;
 function overlayButton(type,label){return`<button class="${overlayState().active===type?'active':''}" onclick="setOverlay('${type}')">${label}</button>`}
 function overlayPanel(){let a=overlayState().active;return`<div class="section"><b>Realm overlays</b><p class="small">Only one map layer can be active. Overlays are visual-only and do not intercept world selection.</p><div class="grid">${overlayButton('none','None')}${overlayButton('territories','Territories')}${overlayButton('trade','Trade')}${overlayButton('prosperity','Prosperity')}${overlayButton('plague','Plague')}${overlayButton('unrest','Unrest')}${overlayButton('terrain','Terrain')}</div><div class="kv"><b>Active</b><span>${safeName(a)}</span><b>Visibility</b><span>Realm and regional altitude</span><b>Objects</b><span>${overlayRoot?.children.length||0}</span></div></div>`}
@@ -447,7 +766,13 @@ setDrawerTab=function(tab){productUiState().tab=['time','rates','acts','world','
 drawer=function(){let panel=document.getElementById('drawer');if(productUiState().tab==='overlays'){let tabs=`<div class="ui-tabs">${productTabButton('time','Time')}${productTabButton('rates','Rates')}${productTabButton('acts','Acts')}${productTabButton('world','World')}${productTabButton('houses','Houses')}${productTabButton('overlays','Overlays')}</div>`;panel.innerHTML=`<b>ANNALS ${safeName(world.version)}</b>${tabs}${overlayPanel()}<p class="small">Hotkeys: Space pause · 1–4 speed · H hide UI · C Watch · Esc deselect.</p>`;return}overlayUiBaseDrawer();let tabs=panel.querySelector('.ui-tabs');if(tabs&&!tabs.querySelector('[data-overlay-tab]'))tabs.insertAdjacentHTML('beforeend',`<button data-overlay-tab class="" onclick="setDrawerTab('overlays')">Overlays</button>`)};
 hud=function(){overlayUiBaseHud();let a=overlayState().active;if(a!=='none')meta.innerHTML+=`<span class="chip">Overlay ${safeName(a)}</span>`};
 if(typeof document!=='undefined'){let style=document.createElement('style');style.textContent='#overlay-legend .small{margin-top:3px;color:#d7c7aa}.ui-tabs button.active,.grid button.active{box-shadow:inset 0 0 0 1px #d1aa3a;background:#3b3020;color:#f3dfad}';document.head.appendChild(style)}
-if(typeof window!=='undefined'){window.setDrawerTab=setDrawerTab;window.setOverlay=setOverlay};const PERFORMANCE_DRAW_CALL_BUDGET=250,PERFORMANCE_TRIANGLE_BUDGET=350000,PERFORMANCE_OBJECT_BUDGET=2400;
+if(typeof window!=='undefined'){window.setDrawerTab=setDrawerTab;window.setOverlay=setOverlay}
+
+/* ============================================================
+ * ANNALS MODULE 44/63 · RENDERING
+ * Source: src/rendering/performance.js
+ * ============================================================ */
+;const PERFORMANCE_DRAW_CALL_BUDGET=250,PERFORMANCE_TRIANGLE_BUDGET=350000,PERFORMANCE_OBJECT_BUDGET=2400;
 const PERFORMANCE_QUALITY_ORDER=['minimal','low','balanced','high'];
 const PERFORMANCE_PROFILES={
 minimal:{pixelRatio:1,lights:0,particles:0,citizens:0,sheep:0,birds:0,smoke:0,stalls:0,carts:0,districtFactor:.45,detailBand:'none',overlaySegments:10,terrainSegments:8,resources:36,curveFactor:.7},
@@ -487,67 +812,168 @@ const performanceBaseSetupScene=setupScene;
 setupScene=function(){performanceBaseSetupScene();applyPerformanceQuality();performanceState().sceneObjects=countSceneObjects()};
 const performanceBaseLoop=loop;
 loop=function(t){let state=performanceState(),delta=state.lastFrame?Math.min(250,t-state.lastFrame):16.7;state.lastFrame=t;state.samples.push(delta);if(state.samples.length>180)state.samples.shift();performanceBaseLoop(t);evaluatePerformance(t);renderPerformanceMeter()};
-if(typeof window!=='undefined')window.ANNALS_PERFORMANCE={summary:performanceSummary,setQuality:setPerformanceQuality,toggleMeter:togglePerformanceMeter,profiles:PERFORMANCE_PROFILES};;function countAllSceneNodes(){let count=0;if(scene)scene.traverse(()=>count++);return count}
+if(typeof window!=='undefined')window.ANNALS_PERFORMANCE={summary:performanceSummary,setQuality:setPerformanceQuality,toggleMeter:togglePerformanceMeter,profiles:PERFORMANCE_PROFILES};
+
+/* ============================================================
+ * ANNALS MODULE 45/63 · RENDERING
+ * Source: src/rendering/performance-counts.js
+ * ============================================================ */
+;function countAllSceneNodes(){let count=0;if(scene)scene.traverse(()=>count++);return count}
 countSceneObjects=function(){if(!scene)return 0;let count=0,walk=(node,ancestorsVisible)=>{let visible=ancestorsVisible&&node.visible!==false;if(visible&&(node.isMesh||node.isLine||node.isPoints||node.isLight))count++;for(const child of node.children||[])walk(child,visible)};walk(scene,true);return count};
 const activeRenderablePerformanceSummary=performanceSummary;
-performanceSummary=function(){let summary=activeRenderablePerformanceSummary();summary.totalSceneNodes=countAllSceneNodes();return summary};;function setPerformanceAuto(){let state=performanceState();state.forced=false;setPerformanceQuality(inferredPerformanceQuality(),false,'automatic device profile');return state.quality}
+performanceSummary=function(){let summary=activeRenderablePerformanceSummary();summary.totalSceneNodes=countAllSceneNodes();return summary};
+
+/* ============================================================
+ * ANNALS MODULE 46/63 · UI & CONTROLS
+ * Source: src/ui/performance-interface.js
+ * ============================================================ */
+;function setPerformanceAuto(){let state=performanceState();state.forced=false;setPerformanceQuality(inferredPerformanceQuality(),false,'automatic device profile');return state.quality}
 function performanceControls(){let s=performanceSummary();return`<div class="section"><b>Performance</b><p class="small">Quality <b>${safeName(s.quality)}</b>${s.forced?' · fixed':' · adaptive'}. The governor lowers scene cost when frame rate or rendering budgets are exceeded.</p><div class="grid"><button onclick="setPerformanceAuto()">Auto</button><button onclick="setPerformanceQuality('high')">High</button><button onclick="setPerformanceQuality('balanced')">Balanced</button><button onclick="setPerformanceQuality('low')">Low</button><button onclick="setPerformanceQuality('minimal')">Minimal</button><button onclick="togglePerformanceMeter()">Metrics</button></div><div class="kv"><b>Frame rate</b><span>${s.fps.toFixed(1)} fps</span><b>Draw calls</b><span>${s.drawCalls} / ${s.budgets.drawCalls}</span><b>Triangles</b><span>${s.triangles.toLocaleString()} / ${s.budgets.triangles.toLocaleString()}</span><b>Scene objects</b><span>${s.sceneObjects} / ${s.budgets.sceneObjects}</span><b>Object growth</b><span>${s.maxObjectGrowth}</span></div></div>`}
 const performanceBaseWorldPanel=worldPanel;
 worldPanel=function(){return performanceBaseWorldPanel()+performanceControls()};
 const performanceBaseHud=hud;
 hud=function(){performanceBaseHud();let s=performanceState();meta.innerHTML+=`<span class="chip">Quality ${safeName(s.quality)}</span>`};
-if(typeof window!=='undefined'){window.setPerformanceAuto=setPerformanceAuto;window.togglePerformanceMeter=togglePerformanceMeter;window.setPerformanceQuality=setPerformanceQuality}function runHeadless(seed,days,opt={}){clock={day:1,speed:8,acc:0};director={queue:[],until:0,suspend:0};world=makeWorld(seed);world.headless=true;if(opt.initialChronicle)firstEntries();for(let i=0;i<days;i++){if(opt.fireAt===i)act('fire');if(opt.droughtAt===i)act('drought');if(opt.festivalAt===i)act('festival');if(opt.grainAt===i)act('grain');tick();director.queue.length=0}return{seed,version:world.version,coastal:world.terrainSpec.coast.active,riverPaths:world.riverPaths.length,lakes:world.hydrology.lakes.length,resources:world.resources.reduce((a,r)=>(a[r.type]=(a[r.type]||0)+1,a),{}),events:world.events.map(e=>e.text),structuredEvents:structuredEvents(),eventLimit:WORLD_EVENT_LIMIT,eventCount:worldEventState().registry.length,settlements:world.settlements.map(s=>({name:s.name,type:s.type,x:Math.round(s.x),z:Math.round(s.z),lots:s.layout.lots.length,districts:s.layout.districts,site:s.site,hunger:s.hunger,unrest:s.unrest})),buildingCount:world.buildings.length,buildingTypes:[...new Set(world.buildings.map(b=>b.type))],buildingStates:world.buildings.reduce((a,b)=>(a[b.state]=(a[b.state]||0)+1,a),{}),roads:world.roads.map(r=>({a:r.a,b:r.b,points:r.pts.length,bridges:r.bridges.length,directness:directness(r)}))}}
+if(typeof window!=='undefined'){window.setPerformanceAuto=setPerformanceAuto;window.togglePerformanceMeter=togglePerformanceMeter;window.setPerformanceQuality=setPerformanceQuality}
+
+/* ============================================================
+ * ANNALS MODULE 47/63 · DEBUG & ACCEPTANCE
+ * Source: src/core/debug.js
+ * ============================================================ */
+function runHeadless(seed,days,opt={}){clock={day:1,speed:8,acc:0};director={queue:[],until:0,suspend:0};world=makeWorld(seed);world.headless=true;if(opt.initialChronicle)firstEntries();for(let i=0;i<days;i++){if(opt.fireAt===i)act('fire');if(opt.droughtAt===i)act('drought');if(opt.festivalAt===i)act('festival');if(opt.grainAt===i)act('grain');tick();director.queue.length=0}return{seed,version:world.version,coastal:world.terrainSpec.coast.active,riverPaths:world.riverPaths.length,lakes:world.hydrology.lakes.length,resources:world.resources.reduce((a,r)=>(a[r.type]=(a[r.type]||0)+1,a),{}),events:world.events.map(e=>e.text),structuredEvents:structuredEvents(),eventLimit:WORLD_EVENT_LIMIT,eventCount:worldEventState().registry.length,settlements:world.settlements.map(s=>({name:s.name,type:s.type,x:Math.round(s.x),z:Math.round(s.z),lots:s.layout.lots.length,districts:s.layout.districts,site:s.site,hunger:s.hunger,unrest:s.unrest})),buildingCount:world.buildings.length,buildingTypes:[...new Set(world.buildings.map(b=>b.type))],buildingStates:world.buildings.reduce((a,b)=>(a[b.state]=(a[b.state]||0)+1,a),{}),roads:world.roads.map(r=>({a:r.a,b:r.b,points:r.pts.length,bridges:r.bridges.length,directness:directness(r)}))}}
+
+/* ============================================================
+ * ANNALS MODULE 48/63 · ANIMATION & BOOT
+ * Source: src/boot.js
+ * ============================================================ */
 const ANNALS_SAFE_SEED='1234567';
 function recoverRealmMessage(error){console.error(error);forge.style.display='grid';forge.innerHTML=`<div><b>The realm failed to form.</b><p>${safeName(error?.message||'An unknown generation error occurred.')}</p><button onclick="location.hash='s=${ANNALS_SAFE_SEED}';location.reload()">Retry safe seed</button></div>`}
-function boot(){let requested=(location.hash.match(/s=([^&]+)/)||[])[1]||String(Math.floor(Math.random()*1e9)),seed=requested,generationError=null;try{try{world=makeWorld(seed)}catch(error){generationError=error;console.error('Seed generation failed; retrying safe seed.',error);if(seed===ANNALS_SAFE_SEED)throw error;seed=ANNALS_SAFE_SEED;location.hash='s='+seed;world=makeWorld(seed);world.recovery={requestedSeed:requested,safeSeed:seed,error:String(error?.message||error)}}location.hash='s='+encodeURIComponent(seed)+(location.hash.includes('debug=1')?'&debug=1':'');document.title='The Annals of '+world.title;title.textContent='The Annals of '+world.title;setupScene();firstEntries();if(generationError)eventChronicle('generation-recovery',6,world.settlements[0],`The first chart of the realm could not be read, so the chronicler opened the proven map of seed ${ANNALS_SAFE_SEED}.`,{class:'fate',kind:'omen',source:'runtime-recovery',causes:['the requested seed failed during generation'],consequences:['a known safe seed was loaded']});addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);applyPerformanceQuality?.()});addEventListener('keydown',e=>{keys[e.code]=1;if(e.code==='Space')clock.speed=clock.speed?0:8;if(['Digit1','Digit2','Digit3','Digit4'].includes(e.code))clock.speed=[.5,2,8,30][+e.code.slice(-1)-1];if(e.code==='KeyH')document.body.classList.toggle('clean');if(e.code==='KeyC')document.body.classList.toggle('watch');if(e.code==='Escape')document.getElementById('inspect').style.display='none'});addEventListener('keyup',e=>keys[e.code]=0);renderer.domElement.addEventListener('wheel',e=>{camera.position.y=clamp(camera.position.y*(1+.12*Math.sign(e.deltaY)),60,4200);director.suspend=clock.day+30},{passive:true});renderer.domElement.addEventListener('click',handlePick);document.querySelectorAll('#speed button').forEach(b=>b.onclick=()=>clock.speed=+b.dataset.speed);document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{world.filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderChronicle()});forge.style.display='none';loop(performance.now())}catch(error){recoverRealmMessage(error)}}
-if(typeof window!=='undefined'){window.ANNALS_DEBUG={makeWorld,runHeadless,hWorld,biomeAt:biome,structuredEvents,emitWorldEvent,eventLimit:WORLD_EVENT_LIMIT,safeSeed:ANNALS_SAFE_SEED};window.ANNALS_RECOVERY={safeSeed:ANNALS_SAFE_SEED,retry:()=>{location.hash='s='+ANNALS_SAFE_SEED;location.reload()}};addEventListener('load',boot)}const baseRunHeadlessCharacters=runHeadless;
+function boot(){let requested=(location.hash.match(/s=([^&]+)/)||[])[1]||String(Math.floor(Math.random()*1e9)),seed=requested,generationError=null;try{assertRuntimeDependencies();try{world=makeWorld(seed)}catch(error){generationError=error;console.error('Seed generation failed; retrying safe seed.',error);if(seed===ANNALS_SAFE_SEED)throw error;seed=ANNALS_SAFE_SEED;location.hash='s='+seed;world=makeWorld(seed);world.recovery={requestedSeed:requested,safeSeed:seed,error:String(error?.message||error)}}location.hash='s='+encodeURIComponent(seed)+(location.hash.includes('debug=1')?'&debug=1':'');document.title='The Annals of '+world.title;title.textContent='The Annals of '+world.title;setupScene();firstEntries();assertBootReady();if(generationError)eventChronicle('generation-recovery',6,world.settlements[0],`The first chart of the realm could not be read, so the chronicler opened the proven map of seed ${ANNALS_SAFE_SEED}.`,{class:'fate',kind:'omen',source:'runtime-recovery',causes:['the requested seed failed during generation'],consequences:['a known safe seed was loaded']});addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);applyPerformanceQuality?.()});addEventListener('keydown',e=>{keys[e.code]=1;if(e.code==='Space')clock.speed=clock.speed?0:8;if(['Digit1','Digit2','Digit3','Digit4'].includes(e.code))clock.speed=[.5,2,8,30][+e.code.slice(-1)-1];if(e.code==='KeyH')document.body.classList.toggle('clean');if(e.code==='KeyC')document.body.classList.toggle('watch');if(e.code==='Escape')document.getElementById('inspect').style.display='none'});addEventListener('keyup',e=>keys[e.code]=0);renderer.domElement.addEventListener('wheel',e=>{camera.position.y=clamp(camera.position.y*(1+.12*Math.sign(e.deltaY)),60,4200);director.suspend=clock.day+30},{passive:true});renderer.domElement.addEventListener('click',handlePick);document.querySelectorAll('#speed button').forEach(b=>b.onclick=()=>clock.speed=+b.dataset.speed);document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{world.filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderChronicle()});forge.style.display='none';loop(performance.now())}catch(error){recoverRealmMessage(error)}}
+if(typeof window!=='undefined'){window.ANNALS_DEBUG={makeWorld,runHeadless,hWorld,biomeAt:biome,structuredEvents,emitWorldEvent,eventLimit:WORLD_EVENT_LIMIT,safeSeed:ANNALS_SAFE_SEED,guards:runtimeGuardSummary,runtime:ANNALS_RUNTIME_INFO};window.ANNALS_RECOVERY={safeSeed:ANNALS_SAFE_SEED,retry:()=>{location.hash='s='+ANNALS_SAFE_SEED;location.reload()}};addEventListener('load',boot)}
+
+/* ============================================================
+ * ANNALS MODULE 49/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/character-debug.js
+ * ============================================================ */
+const baseRunHeadlessCharacters=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=baseRunHeadlessCharacters(seed,days,opt);initCharacters();result.characters=characterState().registry.map(characterSummary);result.characterLimit=CHARACTER_LIMIT;result.characterStatuses=characterState().registry.reduce((a,c)=>(a[c.status]=(a[c.status]||0)+1,a),{});return result};
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.characters=()=>{initCharacters();return characterState().registry.map(characterSummary)};window.ANNALS_DEBUG.characterLimit=CHARACTER_LIMIT}
+
+/* ============================================================
+ * ANNALS MODULE 50/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/scar-debug.js
+ * ============================================================ */
 const scarBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=scarBaseRunHeadless(seed,days,opt);result.scars=scarState().registry.map(scarSummary);result.scarLimit=SCAR_LIMIT;result.scarStates=scarState().registry.reduce((a,s)=>(a[s.state]=(a[s.state]||0)+1,a),{});return result};
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.scars=()=>scarState().registry.map(scarSummary);window.ANNALS_DEBUG.scarLimit=SCAR_LIMIT}
+
+/* ============================================================
+ * ANNALS MODULE 51/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/memory-debug.js
+ * ============================================================ */
 const memoryBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=memoryBaseRunHeadless(seed,days,opt);result.memories=memoryState().registry.map(memorySummary);result.memoryLimit=MEMORY_LIMIT;result.memoryRelations=memoryState().registry.reduce((n,m)=>n+m.relatedMemoryIds.length,0);result.memoryStates=memoryState().registry.reduce((a,m)=>(a[m.state]=(a[m.state]||0)+1,a),{});return result};
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.memories=()=>memoryState().registry.map(memorySummary);window.ANNALS_DEBUG.memoryLimit=MEMORY_LIMIT}
+
+/* ============================================================
+ * ANNALS MODULE 52/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/dynasty-debug.js
+ * ============================================================ */
 const dynastyBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=dynastyBaseRunHeadless(seed,days,opt);initDynasties();result.dynasties=dynastyState().registry.map(dynastySummary);result.reigns=dynastyState().reigns.map(r=>({...r}));result.dynastyLimit=DYNASTY_LIMIT;result.reignLimit=REIGN_LIMIT;result.contestedSuccessions=dynastyState().reigns.filter(r=>r.contested).length;return result};
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.dynasties=()=>{initDynasties();return dynastyState().registry.map(dynastySummary)};window.ANNALS_DEBUG.reigns=()=>dynastyState().reigns.map(r=>({...r}))}
+
+/* ============================================================
+ * ANNALS MODULE 53/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/notable-debug.js
+ * ============================================================ */
 const notableBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=notableBaseRunHeadless(seed,days,opt),people=characterState().registry.map(characterSummary);result.notables=people;result.notableLimit=NOTABLE_LIMIT;result.livingNotables=people.filter(c=>c.status==='alive').length;result.recurringNotables=people.filter(c=>c.appearances>=3).length;result.deathCauses=people.filter(c=>c.deathCause).reduce((a,c)=>(a[c.deathCause]=(a[c.deathCause]||0)+1,a),{});return result};
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.notables=()=>characterState().registry.map(characterSummary);window.ANNALS_DEBUG.notableLimit=NOTABLE_LIMIT}
+
+/* ============================================================
+ * ANNALS MODULE 54/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/economy-debug.js
+ * ============================================================ */
 const economyBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=economyBaseRunHeadless(seed,days,opt);initEconomy();result.economy=economySummary();return result};
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runHeadless=runHeadless;window.ANNALS_DEBUG.economy=()=>economySummary()}
+
+/* ============================================================
+ * ANNALS MODULE 55/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/war-debug.js
+ * ============================================================ */
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.warSummary=()=>warSummary();window.ANNALS_DEBUG.warCampaignLimit=WAR_CAMPAIGN_LIMIT;window.ANNALS_DEBUG.armyLimit=ARMY_LIMIT;window.ANNALS_DEBUG.startCivilWar=()=>startCivilWar()}
 const warBaseRunHeadless=runHeadless;
-runHeadless=function(seed,days,opt={}){let result=warBaseRunHeadless(seed,days,opt);result.war=warSummary();return result};if(typeof window!=='undefined'){window.ANNALS_DEBUG.threatSummary=()=>threatSummary();window.ANNALS_DEBUG.setMythLevel=level=>setMythLevel(level);window.ANNALS_DEBUG.banditLimit=BANDIT_LIMIT}
+runHeadless=function(seed,days,opt={}){let result=warBaseRunHeadless(seed,days,opt);result.war=warSummary();return result};
+
+/* ============================================================
+ * ANNALS MODULE 56/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/threat-debug.js
+ * ============================================================ */
+if(typeof window!=='undefined'){window.ANNALS_DEBUG.threatSummary=()=>threatSummary();window.ANNALS_DEBUG.setMythLevel=level=>setMythLevel(level);window.ANNALS_DEBUG.banditLimit=BANDIT_LIMIT}
 const threatBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=threatBaseRunHeadless(seed,days,opt);result.threats=threatSummary();return result};
+
+/* ============================================================
+ * ANNALS MODULE 57/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/camera-debug.js
+ * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.cameraSummary=()=>cameraSummary();window.ANNALS_DEBUG.cameraModes=[...CAMERA_MODES];window.ANNALS_DEBUG.setCameraMode=(m)=>setCameraMode(m)}
 const cameraBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=cameraBaseRunHeadless(seed,days,opt);let s=world.cinematicState||{mode:'director',shots:[],lastCategory:{}};result.camera={modes:[...CAMERA_MODES],mode:s.mode,shotCount:s.shots.length,shotTypes:[...new Set(s.shots.map(x=>x.type))],categories:[...new Set(s.shots.map(x=>x.category))],cooldownDays:CAMERA_COOLDOWN_DAYS};return result};
+
+/* ============================================================
+ * ANNALS MODULE 58/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/rendering-debug.js
+ * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.renderingSummary=()=>renderingSummary();window.ANNALS_DEBUG.lodBands={...LOD_BANDS}}
 const renderingBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=renderingBaseRunHeadless(seed,days,opt);result.rendering={bands:{...LOD_BANDS},lightLimit:AMBIENT_LIGHT_LIMIT,particleLimit:AMBIENT_PARTICLE_LIMIT,seasons:['Spring','Summer','Autumn','Winter'],weather:['Clear','Rain','Storm']};return result};
+
+/* ============================================================
+ * ANNALS MODULE 59/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/product-ui-debug.js
+ * ============================================================ */
 ;function productUiSummary(){let e=economyState();return{tabs:['time','rates','acts','world','houses'],activeTab:world.productUiState?.tab||'time',acts:['grain','festival','drought','fire'],taxRate:e.taxRate,hotkeys:['Space','Digit1','Digit2','Digit3','Digit4','KeyH','KeyC','Escape'],inspectors:['settlement','building','character','scar','memory','dynasty','trade','army','bandit-camp','dragon'],copyLink:true,exportChronicle:true}}
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.productUiSummary=()=>productUiSummary()}
 const productUiBaseRunHeadless=runHeadless;
 runHeadless=function(seed,days,opt={}){let result=productUiBaseRunHeadless(seed,days,opt);result.productUi=productUiSummary();return result};
+
+/* ============================================================
+ * ANNALS MODULE 60/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/overlay-debug.js
+ * ============================================================ */
 ;if(typeof window!=='undefined'){window.ANNALS_DEBUG.overlaySummary=()=>overlaySummary();window.ANNALS_DEBUG.overlayTypes=[...OVERLAY_TYPES];window.ANNALS_DEBUG.setOverlay=t=>setOverlay(t)}
 const overlayDebugBaseRunHeadless=runHeadless;
-runHeadless=function(seed,days,opt={}){let result=overlayDebugBaseRunHeadless(seed,days,opt),state=world.overlayState||{active:'none'};result.overlays={types:[...OVERLAY_TYPES],active:state.active,singleActive:true,settlements:world.settlements.length,owners:world.settlements.map(s=>s.owner),tradeRoutes:world.roads.filter(r=>routeTradeStats(r).volume>0).length,prosperity:world.settlements.map(s=>Math.round(s.prosperity)),plague:world.settlements.map(s=>Math.round(plagueRate(s)*10000)/100),unrest:world.settlements.map(s=>Math.round(s.unrest)),terrainSamples:25*25};return result};;if(typeof window!=='undefined'){window.ANNALS_DEBUG.performanceSummary=()=>performanceSummary();window.ANNALS_DEBUG.performanceProfiles=JSON.parse(JSON.stringify(PERFORMANCE_PROFILES));window.ANNALS_DEBUG.setPerformanceQuality=(q)=>setPerformanceQuality(q)}
+runHeadless=function(seed,days,opt={}){let result=overlayDebugBaseRunHeadless(seed,days,opt),state=world.overlayState||{active:'none'};result.overlays={types:[...OVERLAY_TYPES],active:state.active,singleActive:true,settlements:world.settlements.length,owners:world.settlements.map(s=>s.owner),tradeRoutes:world.roads.filter(r=>routeTradeStats(r).volume>0).length,prosperity:world.settlements.map(s=>Math.round(s.prosperity)),plague:world.settlements.map(s=>Math.round(plagueRate(s)*10000)/100),unrest:world.settlements.map(s=>Math.round(s.unrest)),terrainSamples:25*25};return result};
+
+/* ============================================================
+ * ANNALS MODULE 61/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/performance-debug.js
+ * ============================================================ */
+;if(typeof window!=='undefined'){window.ANNALS_DEBUG.performanceSummary=()=>performanceSummary();window.ANNALS_DEBUG.performanceProfiles=JSON.parse(JSON.stringify(PERFORMANCE_PROFILES));window.ANNALS_DEBUG.setPerformanceQuality=(q)=>setPerformanceQuality(q)}
 const performanceBaseRunHeadless=runHeadless;
-runHeadless=function(seed,days,opt={}){let result=performanceBaseRunHeadless(seed,days,opt),collections=performanceCollections();result.performance={profiles:Object.keys(PERFORMANCE_PROFILES),drawCallBudget:PERFORMANCE_DRAW_CALL_BUDGET,triangleBudget:PERFORMANCE_TRIANGLE_BUDGET,sceneObjectBudget:PERFORMANCE_OBJECT_BUDGET,collections,collectionBounds:{chronicle:240,structuredEvents:WORLD_EVENT_LIMIT,characters:128,trades:TRADE_LIMIT,banditCamps:BANDIT_LIMIT,dragonRaids:DRAGON_HISTORY_LIMIT}};return result};;const SOAK_THRESHOLDS={populationMin:800,populationMax:60000,treasuryMin:0,treasuryMax:75000,livingNotablesMin:70,chronicleRateMin:2,chronicleRateMax:30,lastChronicleGapMax:720,distinctOwnersMin:2};
+runHeadless=function(seed,days,opt={}){let result=performanceBaseRunHeadless(seed,days,opt),collections=performanceCollections();result.performance={profiles:Object.keys(PERFORMANCE_PROFILES),drawCallBudget:PERFORMANCE_DRAW_CALL_BUDGET,triangleBudget:PERFORMANCE_TRIANGLE_BUDGET,sceneObjectBudget:PERFORMANCE_OBJECT_BUDGET,collections,collectionBounds:{chronicle:240,structuredEvents:WORLD_EVENT_LIMIT,characters:128,trades:TRADE_LIMIT,banditCamps:BANDIT_LIMIT,dragonRaids:DRAGON_HISTORY_LIMIT}};return result};
+
+/* ============================================================
+ * ANNALS MODULE 62/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/soak-debug.js
+ * ============================================================ */
+;const SOAK_THRESHOLDS={populationMin:800,populationMax:60000,treasuryMin:0,treasuryMax:75000,livingNotablesMin:70,chronicleRateMin:2,chronicleRateMax:30,lastChronicleGapMax:720,distinctOwnersMin:2};
 function soakCheckpointYears(years){let values=new Set([1,5,10,20,50,100,150,200,years].filter(y=>y>0&&y<=years));for(let y=10;y<=years;y+=10)values.add(y);return[...values].sort((a,b)=>a-b)}
 function soakSnapshotAt(completedYears){return{...stabilitySnapshot(),completedYears}}
 function soakFailures(snapshot,years){let t=SOAK_THRESHOLDS,fail=[];if(!snapshot.finite)fail.push('non-finite simulation value');if(snapshot.population<t.populationMin)fail.push(`population ${snapshot.population} below ${t.populationMin}`);if(snapshot.population>t.populationMax)fail.push(`population ${snapshot.population} above ${t.populationMax}`);if(snapshot.treasury<t.treasuryMin||snapshot.treasury>t.treasuryMax)fail.push(`treasury ${snapshot.treasury} outside ${t.treasuryMin}-${t.treasuryMax}`);if(snapshot.houses<2)fail.push(`house count ${snapshot.houses} is not meaningful`);if(years>=20&&snapshot.distinctOwners<t.distinctOwnersMin)fail.push(`only ${snapshot.distinctOwners} territorial owner remains`);if(snapshot.livingNotables<t.livingNotablesMin)fail.push(`only ${snapshot.livingNotables} living notables remain`);if(snapshot.notableRegistry>NOTABLE_LIMIT)fail.push(`notable registry ${snapshot.notableRegistry} exceeds ${NOTABLE_LIMIT}`);if(snapshot.notableArchive>STABILITY_ARCHIVE_LIMIT)fail.push(`notable archive ${snapshot.notableArchive} exceeds ${STABILITY_ARCHIVE_LIMIT}`);if(snapshot.campaigns>WAR_CAMPAIGN_LIMIT)fail.push(`campaign registry ${snapshot.campaigns} exceeds ${WAR_CAMPAIGN_LIMIT}`);if(snapshot.armies>ARMY_LIMIT)fail.push(`army registry ${snapshot.armies} exceeds ${ARMY_LIMIT}`);if(snapshot.trades>TRADE_LIMIT)fail.push(`trade registry ${snapshot.trades} exceeds ${TRADE_LIMIT}`);if(snapshot.worldEvents>WORLD_EVENT_LIMIT)fail.push(`world event registry ${snapshot.worldEvents} exceeds ${WORLD_EVENT_LIMIT}`);if(snapshot.activeWars>1)fail.push(`${snapshot.activeWars} wars remain active`);if(snapshot.chronicleRate<t.chronicleRateMin)fail.push(`Chronicle rate ${snapshot.chronicleRate}/year below ${t.chronicleRateMin}`);if(snapshot.chronicleRate>t.chronicleRateMax)fail.push(`Chronicle rate ${snapshot.chronicleRate}/year above ${t.chronicleRateMax}`);if(snapshot.day-snapshot.lastChronicleDay>t.lastChronicleGapMax)fail.push(`Chronicle stalled for ${snapshot.day-snapshot.lastChronicleDay} days`);return fail}
 function runStabilitySoak(seed,years=20,opt={}){let requestedYears=Math.max(1,Math.floor(years)),totalDays=requestedYears*360,start=performance.now();clock={day:1,speed:8,acc:0};director={queue:[],until:0,suspend:0};world=makeWorld(String(seed));world.headless=true;if(opt.initialChronicle!==false)firstEntries();let targets=soakCheckpointYears(requestedYears),targetSet=new Set(targets),checkpoints=[],lastCompleted=0;for(let i=0;i<totalDays;i++){tick();director.queue.length=0;let completed=Math.floor((clock.day-1)/360);if(completed!==lastCompleted&&targetSet.has(completed)){checkpoints.push(soakSnapshotAt(completed));lastCompleted=completed}}let final=soakSnapshotAt(requestedYears),failures=soakFailures(final,requestedYears);for(let i=1;i<checkpoints.length;i++)if(checkpoints[i].chronicleTotal<=checkpoints[i-1].chronicleTotal)failures.push(`Chronicle did not advance between years ${checkpoints[i-1].completedYears} and ${checkpoints[i].completedYears}`);let durationMs=Math.round((performance.now()-start)*10)/10,populations=checkpoints.map(c=>c.population),treasuries=checkpoints.map(c=>c.treasury),report={seed:String(seed),requestedYears,durationMs,thresholds:{...SOAK_THRESHOLDS},passed:failures.length===0,failures,extrema:{populationMin:Math.min(...populations,final.population),populationMax:Math.max(...populations,final.population),treasuryMin:Math.min(...treasuries,final.treasury),treasuryMax:Math.max(...treasuries,final.treasury)},checkpoints,final};stabilityState().checkpoints=checkpoints.slice(-STABILITY_CHECKPOINT_LIMIT);return report}
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.runSoak=runStabilitySoak;window.ANNALS_DEBUG.stability=stabilitySummary;window.ANNALS_DEBUG.soakThresholds={...SOAK_THRESHOLDS}}
+
+/* ============================================================
+ * ANNALS MODULE 63/63 · DEBUG & ACCEPTANCE
+ * Source: src/simulation/chronicle-regression.js
+ * ============================================================ */
 const CHRONICLE_LIMIT=240;
 function chronicleStructuralSummary(){let entries=world.events.map(e=>{let structured=e.eventId&&worldEventState().registry.find(x=>x.id===e.eventId),memoryId=structured?.metadata?.memoryRefId||null;return{day:e.day,class:e.class,kind:e.kind||e.class,header:!!e.header,eventId:e.eventId||null,memoryId,scarId:e.scarId||structured?.metadata?.scarId||null,location:e.location||null,pos:{x:Math.round(e.pos?.x||0),y:Math.round(e.pos?.y||0),z:Math.round(e.pos?.z||0)}}});return{count:entries.length,limit:CHRONICLE_LIMIT,classes:entries.reduce((a,e)=>(a[e.class]=(a[e.class]||0)+1,a),{}),headers:entries.filter(e=>e.header).length,references:entries.filter(e=>e.memoryId).length,targetable:entries.filter(e=>Number.isFinite(e.pos.x)&&Number.isFinite(e.pos.y)&&Number.isFinite(e.pos.z)).length,entries}}
 function chronicleRegressionRun(seed,days=1800,opt={initialChronicle:true,fireAt:20,droughtAt:120,festivalAt:240,grainAt:360}){let result=runHeadless(seed,days,opt),summary=chronicleStructuralSummary();return{seed,days,summary,reigns:result.reigns||[],memories:result.memories||[],events:result.structuredEvents||[],exportText:formatChronicleExport()}}
 if(typeof window!=='undefined'){window.ANNALS_DEBUG.chronicleSummary=chronicleStructuralSummary;window.ANNALS_DEBUG.chronicleRegressionRun=chronicleRegressionRun;window.ANNALS_DEBUG.formatChronicleExport=()=>formatChronicleExport();window.ANNALS_DEBUG.chronicleLimit=CHRONICLE_LIMIT}
-
 </script>
 </body>
 </html>
