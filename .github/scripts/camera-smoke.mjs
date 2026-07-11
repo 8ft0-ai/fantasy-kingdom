@@ -21,9 +21,10 @@ try{
       for(const kind of ['trade','army','dragon']){
         const point=await page.evaluate(value=>window.ANNALS_DEBUG.focusCameraAcceptanceTarget(value),kind);
         if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.y)){result.failures.push(`no screen target for ${kind}`);continue}
-        await page.mouse.click(point.x,point.y);
-        await page.waitForTimeout(40);
-        const follow=await page.evaluate(()=>window.ANNALS_CAMERA.summary());
+        const follow=await page.evaluate(({x,y})=>{
+          renderer.domElement.dispatchEvent(new MouseEvent('click',{clientX:x,clientY:y,bubbles:true,cancelable:true,button:0}));
+          return window.ANNALS_CAMERA.summary();
+        },point);
         if(follow.mode!=='follow'||follow.follow?.kind!==kind)result.failures.push(`click did not follow ${kind}`);
       }
       const canvas=page.locator('#app canvas');
