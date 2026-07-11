@@ -20,6 +20,7 @@ simulation/memory-history.js
 simulation/war.js
 simulation/threat-boundary.js
 simulation/threats.js
+simulation/debug-channel.js
 simulation/event-metadata.js
 simulation/life-arcs.js
 simulation/life-arc-evidence.js
