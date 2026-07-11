@@ -1,77 +1,103 @@
 # ANNALS runtime structure
 
-This note documents the internal structure that `annals.html` should preserve while remaining a single-file, no-build, vanilla JavaScript runtime.
+This note documents the internal structure that `annals.html` preserves while remaining a single-file, no-runtime-build, vanilla JavaScript application.
 
-## Smallest coherent vertical slice for issue #21
+## Deployment and source model
 
-Issue #21 is about making future work safer without changing the deployment model. The smallest useful slice is:
+`annals.html` is the committed deployable application. Maintainable source lives under `src/` and is assembled by `scripts/build.py` according to `src/manifest.txt`. There is no module loader, framework, backend, or deployment build step.
 
-1. keep `index.html` as the lightweight root entrypoint that preserves hash seeds;
-2. keep `annals.html` as the only runtime application file;
-3. document how to run, deploy, share seeds, and export the Chronicle;
-4. document the RNG stream boundary between generation and history;
-5. define stable internal sections for future edits;
-6. add lightweight guards where generation, rendering, simulation, UI, and boot can fail.
+The generator now validates the manifest before writing the runtime and adds a module index plus a searchable section banner before every source module. These comments are diagnostic structure only; they do not alter execution order.
 
-## Intended internal section order
+## Generated internal sections
 
-`annals.html` should be organised in this order, even while it remains one file:
+Each manifest module is labelled under one of these generated section families:
 
-1. **Header and constraints** — version, runtime constraints, Three.js r128 compatibility, and no-build expectations.
-2. **CSS and static shell** — fixed DOM structure, HUD, control drawer, Chronicle, inspector, beat card, forge overlay.
-3. **Constants and runtime state** — dimensions, name tables, goods, global scene/simulation state.
-4. **Seeded RNG and utilities** — `xmur3`, `sfc32`, `rngFrom`, selection helpers, geometry helpers, clamp/lerp/distance helpers.
-5. **Runtime guards and assertions** — small checks for missing Three.js, malformed generated worlds, missing Chronicle state, non-finite co-ordinates, and boot failures.
-6. **World generation** — terrain, hydrology, settlement placement, roads, houses, cast, and mythic fates.
-7. **Rendering** — Three.js scene setup, terrain/water/roads/buildings/trees/props/agents/fates/labels.
-8. **Chronicle** — event creation, filtering, entry rendering, date text, and director queue integration.
-9. **Simulation systems** — tick order, weather, economy, population, politics, threats, trade, growth, rebuilding, war, caravans, armies, fates.
-10. **UI and controls** — sliders, world controls, manual acts, share/export controls, filters, inspector.
-11. **Camera and director** — fly-to behaviour, watch mode, manual camera controls, cinematic beat selection.
-12. **Animation and boot** — animation loop, event listeners, initial Chronicle entries, forge overlay dismissal.
-13. **Debug hooks** — explicitly named diagnostic helpers only; no persistent browser storage.
+1. **Constants, RNG and runtime state** — dimensions, name tables, shared state and seeded random helpers.
+2. **Runtime guards and assertions** — dependency compatibility, RNG separation, world-shape and boot checks.
+3. **World generation** — terrain, hydrology, settlement placement, roads, houses and procedural layouts.
+4. **Simulation and Chronicle systems** — events, named lives, economy, wars, threats, scars, memory and stability.
+5. **Rendering** — Three.js scene setup, terrain, settlements, moving agents, weather, overlays and performance controls.
+6. **Camera and director** — camera movement, follow mode, picking and cinematic shot selection.
+7. **UI and controls** — Chronicle rendering, controls, inspectors, export/share and product surfaces.
+8. **Animation and boot** — dependency checks, event listeners, initial entries and the animation loop.
+9. **Debug and acceptance** — headless summaries, regression hooks and soak-test APIs.
+
+The generated banner format is:
+
+```text
+ANNALS MODULE 03/65 · WORLD GENERATION
+Source: src/world/generation.js
+```
+
+The module number changes as the manifest changes; the source path is the stable locator.
+
+## Manifest contract
+
+`scripts/build.py` enforces:
+
+- no duplicate manifest entries;
+- no missing or empty JavaScript modules;
+- no absolute paths or `..` path traversal;
+- `core/runtime.js` is first;
+- `simulation/chronicle-regression.js` is last;
+- guards load before world generation and simulation;
+- world generation loads before event and simulation wrappers;
+- economy, war, threats and stability retain their dependency order;
+- scene setup loads before rendering extensions;
+- camera loads before cinematic behaviour;
+- boot loads after core debug and before debug extension modules;
+- browser persistence APIs are absent from runtime source.
+
+These rules intentionally cover only load-bearing dependencies. Feature modules may still interleave by subsystem when wrapper order requires it.
 
 ## RNG stream boundary
 
-The app currently has two seeded random streams:
+The app has two seeded random streams:
 
-- **Generation stream**: seeded from the URL seed plus a generation tag. This stream controls map and visual structure: height field, rivers, settlement placement, building placement, roads, house colours, prop placement, and other initial geometry.
-- **History stream**: seeded from the URL seed plus a history tag. This stream controls cast generation, historical rolls, trade outcomes, threats, politics, manual acts, Chronicle events, war, dragon behaviour, and other simulation outcomes.
+- **Generation stream**: seeded from the URL seed plus the `generation` tag. It controls terrain, rivers, settlement placement, building placement, roads, house colours and other initial structure.
+- **History stream**: seeded from the URL seed plus the `history` tag. It controls named lives, simulation rolls, trade, threats, politics, Chronicle events, war and fates.
 
-This separation should be preserved. A change to history behaviour should not unexpectedly reshape the starting map, and a change to terrain or settlement layout should avoid consuming history rolls.
+`assertRngStreams(seed)` constructs fresh probe streams. It confirms that generation is reproducible and that generation/history digests differ, without consuming `genR` or `hisR` used by the live realm.
 
-## Suggested guard points
+## Runtime guard points
 
-Keep guards small and targeted. They should fail loudly during development but not introduce persistence or heavy framework-style machinery.
+The runtime guard layer checks:
 
-Useful guard points:
+- Three.js exists and reports revision 128 before scene setup;
+- the generated world has a seed, title, settlements, houses, roads, buildings, resources, rivers and Chronicle collection;
+- settlement, house and building IDs are unique;
+- roads reference existing settlements and contain finite points;
+- settlements, buildings, resources and road points use finite coordinates;
+- every settlement owner refers to a real house;
+- the generated-world guard completed before boot;
+- scene, camera, renderer and canvas exist;
+- named characters and initial Chronicle entries exist before the forge overlay is removed.
 
-- Three.js is loaded before scene setup begins.
-- The generated world has a title, a seed, settlements, roads, houses, notables, and a dragon before rendering starts.
-- Height lookups, camera targets, agent co-ordinates, and Chronicle target positions remain finite.
-- Hydrology does not assume a long enough river path when adding tributaries.
-- Boot catches fatal errors and replaces the forge overlay text with a clear failure message instead of leaving the user stuck at **Forging the realm…**.
-- Initial Chronicle entries exist before the animation loop begins.
+Guard failures flow into the existing recoverable boot screen. The current state is available through:
+
+```js
+ANNALS_GUARDS.summary()
+```
 
 ## System order
 
-The simulation should continue to use a clear order inside `tick()` so cause and consequence remain legible:
+The simulation uses nested wrappers rather than one monolithic `tick()`, but the effective order remains intentional:
 
-1. advance day and season;
-2. update weather;
-3. update economy and prices;
-4. update population and disease;
-5. update politics and succession;
-6. resolve threats and fates;
-7. resolve growth, scars, rebuilding, and trade spawning;
-8. emit Chronicle-worthy story pulses;
-9. refresh UI state periodically.
+1. advance day, season and weather;
+2. update base population, stores, growth and politics;
+3. update named lives and dynasty consequences;
+4. update economy and trade;
+5. update scars and historical memory;
+6. update wars and armies;
+7. update threats and mythic consequences;
+8. apply long-run stability governors at bounded intervals;
+9. emit Chronicle-worthy events and periodically refresh browser UI.
 
-The animation loop should then update agents, props, camera, director, labels, seasonal look, HUD, and finally render the scene.
+The animation loop then updates camera/director state, moving trade and war markers, threats, labels, HUD, adaptive performance state and finally renders the scene.
 
-## Manual validation checklist
+## Required regression seeds
 
-For every runtime change, check at least these seeds:
+Every runtime change must continue to validate:
 
 ```text
 #s=1234567
@@ -79,19 +105,16 @@ For every runtime change, check at least these seeds:
 #s=424242
 ```
 
-For each seed, verify:
+The Browser smoke workflow loads each seed and the runtime-guard pass requires:
 
-- the app gets past **Forging the realm…**;
-- the hash remains in the URL;
-- settlements, roads, and the Chronicle appear;
-- the Chronicle receives entries after start;
-- time controls change speed and pause/resume;
-- watch mode hides the control UI and the director continues selecting events;
-- at least one manual act produces visible or Chronicle-recorded consequence;
-- export creates a text Chronicle;
-- copy link uses the current seed when the Clipboard API is available;
-- no obvious console/runtime errors appear.
+- the forge overlay clears;
+- the seed remains in the URL;
+- Three.js r128 is active;
+- RNG probes are reproducible and separated;
+- world-shape assertions pass;
+- boot readiness passes with named characters and Chronicle entries;
+- no console or page errors occur.
 
 ## Non-goals
 
-This structure is not permission to introduce a framework, backend, build step, localStorage, sessionStorage, external textures, external models, or a multi-file runtime bundle.
+This structure does not permit a framework, backend, runtime bundler, browser persistence, external textures or models, or a multi-file deployment. The source tree is modular for maintenance; the delivered app remains `annals.html`.
