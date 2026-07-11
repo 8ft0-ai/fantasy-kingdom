@@ -1,2 +1,5 @@
 ;const lifeArcEvidenceBaseObserve=observeLifeArcEvent;
 observeLifeArcEvent=function(ev){lifeArcEvidenceBaseObserve(ev);let arcId=ev?.metadata?.arcId;if(!arcId)return;let arc=lifeArcState().arcs.find(a=>a.id===arcId);if(!arc)return;arc.entries=arc.entries||[];if(!arc.entries.some(x=>x.id===ev.id))arc.entries.push({id:ev.id,day:ev.day,type:ev.type,text:ev.metadata?.chronicle?.text||'',characterId:arc.characterId,theme:arc.theme})};
+const lifeArcEvidenceBaseRun=runNotableAcceptance;
+runNotableAcceptance=function(seed,days=ACCEPTANCE_THIRTY_MINUTE_DAYS){let report=lifeArcEvidenceBaseRun(seed,days),reigns=dynastyState().reigns.map(r=>({...r})),successionEvents=structuredEvents().filter(e=>['succession','contested-succession'].includes(e.type)).map(e=>({id:e.id,day:e.day,type:e.type,participants:[...e.participants]}));return{...report,reign:annalsState().reign,reigns,successionEvents}};
+if(typeof window!=='undefined')window.ANNALS_DEBUG.runNotableAcceptance=runNotableAcceptance;
