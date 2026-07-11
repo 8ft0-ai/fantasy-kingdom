@@ -38,6 +38,8 @@ ui/threat-interface.js
 ui/camera-interface.js
 ui/product-surface.js
 ui/overlay-interface.js
+rendering/performance.js
+ui/performance-interface.js
 core/debug.js
 boot.js
 simulation/character-debug.js
@@ -52,4 +54,5 @@ simulation/camera-debug.js
 simulation/rendering-debug.js
 simulation/product-ui-debug.js
 simulation/overlay-debug.js
+simulation/performance-debug.js
 simulation/chronicle-regression.js
