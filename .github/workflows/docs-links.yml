@@ -1,21 +1,27 @@
-name: Documentation links
+name: Documentation local targets
 
 on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: '7 3 * * 1'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  documentation-links:
+  documentation-local-targets:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Check internal Markdown links
-        run: python3 scripts/check_docs_links.py
+      - name: Check inline local Markdown targets
+        run: python3 scripts/check_docs_targets.py
+      - name: Test documentation target fixtures
+        run: python3 scripts/test_docs_targets.py
+      - name: Verify CI path classification contract
+        run: python3 scripts/check_ci_classification.py
