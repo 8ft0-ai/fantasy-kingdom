@@ -8,7 +8,7 @@ Closes #
 
 ## Validation
 
-List the checks run and the evidence produced.
+List the checks run and the evidence produced. State which CI class applies and do not claim skipped environment-specific validation as passed.
 
 ## Documentation checklist
 
@@ -16,4 +16,5 @@ List the checks run and the evidence produced.
 - [ ] Commands, paths, limits and debug interfaces are current.
 - [ ] New documentation has one clear reader need.
 - [ ] Historical validation evidence is not presented as current reference.
-- [ ] Internal documentation links pass `python3 scripts/check_docs_links.py`.
+- [ ] Documentation local targets pass `python3 scripts/check_docs_targets.py`.
+- [ ] Passing target checks is not being used as evidence of semantic accuracy.
