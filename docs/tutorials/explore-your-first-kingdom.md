@@ -1,12 +1,16 @@
 # Explore your first kingdom
 
-This tutorial introduces ANNALS by taking one maintained kingdom from generation through observation, intervention and Chronicle export.
+This tutorial takes one maintained ANNALS kingdom from generation through observation, intervention, sharing and Chronicle export.
 
-You will use seed `1234567`, which is also part of the repository's regression baseline.
+You will follow one exact path through seed `1234567`. In the current version, this seed creates **The Annals of Reedfen**, centred on the capital settlement of **Bellford**.
 
 ## Before you begin
 
-You need Python 3 and a browser with WebGL support.
+You need:
+
+- Python 3;
+- a browser with WebGL support;
+- a desktop-sized browser window so the left drawer and Chronicle remain visible.
 
 From the repository root, start a static server:
 
@@ -14,91 +18,133 @@ From the repository root, start a static server:
 python3 -m http.server 8000
 ```
 
-Open:
+Open exactly:
 
 ```text
 http://localhost:8000/annals.html#s=1234567
 ```
 
-## 1. Let the realm form
+## 1. Confirm that Reedfen has formed
 
 Wait for **Forging the realm…** to disappear.
 
-You should see:
+Confirm that:
 
-- a generated realm rendered in 3D;
-- the current date, season, weather, monarch, treasury and population in the interface;
-- a Chronicle containing the opening entries for the kingdom;
-- the seed retained in the URL.
+- the title reads **The Annals of Reedfen**;
+- Bellford is visible near the centre of the realm;
+- the Chronicle contains opening entries;
+- the URL still ends in `#s=1234567`.
 
-The same seed will regenerate the same initial kingdom.
+The same seed and application version reproduce the same initial kingdom.
 
-## 2. Change the pace of history
+## 2. Advance and pause history
 
-Use the time controls in the left drawer, or press a number key from `1` to `4`, to change the simulation speed.
+Press `2` once.
 
-Let several Chronicle entries appear, then press `Space` to pause.
+This selects the 4× simulation speed. Confirm that the date in the top bar begins to advance.
 
-You should see the date advance while the simulation is running and stop advancing while paused.
+Press `Space` once.
 
-## 3. Watch the Chronicle direct the camera
+Confirm that the date stops advancing. Leave the simulation paused for the remaining steps so the documented targets do not change while you use them.
 
-Press `C` to enable Watch mode, then resume the simulation.
+## 3. Enter and leave Watch mode
 
-As significant events occur, the cinematic director should move the camera towards the place or subject connected to the Chronicle entry. Watch mode may hide some management interface elements so that the realm becomes the focus.
+Press `C` once.
 
-Press `C` again when you are ready to return to direct control.
+Confirm that the left drawer, Chronicle and speed controls disappear while the title and compact cinematic camera chip remain visible.
 
-## 4. Inspect part of the realm
+Press `C` again.
 
-Select a visible settlement, notable, moving caravan, army or other inspectable subject.
+Confirm that the normal interface returns.
 
-The inspector should show information relevant to the selected subject. Settlement information may include population, prosperity, owner and local economic state. Moving or threatening subjects expose their route, status or target where applicable.
+## 4. Inspect Bellford
 
-Press `Esc` to clear the inspector.
+In the left drawer, select **World**.
 
-## 5. Intervene with an Act
+Under **Inspect settlements**, select **Bellford**.
 
-Open the **Acts** tab in the left drawer. ANNALS only displays Acts that are currently implemented, including grain relief, festival, drought and fire.
+The inspector should open with the title **Bellford** and show its type, lots, districts, stores and current state.
 
-Choose an Act and review the target shown by the interface before triggering it.
+## 5. Proclaim a festival in Bellford
 
-After the Act is applied, you should see a Chronicle entry describing the intervention and its immediate consequence. The camera may also follow the event when Director or Watch mode is active.
-
-## 6. Share the same starting kingdom
-
-Use **Copy link** in the interface, or copy the browser URL directly.
-
-The URL should retain:
+In the Chronicle, select the opening entry whose date line includes:
 
 ```text
-#s=1234567
+coronation · Bellford
 ```
 
-Opening that URL in another browser session recreates the same initial realm. Subsequent history remains deterministic only for the same application version when the sequence and timing of user actions also match.
+Wait for the camera to finish moving and place Bellford near the centre of the realm.
 
-## 7. Export the Chronicle
+In the left drawer:
 
-Open the left control drawer and choose **Export**.
+1. select **Acts**;
+2. select **Proclaim festival**;
+3. click the Bellford settlement marker in the realm.
 
-The browser should download a plain-text file named:
+Confirm that:
+
+- the Bellford inspector is visible;
+- placement mode has ended;
+- the Chronicle contains a new entry labelled `festival · Bellford`;
+- the entry begins **A royal festival was proclaimed in Bellford**.
+
+This Act is part of the current browser session. Reloading the seed resets the tutorial to its initial state.
+
+## 6. Open the same starting kingdom in another tab
+
+Select **World**, then select **Copy link**.
+
+Paste the copied URL into a new browser tab and open it.
+
+Confirm that the new tab:
+
+- opens **The Annals of Reedfen**;
+- retains `#s=1234567`;
+- starts from the initial kingdom rather than including the festival from the first tab.
+
+A shared seed guarantees the same initial realm for the same application version. Subsequent history matches only when the sequence and timing of user actions also match.
+
+## 7. Export the Chronicle from the first tab
+
+Return to the first tab, select **World**, then select **Export Chronicle**.
+
+The browser should download:
 
 ```text
 annals-1234567.txt
 ```
 
-Open the file and confirm that it contains the Chronicle entries produced during your session, including the Act you triggered.
+Open the file and confirm that it contains:
+
+```text
+THE ANNALS OF REEDFEN
+Seed 1234567
+```
+
+It should also contain the sentence beginning:
+
+```text
+A royal festival was proclaimed in Bellford
+```
+
+## Recover the supported path
+
+Use these recovery steps rather than improvising a different tutorial journey:
+
+- If **Forging the realm…** does not disappear, reload the exact tutorial URL once. If it still does not clear, follow [Troubleshoot start-up](../how-to/troubleshoot-start-up.md).
+- If **World**, **Bellford** or **Proclaim festival** is unavailable, restore a desktop-sized browser window and reload the exact tutorial URL. Persistent absence is a tutorial regression.
+- If you select another target, advance too far or otherwise diverge from the steps, reload `http://localhost:8000/annals.html#s=1234567` and begin again. ANNALS does not persist the changed session in browser storage.
 
 ## You have completed the tutorial
 
 You have now:
 
-- generated a deterministic kingdom;
-- changed and paused simulation time;
-- observed the cinematic director;
-- inspected the simulated world;
-- caused a visible historical event;
-- shared the kingdom by URL seed;
-- exported its Chronicle.
+- generated and identified a maintained deterministic kingdom;
+- advanced and paused simulation time;
+- observed Watch mode;
+- inspected the capital through a prescribed product control;
+- caused and verified a Bellford festival;
+- reopened the same initial realm from its seed link;
+- exported the Chronicle produced by your session.
 
-Return to the [documentation landing page](../README.md) to find task guides, technical reference and architectural explanation.
+Return to the [documentation landing page](../README.md) for task guides, technical reference and architectural explanation.
