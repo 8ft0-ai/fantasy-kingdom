@@ -28,7 +28,7 @@ The [ANNALS documentation](docs/README.md) is organised around what the reader i
 - complete a particular task;
 - look up exact technical information;
 - understand the design and its trade-offs;
-- inspect delivery and validation evidence.
+- inspect historical delivery and validation evidence.
 
 ## Development workflow
 
@@ -44,7 +44,7 @@ Verify it before committing:
 python3 scripts/build.py --check
 ```
 
-Commit source changes and the regenerated `annals.html` together. CI verifies the generated artefact, browser behaviour, Chronicle regressions and long-run simulation stability.
+Commit source changes and the regenerated `annals.html` together. CI verifies the generated artefact, browser behaviour, Chronicle regressions, long-run stability and internal documentation links.
 
 Use these guides for the supported workflow:
 
@@ -74,8 +74,8 @@ The generation and history random streams are separate so that changes to world 
 | `scripts/build.py` | Validates the source contract and builds or checks `annals.html`. |
 | `annals.html` | Generated, deployable single-file application. |
 | `index.html` | Lightweight GitHub Pages entrypoint that preserves seed hashes. |
-| `docs/` | User, contributor, architecture and validation documentation. |
+| `docs/` | Tutorials, how-to guides, reference, explanation and project records. |
 
 ## Contributions
 
-Use the repository issue and pull-request workflow for changes. A dedicated documentation contribution guide will be added as the Diátaxis migration reaches its governance slice.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the runtime, validation and documentation contribution contract.

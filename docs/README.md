@@ -37,7 +37,10 @@ The former [ANNALS runtime structure](annals-runtime-structure.md) page remains 
 
 ## Inspect delivery evidence
 
-The existing `issue-*-validation.md` documents record implementation and acceptance evidence for completed delivery issues. They remain historical project records rather than instructions for using the current product. The final migration slice will group them under a dedicated project-records area and mark superseded limitations explicitly.
+- [Project records](project/README.md)
+- [Issue validation archive](project/validation/README.md)
+
+These records preserve delivery evidence and superseded limitations. They are not current product reference.
 
 ## Documentation model
 
@@ -50,11 +53,8 @@ Each maintained page should have one dominant purpose:
 
 Pages may link across these purposes, but they should not combine them into one long manual. This is the practical application of the [Diátaxis](https://diataxis.fr/) documentation philosophy used by this repository.
 
-## Current migration status
+## Migration status
 
-1. Documentation gateway and first tutorial — available.
-2. Task-oriented how-to guides — available.
-3. Reference and explanation separation — available.
-4. Historical validation archive and documentation governance — planned next.
+The initial Diátaxis migration is complete: the repository has a reader gateway, a tested tutorial, task guides, technical reference, architectural explanation, historical project records and automated internal-link validation.
 
-Every slice is intended to merge independently with working navigation and no empty placeholder pages.
+See [CONTRIBUTING](../CONTRIBUTING.md) for the documentation maintenance contract.
