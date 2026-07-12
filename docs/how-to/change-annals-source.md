@@ -57,4 +57,4 @@ Confirm that the application clears **Forging the realm…**, the Chronicle adva
 
 Commit the changed `src/` files and regenerated `annals.html` together. CI rejects stale generated output, invalid manifest ordering, missing modules and forbidden browser persistence APIs.
 
-For exact build invariants, see [ANNALS runtime structure](../annals-runtime-structure.md). For the broader validation sequence, see [Run the regression baseline](run-the-regression-baseline.md).
+For exact build invariants, see [Build and manifest reference](../reference/build-and-manifest.md). For the broader validation sequence, see [Run the regression baseline](run-the-regression-baseline.md).
