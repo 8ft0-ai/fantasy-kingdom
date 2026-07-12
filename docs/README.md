@@ -41,7 +41,7 @@ Pages may link across these purposes, but they should not combine them into one 
 
 ## Current migration status
 
-1. Documentation gateway and first tutorial — in delivery.
+1. Documentation gateway and first tutorial — available in this documentation set.
 2. Task-oriented how-to guides — planned next.
 3. Reference and explanation separation — planned.
 4. Historical validation archive and documentation governance — planned.
