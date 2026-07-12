@@ -20,6 +20,10 @@ When behaviour changes:
 - update explanatory material when an architectural decision or trade-off changes;
 - preserve issue validation documents as historical delivery evidence rather than current product guidance.
 
+## Historical project records
+
+The canonical archive is under [`project-records/`](project-records/README.md). Preserve these records as delivery evidence. Do not rewrite them to describe current behaviour; update current documentation under `docs/` instead. Compatibility stubs under `docs/` must remain when they protect existing inbound links.
+
 ## Runtime changes
 
 Edit maintainable source under `src/`, regenerate `annals.html`, and run:

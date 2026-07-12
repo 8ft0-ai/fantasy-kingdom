@@ -15,6 +15,9 @@ SKIP_PREFIXES = ("#", "http://", "https://", "mailto:", "tel:")
 def markdown_files() -> list[Path]:
     files = [ROOT / "README.md", ROOT / "CONTRIBUTING.md"]
     files.extend((ROOT / "docs").rglob("*.md"))
+    records = ROOT / "project-records"
+    if records.exists():
+        files.extend(records.rglob("*.md"))
     template = ROOT / ".github" / "pull_request_template.md"
     if template.exists():
         files.append(template)
