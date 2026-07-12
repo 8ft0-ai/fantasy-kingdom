@@ -9,6 +9,8 @@ This page is retained as a compatibility index for links created before the docu
 - [Runtime guards and debug interfaces](reference/runtime-guards-and-debug.md)
 - [URL and seeds](reference/url-and-seeds.md)
 - [Controls](reference/controls.md)
+- [Product interface](reference/product-interface.md)
+- [Chronicle, events and diagnostics](reference/chronicle-events-and-diagnostics.md)
 - [Platform and performance](reference/platform-and-performance.md)
 
 ## Architecture and design explanation
