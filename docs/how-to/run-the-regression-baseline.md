@@ -49,7 +49,7 @@ node .github/scripts/chronicle-regression.mjs
 
 ## 5. Run affected subsystem checks
 
-The Browser smoke workflow also runs focused suites for culture, acceptance, notable lives, economy, disasters, war, camera, rendering, overlays and performance. Run the scripts relevant to your change, or let the pull-request workflow execute the complete set.
+The Browser smoke workflow also runs focused suites for the first-kingdom tutorial, culture, acceptance, notable lives, economy, disasters, war, camera, rendering, overlays and performance. Run the scripts relevant to your change, or let the pull-request workflow execute the complete set.
 
 ## 6. Manually inspect maintained seeds
 
@@ -63,14 +63,40 @@ Load:
 
 Confirm that each realm clears **Forging the realm…**, retains its seed, produces Chronicle entries and has no console or page errors.
 
-## Pull-request gate
+## Documentation validation
 
-Every pull request currently runs:
+Run:
 
-- Verify generated runtime;
-- Browser smoke and focused browser acceptance suites;
-- Chronicle regression;
-- Long-run soak;
-- Documentation links.
+```bash
+python3 scripts/check_docs_targets.py
+python3 scripts/test_docs_targets.py
+```
 
-Do not merge while any required workflow is failing or still running.
+The checker validates inline local Markdown path existence only. It does not validate anchors, reference-style links, rendered Markdown, external URLs or semantic accuracy.
+
+## Pull-request classification
+
+Every pull request runs:
+
+- **Documentation local targets**;
+- **Verify generated runtime**.
+
+Browser smoke, Chronicle regression and Long-run soak also run when the pull request changes any of:
+
+- `src/**`;
+- `annals.html` or `index.html`;
+- `scripts/build.py`;
+- `.github/scripts/**`;
+- `.github/workflows/**`.
+
+Therefore an ordinary documentation-only pull request avoids the heavyweight suites, while runtime, build, workflow and acceptance-test changes continue to receive the complete relevant validation.
+
+Run the deterministic classification contract with:
+
+```bash
+python3 scripts/check_ci_classification.py
+```
+
+Pushes to `main` remain unfiltered. Documentation targets, generated-runtime verification, Browser smoke, Chronicle regression and Long-run soak also run on a weekly Monday schedule and remain manually dispatchable.
+
+Do not merge while any workflow required for the changed paths is failing or still running. Passing CI alone is not evidence that documentation is semantically accurate.
