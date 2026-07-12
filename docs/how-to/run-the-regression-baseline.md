@@ -65,11 +65,12 @@ Confirm that each realm clears **Forging the realm…**, retains its seed, produ
 
 ## Pull-request gate
 
-Every pull request runs:
+Every pull request currently runs:
 
 - Verify generated runtime;
 - Browser smoke and focused browser acceptance suites;
 - Chronicle regression;
-- Long-run soak.
+- Long-run soak;
+- Documentation links.
 
 Do not merge while any required workflow is failing or still running.
