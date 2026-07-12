@@ -75,7 +75,7 @@ The URL should retain:
 #s=1234567
 ```
 
-Opening that URL in another browser session recreates the same initial realm. History remains deterministic for the same version of the simulation when the same sequence of actions is taken.
+Opening that URL in another browser session recreates the same initial realm. Subsequent history remains deterministic only for the same application version when the sequence and timing of user actions also match.
 
 ## 7. Export the Chronicle
 
@@ -101,4 +101,4 @@ You have now:
 - shared the kingdom by URL seed;
 - exported its Chronicle.
 
-Return to the [documentation landing page](../README.md) to find task guides, technical reference, architectural explanation and delivery evidence as those sections are migrated.
+Return to the [documentation landing page](../README.md) to find task guides, technical reference and architectural explanation.

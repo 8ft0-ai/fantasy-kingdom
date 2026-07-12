@@ -29,10 +29,10 @@ Open the copied link in a new browser session. Confirm that:
 - the application clears **Forging the realm…**;
 - the opening Chronicle is present.
 
-The same seed reproduces the same initial kingdom. Historical outcomes also remain deterministic for the same application version when the same sequence of user actions is taken.
+The same seed reproduces the same initial kingdom. Subsequent historical outcomes remain deterministic only for the same application version when the sequence and timing of user actions also match.
 
 ## Create a different realm
 
 Use **Reforge** to generate a new seed, then copy the resulting URL.
 
-For the design behind deterministic generation and history, see [ANNALS runtime structure](../annals-runtime-structure.md).
+For the design behind deterministic generation and history, see [Deterministic generation and history](../explanation/deterministic-streams.md).

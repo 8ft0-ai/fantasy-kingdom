@@ -44,4 +44,4 @@ The build stops before writing output when `src/manifest.txt`:
 
 Correct the manifest or source identified by the error, regenerate the runtime and rerun the check.
 
-For the complete contract, see [ANNALS runtime structure](../annals-runtime-structure.md).
+For the complete contract, see [Build and manifest reference](../reference/build-and-manifest.md).
