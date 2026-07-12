@@ -21,5 +21,6 @@
 | `docs/how-to/` | Task-oriented procedures. |
 | `docs/reference/` | Exact commands, interfaces, limits and contracts. |
 | `docs/explanation/` | Design rationale, concepts and trade-offs. |
+| `project-records/` | Historical delivery and validation evidence, separate from current user-facing documentation. |
 
 The maintainable source tree is modular. The deployed application is still the generated `annals.html`; there is no runtime module loader or production bundler.

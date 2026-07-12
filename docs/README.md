@@ -4,7 +4,7 @@ ANNALS documentation is organised by reader intent. Choose the path that matches
 
 ## Learn ANNALS
 
-- [Explore your first kingdom](tutorials/explore-your-first-kingdom.md) — run a maintained seed, observe the Chronicle, use Watch mode, inspect the realm, trigger an Act and export the result.
+- [Explore your first kingdom](tutorials/explore-your-first-kingdom.md) — follow a maintained Reedfen journey through observation, intervention, sharing and Chronicle export.
 
 ## Complete a task
 
@@ -35,13 +35,6 @@ The former [ANNALS runtime structure](annals-runtime-structure.md) page remains 
 - [Simulation, Chronicle and cinematic direction](explanation/simulation-chronicle-and-director.md)
 - [Adaptive rendering and local detail](explanation/adaptive-rendering-and-detail.md)
 
-## Inspect delivery evidence
-
-- [Project records](project/README.md)
-- [Issue validation archive](project/validation/README.md)
-
-These records preserve delivery evidence and superseded limitations. They are not current product reference.
-
 ## Documentation model
 
 Each maintained page should have one dominant purpose:
@@ -55,6 +48,6 @@ Pages may link across these purposes, but they should not combine them into one 
 
 ## Migration status
 
-The initial Diátaxis migration is complete: the repository has a reader gateway, a tested tutorial, task guides, technical reference, architectural explanation, historical project records and automated internal-link validation.
+The initial migration and remediation provide a reader gateway, a tested tutorial, task guides, technical reference, architectural explanation and automated local-link validation.
 
 See [CONTRIBUTING](../CONTRIBUTING.md) for the documentation maintenance contract.

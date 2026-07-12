@@ -27,8 +27,7 @@ The [ANNALS documentation](docs/README.md) is organised around what the reader i
 - learn the product through a guided experience;
 - complete a particular task;
 - look up exact technical information;
-- understand the design and its trade-offs;
-- inspect historical delivery and validation evidence.
+- understand the design and its trade-offs.
 
 ## Development workflow
 
@@ -74,7 +73,12 @@ The generation and history random streams are separate so that changes to world 
 | `scripts/build.py` | Validates the source contract and builds or checks `annals.html`. |
 | `annals.html` | Generated, deployable single-file application. |
 | `index.html` | Lightweight GitHub Pages entrypoint that preserves seed hashes. |
-| `docs/` | Tutorials, how-to guides, reference, explanation and project records. |
+| `docs/` | User-facing tutorials, how-to guides, reference and explanation. |
+| `project-records/` | Historical delivery and validation evidence; not current product documentation. |
+
+## Project records
+
+Historical delivery and validation evidence is preserved in [project records](project-records/README.md). These records support audit and repository history; use `docs/` for current product guidance.
 
 ## Contributions
 
