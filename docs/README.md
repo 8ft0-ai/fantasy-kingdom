@@ -4,13 +4,9 @@ ANNALS documentation is organised by reader intent. Choose the path that matches
 
 ## Learn ANNALS
 
-Guided learning material introduces the product through a complete experience.
-
 - [Explore your first kingdom](tutorials/explore-your-first-kingdom.md) — run a maintained seed, observe the Chronicle, use Watch mode, inspect the realm, trigger an Act and export the result.
 
 ## Complete a task
-
-Use a focused guide when you already know what outcome you need:
 
 - [Run ANNALS locally](how-to/run-annals-locally.md)
 - [Change ANNALS source](how-to/change-annals-source.md)
@@ -23,19 +19,25 @@ Use a focused guide when you already know what outcome you need:
 
 ## Look up exact information
 
-Reference material provides precise facts, contracts and limits. The current consolidated source is:
+- [Controls](reference/controls.md)
+- [URL and seeds](reference/url-and-seeds.md)
+- [Repository layout](reference/repository-layout.md)
+- [Build and manifest](reference/build-and-manifest.md)
+- [Runtime guards and debug interfaces](reference/runtime-guards-and-debug.md)
+- [Platform and performance](reference/platform-and-performance.md)
 
-- [ANNALS runtime structure](annals-runtime-structure.md) — deployment model, generated sections, manifest rules, runtime guards, system order and maintained regression seeds.
-
-This material will be split into smaller reference pages as the migration proceeds.
+The former [ANNALS runtime structure](annals-runtime-structure.md) page remains as a compatibility index for older links.
 
 ## Understand the design
 
-Explanation material discusses why ANNALS uses a generated single-file runtime, separate deterministic random streams, bounded simulation collections and a Chronicle-led cinematic presentation. The current architectural discussion is included in [ANNALS runtime structure](annals-runtime-structure.md) and will be separated from exact reference material in a later slice.
+- [Why ANNALS has modular source and a single-file runtime](explanation/modular-source-single-file-runtime.md)
+- [Deterministic generation and history](explanation/deterministic-streams.md)
+- [Simulation, Chronicle and cinematic direction](explanation/simulation-chronicle-and-director.md)
+- [Adaptive rendering and local detail](explanation/adaptive-rendering-and-detail.md)
 
 ## Inspect delivery evidence
 
-The existing `issue-*-validation.md` documents record implementation and acceptance evidence for completed delivery issues. They remain historical project records rather than instructions for using the current product. A later migration slice will group them under a dedicated project-records area and mark superseded limitations explicitly.
+The existing `issue-*-validation.md` documents record implementation and acceptance evidence for completed delivery issues. They remain historical project records rather than instructions for using the current product. The final migration slice will group them under a dedicated project-records area and mark superseded limitations explicitly.
 
 ## Documentation model
 
@@ -52,7 +54,7 @@ Pages may link across these purposes, but they should not combine them into one 
 
 1. Documentation gateway and first tutorial — available.
 2. Task-oriented how-to guides — available.
-3. Reference and explanation separation — planned next.
-4. Historical validation archive and documentation governance — planned.
+3. Reference and explanation separation — available.
+4. Historical validation archive and documentation governance — planned next.
 
 Every slice is intended to merge independently with working navigation and no empty placeholder pages.
