@@ -12,19 +12,13 @@ Serve the repository root:
 python3 -m http.server 8000
 ```
 
-Then open a maintained seed:
+Then open:
 
 ```text
 http://localhost:8000/annals.html#s=1234567
 ```
 
-The root URL also works and preserves the seed when it redirects:
-
-```text
-http://localhost:8000/#s=1234567
-```
-
-For a guided introduction, follow [Explore your first kingdom](docs/tutorials/explore-your-first-kingdom.md).
+See [Run ANNALS locally](docs/how-to/run-annals-locally.md) for the complete procedure, or follow [Explore your first kingdom](docs/tutorials/explore-your-first-kingdom.md) for a guided introduction.
 
 ## Documentation
 
@@ -36,8 +30,6 @@ The [ANNALS documentation](docs/README.md) is organised around what the reader i
 - understand the design and its trade-offs;
 - inspect delivery and validation evidence.
 
-The documentation is being migrated incrementally so that every merged change leaves the repository usable and avoids placeholder pages.
-
 ## Development workflow
 
 Maintainable source lives under `src/`. Regenerate the committed runtime after changing source:
@@ -46,7 +38,7 @@ Maintainable source lives under `src/`. Regenerate the committed runtime after c
 python3 scripts/build.py
 ```
 
-Verify that the generated runtime is current before committing:
+Verify it before committing:
 
 ```bash
 python3 scripts/build.py --check
@@ -54,7 +46,11 @@ python3 scripts/build.py --check
 
 Commit source changes and the regenerated `annals.html` together. CI verifies the generated artefact, browser behaviour, Chronicle regressions and long-run simulation stability.
 
-See [ANNALS runtime structure](docs/annals-runtime-structure.md) for the current source, manifest, runtime guard and simulation-order contracts.
+Use these guides for the supported workflow:
+
+- [Change ANNALS source](docs/how-to/change-annals-source.md)
+- [Verify the generated runtime](docs/how-to/verify-the-generated-runtime.md)
+- [Run the regression baseline](docs/how-to/run-the-regression-baseline.md)
 
 ## Product constraints
 
@@ -80,6 +76,6 @@ The generation and history random streams are separate so that changes to world 
 | `index.html` | Lightweight GitHub Pages entrypoint that preserves seed hashes. |
 | `docs/` | User, contributor, architecture and validation documentation. |
 
-## Licence and contributions
+## Contributions
 
 Use the repository issue and pull-request workflow for changes. A dedicated documentation contribution guide will be added as the Diátaxis migration reaches its governance slice.

@@ -10,7 +10,16 @@ Guided learning material introduces the product through a complete experience.
 
 ## Complete a task
 
-Task-focused guides will cover local operation, source changes, deterministic sharing, Chronicle export, deployment and troubleshooting. Until those guides are extracted, the root [README](../README.md) contains the supported local start and build commands.
+Use a focused guide when you already know what outcome you need:
+
+- [Run ANNALS locally](how-to/run-annals-locally.md)
+- [Change ANNALS source](how-to/change-annals-source.md)
+- [Verify the generated runtime](how-to/verify-the-generated-runtime.md)
+- [Share a deterministic kingdom](how-to/share-a-deterministic-kingdom.md)
+- [Export the Chronicle](how-to/export-the-chronicle.md)
+- [Deploy ANNALS](how-to/deploy-annals.md)
+- [Troubleshoot start-up](how-to/troubleshoot-start-up.md)
+- [Run the regression baseline](how-to/run-the-regression-baseline.md)
 
 ## Look up exact information
 
@@ -41,9 +50,9 @@ Pages may link across these purposes, but they should not combine them into one 
 
 ## Current migration status
 
-1. Documentation gateway and first tutorial — available in this documentation set.
-2. Task-oriented how-to guides — planned next.
-3. Reference and explanation separation — planned.
+1. Documentation gateway and first tutorial — available.
+2. Task-oriented how-to guides — available.
+3. Reference and explanation separation — planned next.
 4. Historical validation archive and documentation governance — planned.
 
 Every slice is intended to merge independently with working navigation and no empty placeholder pages.
