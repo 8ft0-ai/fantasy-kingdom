@@ -20,6 +20,8 @@ ANNALS documentation is organised by reader intent. Choose the path that matches
 ## Look up exact information
 
 - [Controls](reference/controls.md)
+- [Product interface](reference/product-interface.md)
+- [Chronicle, events and diagnostics](reference/chronicle-events-and-diagnostics.md)
 - [URL and seeds](reference/url-and-seeds.md)
 - [Repository layout](reference/repository-layout.md)
 - [Build and manifest](reference/build-and-manifest.md)
@@ -48,6 +50,6 @@ Pages may link across these purposes, but they should not combine them into one 
 
 ## Migration status
 
-The initial migration and remediation provide a reader gateway, a tested tutorial, task guides, technical reference, architectural explanation and automated local-link validation.
+The initial migration and remediation provide a reader gateway, a tested tutorial, task guides, authoritative current reference, architectural explanation and automated local-link validation.
 
 See [CONTRIBUTING](../CONTRIBUTING.md) for the documentation maintenance contract.
